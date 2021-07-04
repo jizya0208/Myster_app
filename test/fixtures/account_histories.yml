@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transaction_id: 1
+  transaction_type_id: 1
+  account_id: 1
+  amount: 1
+  balance: 1
+  remark: MyString
+
+two:
+  transaction_id: 1
+  transaction_type_id: 1
+  account_id: 1
+  amount: 1
+  balance: 1
+  remark: MyString

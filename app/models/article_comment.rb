@@ -1,0 +1,2 @@
+class ArticleComment < ApplicationRecord
+end
