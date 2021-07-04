@@ -5,7 +5,7 @@ class CreateAccountHistories < ActiveRecord::Migration[5.2]
       t.integer :transaction_type_id
       t.integer :account_id
       t.integer :amount
-      t.integer :balance
+      t.integer :balance, default: 0
       t.string :remark
 
       t.timestamps

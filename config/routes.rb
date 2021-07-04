@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  get 'account_histories/new'
-  get 'account_histories/index'
-  get 'articles/confirm'
-  get 'articles/index'
-  get 'articles/new'
-  get 'articles/show'
-  get 'members/show'
-  get 'members/edit'
-  devise_for :members
   get 'homes/top'
   get 'homes/about'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  #「会員」
+  devise_for :members
+  resources :members, only: [:show, :edit, :update]
+  
+  #「口座」「口座履歴」「取引」
+  resources :accounts, only: [:create] do
+    resources :account_histories, only: [:new, :create, :index]
+  end
+  resources :transactions, only: [:create]
+  
+  #「投稿」とそれに紐づく「お気に入り」「コメント」「星評価」
+  get 'articles/confirm' => "articles#confirm"
+  resources :articles, except: [:edit] do
+    resource  :favorites, only: [:create, :destroy]
+    resources  :article_comments, only: [:create, :destroy] do
+      resource :ratings, only: [:create, :update]
+    end
+  end
 end

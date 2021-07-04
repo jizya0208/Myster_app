@@ -37,7 +37,7 @@ class DeviseCreateMembers < ActiveRecord::Migration[5.2]
       t.string :image_id
       t.integer :gender
       t.integer :age
-      t.boolean :is_deleted
+      t.boolean :is_deleted, default: false
 
       t.timestamps null: false
     end
