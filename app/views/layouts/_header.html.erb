@@ -3,7 +3,7 @@
     <div class="container">
       <div>
         <%= link_to "/" do %>
-          <%= image_tag "logo.jpg", :class => "logo", :alt => "Myster", width: 50 %>
+          <%= image_tag "logo.png", :class => "logo", :alt => "Myster", width: 150 %>
         <% end %>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,9 +18,9 @@
           <li><%= link_to '相談中一覧', articles_path, class: 'fas fa-quora nav-link' %></li>
           <li><%= link_to 'ログアウト', destroy_member_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link' %></li>
         <% else %>
-          <li><%= link_to 'About', home_about_path, class: 'fas fa-store nav-link' %></li>
+          <li><%= link_to 'About', homes_about_path, class: 'fas fa-store nav-link' %></li>
         　<li><%= link_to '投稿一覧', articles_path, class: 'fas fa-cotton-bureau nav-link' %></li>
-          <li><%= link_to '新規登録', new_membmer_registration_path, class: 'fas fa-user-plus nav-link' %></li>
+          <li><%= link_to '新規登録', new_member_registration_path, class: 'fas fa-user-plus nav-link' %></li>
           <li><%= link_to 'ログイン', new_member_session_path, class: 'fas fa-sign-in-alt nav-link' %></li>
         <% end %>
         </ul>
