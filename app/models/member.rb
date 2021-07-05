@@ -16,6 +16,4 @@ class Member < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
-  validates :is_delected, presence: true
-
 end
