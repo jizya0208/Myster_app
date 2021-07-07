@@ -1,2 +1,28 @@
-<h1>Articles#show</h1>
-<p>Find me in app/views/articles/show.html.erb</p>
+  <% if @article.article_images.present? %>
+    <% @article.article_images.each do |article_image| %>
+      <%= attachment_image_tag article_image, :image, :fill, 100, 100, format: 'png' %>
+    <% end %>
+  <% else %>
+    <%= image_tag 'no-image.png', size: '150x200' %>
+  <% end %>
+  <table>
+    <!--複数ある投稿から1つを特定するため、識別子に投稿IDを含める-->
+    <tr id="article_<%= @article.id %>">
+      <td><%= @article.title %></td>
+      <td><%= @article.body %></td>
+      <td class="comments-count">コメント数: <%= @article.article_comments.count %></td>
+      <!--お気に入り,コメント一覧のパーシャル呼び出し-->
+      <td class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></td>
+    </tr>
+  </table>
+
+  <table class="article_comments">
+    <%= render 'article_comments/index', article: @article %>
+  </table>
+  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかをよしなに見つけてくれる-->
+  <%= form_with model:[@article,@article_comment] do |f| %>
+    <%= f.text_area :body, size:"90x5" %>
+    <%= f.attachment_field :image %>
+    <%= f.submit '送信'%>
+  <% end %>
+
