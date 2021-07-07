@@ -1,26 +1,27 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
+      <h2>ログインページ</h2>
+      <%= form_with model: @member, url: member_session_path, local: true do |f| %>
+        <div class="field">
+          <%= f.label :name, 'ユーザ名' %><br />
+          <%= f.text_field :name, autofocus: true, class: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :password, 'パスワード' %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "password" %>
+        </div>
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+        <div class="actions">
+          <%= f.submit "Log in" ,class: 'btn btn-sm btn-primary'%>
+        </div>
+      <% end %>
+      <%= render "members/shared/links" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "members/shared/links" %>
+</div>
