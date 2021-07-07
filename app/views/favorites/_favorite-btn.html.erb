@@ -1,0 +1,6 @@
+<!--投稿に対してユーザがお気に入り登録済みかどうかで条件分岐させる-->
+<% if article.favorited_by?(current_member) %>
+  <%= link_to article.favorites.count, article_favorites_path(article), method: :delete, remote: true, class: "fas fa-heart heart_red" %>
+<% else %>
+  <%= link_to article.favorites.count, article_favorites_path(article), method: :post, remote: true, class: "fas fa-heart heart_blue" %>
+<% end %>
