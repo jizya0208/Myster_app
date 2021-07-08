@@ -1,0 +1,38 @@
+<!--———————-—会員情報を表示-————————————-->
+<table class='table'>
+  <tr><%= attachment_image_tag(member, :image, :fill, 200, 200, format: 'png', fallback: "no-image-icon.png", size: '200x200') %></tr>
+  <tr>
+	  <th>ユーザ名</th>
+	  <th><%= member.name %></th>
+  </tr>
+  <tr>
+	  <th>プロフィール</th>
+	  <th><%= member.introduction %></th>
+  </tr>
+  <tr>
+    <th>フォロー</th>
+    <th><%= link_to member.followings.count, member_followings_path(member) %></th>
+  </tr>
+    <tr>
+    <th>フォロワー</th>
+    <th><%= link_to member.followers.count, member_followers_path(member) %></th>
+  </tr>
+</table>
+
+<!--———————-—フォローボタンを表示-————————————-->
+<div class="row mb-5">
+  <div class="follow">
+    <% unless current_member == member %>
+      <% if current_member.following?(member) %>
+        <%= link_to 'フォロー解除', member_relationships_path(member), method: :delete, class: "btn btn-info" %>
+      <% else %>
+        <%= link_to 'フォローする', member_relationships_path(member), method: :post, class: "btn btn-success"%>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class='row'>
+  <%= link_to '',edit_member_path(member),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_member_#{member.id}" %>
+</div>
+
