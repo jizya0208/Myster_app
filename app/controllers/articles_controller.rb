@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
-  def confirm
-  end
-
+  before_action :authenticate_member!
+  before_action :ensure_correct_member, only: [:update, :destroy]
+  
   def index
     @articles = Article.where(is_closed: nil).page(params[:page]).reverse_order
   end
@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to articles_path
     else
-      render 'confirm'
+      render 'new'
     end
   end
 
@@ -30,7 +30,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
     if @article.update(article_params)
       redirect_to article_path(@article), notice: "ステータスが更新されました"
     else
@@ -39,7 +38,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path, notice: "削除されました"
   end
@@ -48,5 +46,12 @@ class ArticlesController < ApplicationController
   private
   def article_params
     params.require(:article).permit(:title, :body, :category_id, :is_closed, article_images_images: [])
+  end
+  
+  def ensure_correct_member
+    @article = Article.find(params[:id])
+    unless @article.member == current_member
+      redirect_to articles_path
+    end
   end
 end
