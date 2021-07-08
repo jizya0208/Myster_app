@@ -14,12 +14,12 @@
         <% if member_signed_in? %>
           <li class="d-flex align-items-center"><span>ようこそ、<%= current_member.name %>さん！</span></li>
        　  <li><%= link_to '新規投稿',new_article_path, class: 'fas fa-plus-circle nav-link' %></li>
-        　<li><%= link_to '投稿一覧', articles_path, class: 'fas fa-cotton-bureau nav-link' %></li>
-          <li><%= link_to '相談中一覧', articles_path, class: 'fas fa-quora nav-link' %></li>
+          <li><%= link_to '回答募集中', inquire_path, class: 'fas fa-question-circle nav-link' %></li>
+        　<li><%= link_to '新着コーデ', articles_path, class: 'fas fa-bullhorn nav-link' %></li>
           <li><%= link_to 'ログアウト', destroy_member_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link' %></li>
         <% else %>
           <li><%= link_to 'About', homes_about_path, class: 'fas fa-store nav-link' %></li>
-        　<li><%= link_to '投稿一覧', articles_path, class: 'fas fa-cotton-bureau nav-link' %></li>
+        　<li><%= link_to '投稿一覧', articles_path, class: 'fas fa-bullhorn nav-link' %></li>
           <li><%= link_to '新規登録', new_member_registration_path, class: 'fas fa-user-plus nav-link' %></li>
           <li><%= link_to 'ログイン', new_member_session_path, class: 'fas fa-sign-in-alt nav-link' %></li>
         <% end %>
