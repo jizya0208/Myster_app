@@ -1,36 +1,26 @@
-<div class="flex-item">
+<div class="container">
+  <div class="row">
 　<!--Bootstrapでのタブ切替ための記述➡ul要素の「nav」「nav-tabs」で切替タブを指定。「active」により初期選択を指定。-->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation">
+  <ul class="nav nav-tabs d-flex" role="tablist">
+    <li role="presentation" class="w-50 question">
       <!--表示内容の識別子を指定。data-taggle="tab"により切替タブのJavaScriptを指定-->
-      <a aria-controls="tab_inquire" data-toggle="tab" href="#tab_inquire" role="tab" class="mr-5">相談する</a>
-      <p>「相談する」で投稿することで他のユーザからのアドバイスを募集することが出来ます。<br />相談ステータスを「解決済」に更新することで、回答募集ページの掲示を終了します。</p>
+      <a aria-controls="tab_inquire" data-toggle="tab" href="#tab_inquire" role="tab" class="btn btn-lg btn-outline-danger" id="inquire" >相談する</a>
+      <p>「相談する」では、他のユーザからのアドバイスを募集することが出来ます。相談ステータスを「解決済」に更新することで、回答募集ページへの掲示を終了します。</p>
     </li>
-	  <li class="active" role="presentation">
-	    <a aria-controls="tab_share" data-toggle="tab" href="#tab_share" role="tab">シェアする</a>
-	    <p>「シェアする」で投稿すると、新着コーデに投稿されます。<br />あなたの一押しアイテムや、コーディネートを皆んなにシェアしましょう！</p>
+	  <li role="presentation" class="active w-50 share">
+	    <a aria-controls="tab_share" data-toggle="tab" href="#tab_share" role="tab" class="btn btn-lg btn-outline-danger">シェアする</a>
+	    <p>「シェアする」では、新着コーデに投稿されます。あなたの一押しアイテムやコーディネートを皆んなとシェアしましょう！</p>
 	  </li>
 	</ul>
 </div>
 
 <!--タブ①相談中の記述。tab-paneはタブの表示内容、fadeは切替に動きを出す役割-->
-<div class="tab-content">
-	<div class="tab-pane fade" id="tab_inquire" role="tabpanel">
+<div class="tab-content mt-3">
+	<div class="tab-pane in active" id="tab_inquire" role="tabpanel">
+	  <%= render 'layouts/errors', obj: article %>
     <%= form_with model: article,local: true do |f| %>
       <!--相談ステータス:false(相談中)を渡す-->
       <%= f.hidden_field :is_closed, value: false %>
-    	<div class="flex">
-    		<div  class="flex-item">
-    			<div class="image_field">
-    			  <span class="btn btn-file btn-info"><%= f.attachment_field :article_images_images, multiple: true %></span>
-    				<p>選択するとプレビューが表示されます。</p>
-            <img id="prev_img_0" style="width:25%;">
-            <img id="prev_img_1" style="width:25%;">
-            <img id="prev_img_2" style="width:25%;">
-            <img id="prev_img_3" style="width:25%;">
-          </div>
-    		</div>
-    	</div>
 	  	<div class="form-group">
 	  		<%= f.label :title, "相談タイトル" %>
 				<%= f.text_field :title, class:"form-control" %>
@@ -39,22 +29,16 @@
 			  <%= f.label :body, "今、悩んでいること" %>
 				<%= f.text_area :body, rows: 5, class:"form-control" %>
 			</div>
-			<%= f.label :category_id, "カテゴリー" %>
+			<%= f.label :category_id, "生活シーン" %>
       <span class="select_field"><%= f.collection_select :category_id, Category.all, :id, :name %></span>
-      <div class="flex align-center pl5">
-      	<%= f.submit "投稿する", class: "btn btn-primary" %>
-      </div>
-    <% end %>
-   </div>
-
-  <!--タブ②シェアの記述-->
-	<div class="tab-pane fade in active" id="tab_share" role="tabpanel">
-    <%= form_with model: article,local: true do |f| %>
-    	<div class="flex">
+      <div class="flex">
     		<div  class="flex-item">
     			<div class="image_field">
-    			  <span class="btn btn-file btn-info"><%= f.attachment_field :article_images_images, multiple: true %></span>
-    				<p>選択するとプレビューされます。</p>
+   			    <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
+    			  <span class="btn btn-file">
+    			    <%= f.attachment_field :article_images_images, multiple: true %>
+    			  </span>
+    				<p>選択するとプレビューが表示されます。</p>
             <img id="prev_img_0" style="width:25%;">
             <img id="prev_img_1" style="width:25%;">
             <img id="prev_img_2" style="width:25%;">
@@ -62,6 +46,18 @@
           </div>
     		</div>
     	</div>
+      
+      <div class="flex align-center pl5">
+      	<%= f.submit "投稿", class: "btn btn-danger" %>
+      </div>
+      
+    <% end %>
+   </div>
+
+  <!--タブ②シェアの記述-->
+	<div class="tab-pane fade mt-3" id="tab_share" role="tabpanel">
+	  <%= render 'layouts/errors', obj: article %>
+    <%= form_with model: article,local: true do |f| %>
     	<div class="form-group">
      		<%= f.label :title, "タイトル" %>
 				<%= f.text_field :title, class:"form-control" %>
@@ -70,10 +66,25 @@
 				<%= f.label :body, "キャプション" %>
 				<%= f.text_area :body, rows: 5, class:"form-control" %>
 			</div>
-			<%= f.label :category_id, "カテゴリー" %>
+			<%= f.label :category_id, "生活シーン" %>
     	<span class="select_field"><%= f.collection_select :category_id, Category.all, :id, :name %></span>
-    	<div class="flex align-center pl5">
-    		<%= f.submit "投稿する", class: "btn btn-primary" %>
+    	<div class="flex">
+    		<div  class="flex-item">
+    			<div class="image_field">
+    			  <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
+    			  <span class="btn btn-file">
+    			    <%= f.attachment_field :article_images_images, multiple: true %>
+    			  </span>
+    				<p>選択するとプレビューが表示されます。</p>
+            <img id="prev_img_0" style="width:25%;">
+            <img id="prev_img_1" style="width:25%;">
+            <img id="prev_img_2" style="width:25%;">
+            <img id="prev_img_3" style="width:25%;">
+          </div>
+    		</div>
+    	</div>
+    	<div class="flex align-center pl-5">
+    		<%= f.submit "シェア", class: "btn btn-danger" %>
     	</div>
     <% end %>
   </div>
@@ -82,6 +93,7 @@
 
 
 <script>
+document.getElementById('inquire').focus();
 $('#article_article_images_images').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
   if(e.target.files.length > 4){
       alert('一度に投稿できる画像は4枚までです。');
