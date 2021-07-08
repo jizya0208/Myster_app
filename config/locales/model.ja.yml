@@ -1,0 +1,40 @@
+ja:
+  activerecord:
+    models:
+      accounts: 口座
+      account_histories: 口座履歴
+      articles: 投稿
+      article_images: 投稿画像
+      article_comments: コメント
+      categories: カテゴリ
+      favorites: お気に入り
+      member: 会員
+      transactions: 取引
+      transaction_types: 取引種別
+      ratings: 星評価
+    attributes:
+      account:
+        balance:	現在ポイント残高
+      account_histories:
+        amount:	取引ポイント
+        balance:	取引後残高履歴
+        remark:	備考
+      article:
+        title:	投稿タイトル
+        body:	投稿本文
+        is_closed:	相談ステータス
+      article_comment:
+        body:	コメント本文
+        image_id:	コメント添付画像
+      article_image:
+        image_id:	投稿画像
+      member:
+        email: メールアドレス
+        password: パスワード
+        name: ユーザ名
+        introduction: 紹介文
+        gender:	性別
+        age:	年齢
+        is_deleted:	会員ステータス
+      rating:
+        rate:	評価
