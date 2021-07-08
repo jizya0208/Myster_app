@@ -1,28 +1,53 @@
-  <% if @article.article_images.present? %>
-    <% @article.article_images.each do |article_image| %>
-      <%= attachment_image_tag article_image, :image, :fill, 100, 100, format: 'png' %>
-    <% end %>
-  <% else %>
-    <%= image_tag 'no-image.png', size: '150x200' %>
-  <% end %>
-  <table>
-    <!--複数ある投稿から1つを特定するため、識別子に投稿IDを含める-->
-    <tr id="article_<%= @article.id %>">
-      <td><%= @article.title %></td>
-      <td><%= @article.body %></td>
-      <td class="comments-count">コメント数: <%= @article.article_comments.count %></td>
-      <!--お気に入り,コメント一覧のパーシャル呼び出し-->
-      <td class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></td>
-    </tr>
-  </table>
-
-  <table class="article_comments">
-    <%= render 'article_comments/index', article: @article %>
-  </table>
-  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかをよしなに見つけてくれる-->
-  <%= form_with model:[@article,@article_comment] do |f| %>
-    <%= f.text_area :body, size:"90x5" %>
-    <%= f.attachment_field :image %>
-    <%= f.submit '送信'%>
-  <% end %>
-
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 side-bar">
+      <h2>サイドバー</h2>
+    </div>
+    <div class="col-lg-9">
+      <h5>投稿詳細</h5>
+        <% if @article.article_images.present? %>
+          <% @article.article_images.each do |article_image| %>
+            <%= attachment_image_tag article_image, :image, :fill, 150, 200, format: 'png' %>
+          <% end %>
+        <% else %>
+          <%= image_tag 'no-image.png', size: '150x200' %>
+        <% end %>
+        <table>
+          <!--複数ある投稿から1つを特定するため、識別子に投稿IDを含める-->
+          <tr id="article_<%= @article.id %>">
+            <td><%= @article.title %></td>
+            <td><%= @article.body %></td>
+            <td class="comments-count">コメント数: <%= @article.article_comments.count %></td>
+            <!--お気に入り,コメント一覧のパーシャル呼び出し-->
+            <td class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></td>
+            <!--ログインユーザと投稿者が同一の場合、削除ボタンを表示-->
+            <% if current_member == @article.member %>
+              <td><%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_article_#{@article.id}"%></td>
+              <!--上記且つ、相談ステータスを有する場合、その更新ボタンを表示-->
+              <% unless @article.is_closed ==  nil %>
+                <td class="article-status">
+                  <%= form_with model: @article do |f| %>
+                    <%= f.label :is_closed, "相談ステータス" %>
+                    <%= f.radio_button :is_closed, :false %>
+                    <%= f.label :is_closed, '相談中', class: "radio_btn", value: false %>
+                    <%= f.radio_button :is_closed, :true %>
+                    <%= f.label :is_closed, '解決済', class: "radio_btn", value: true %>
+                    <%= f.submit "更新", class: "btn btn-danger px-4" %>
+                  <% end %>
+                </td>
+              <% end %>
+            <% end %>
+          </tr>
+        </table>
+        <table class="article_comments">
+          <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment, :rating => @rating } %>
+        </table>
+        <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかをよしなに見つけてくれる-->
+        <%= form_with model:[@article,@article_comment] do |f| %>
+          <%= f.text_area :body, size:"90x5" %>
+          <%= f.attachment_field :image %>
+          <%= f.submit '送信'%>
+        <% end %>
+    </div>
+  </div>
+</div>

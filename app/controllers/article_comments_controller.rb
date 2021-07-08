@@ -17,7 +17,11 @@ class ArticleCommentsController < ApplicationController
     article_comment.destroy
   end
   
-
+  def show
+    @article_comment = ArticleComment.find(params[:id])
+    @rating = Rating.new
+  end
+  
   private
 
   def article_comment_params

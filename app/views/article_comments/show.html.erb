@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 side-bar">
+      <h2>サイドバー</h2>
+    </div>
+    <div class="col-lg-9">
+      コメント本文：<%= @article_comment.body %>
+      添付画像：<%= @article_comment.image %>
+      BY：<%= @article_comment.member.name %>
+  
+      <!--「コメントに対してユーザが評価済みか否か」で条件分岐させる。*自分のコメントには評価できない-->
+      <% if @article_comment.rated_by?(current_member) && @article_comment.member != current_member %>
+        <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :patch, local:true do |f| %>
+          <div class="star-form-group" id="star-update">  <!--空タグ。idで識別子を付与することがポイント。-->
+            <%= f.label :rate, "こちらのコメントは参考になりましたか？" %>
+            <%= f.hidden_field :rate, id: "rate" %>
+          </div>
+          <%= f.submit "更新する", class: 'btn btn-sm btn-danger' %>
+        <% end %>
+        <% @rated = Rating.find_by(member_id: current_member, article_comment_id: @article_comment) %>
+      
+        <script>
+          $("#star-update").raty({
+            size: 28,                                      //星のサイズ
+            starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+            score: <%= @rated.rate %>,                     ///scoreオプションで前回の評価内容を取得
+            scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
+          });
+        </script>
+      
+      <!--評価をまだ付けていない場合↓  -->
+      <% elsif @article_comment.member != current_member %>
+        <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :post, local:true do |f| %>
+          <div class="star-form-group" id="star">   <!--空タグ。idで識別子を付与することがポイント。-->
+            <%= f.label :rate, "こちらのコメントは参考になりましたか？" %>
+            <%= f.hidden_field :rate, id: "rate" %>
+          </div>
+          <%= f.submit "評価する", class: 'btn btn-sm btn-danger' %>
+        <% end %>
+        
+        <script>
+          $("#star").raty({
+            size: 28,                                      //星のサイズ
+            starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+            scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
+          });
+        </script>
+      <% end %>  
+    </div>
+  </div>
+</div>　
+　
+  
+
+    
