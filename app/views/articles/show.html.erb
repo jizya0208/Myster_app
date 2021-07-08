@@ -3,7 +3,7 @@
     <div class="col-lg-3 side-bar">
       <h2>サイドバー</h2>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9 main">
       <h5>投稿詳細</h5>
         <% if @article.article_images.present? %>
           <% @article.article_images.each do |article_image| %>
@@ -40,9 +40,9 @@
           </tr>
         </table>
         <table class="article_comments">
-          <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment, :rating => @rating } %>
+          <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
         </table>
-        <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかをよしなに見つけてくれる-->
+        <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
         <%= form_with model:[@article,@article_comment] do |f| %>
           <%= f.text_area :body, size:"90x5" %>
           <%= f.attachment_field :image %>
