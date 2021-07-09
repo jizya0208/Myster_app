@@ -17,8 +17,8 @@
                   <strong><i class="far fa-flag"></i><span> <%= article.title %></span></strong>
                 <% end %>
               </p>
-              <p><i class="fas fa-user"></i> By <%= article.member.name %></p>
-              <p><i class="fas fa-user"></i><%= link_to "#{article.article_comments.count} comments", article_path(article.id), class:"text-dark" %></p>
+              <p><i class="fas fa-user"></i> By <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>
+              <p><i class="fas fa-comment"></i><%= link_to " #{article.article_comments.count} comments", article_path(article.id), class:"text-dark" %></p>
             </div>
           </div>
         </div>

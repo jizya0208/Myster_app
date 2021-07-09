@@ -15,4 +15,8 @@ class Article < ApplicationRecord
   def favorited_by?(member)
     favorites.where(member_id: member.id).exists?
   end
+  
+  def Article.filter_by_category(category)
+    Article.where(category_id: category)
+  end
 end

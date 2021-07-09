@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'homes#top'
   get 'homes/about'
+  get "search_in_shares" => "homes#search_in_shares"
+  get "search_in_inquiries" => "homes#search_in_inquiries"
+
   #「会員」
   devise_for :members, controllers: {
     sessions: 'members/sessions',
@@ -11,7 +14,7 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
-  
+
   #「口座」「口座履歴」「取引」
   resources :accounts, only: [:create] do
     resources :account_histories, only: [:new, :create, :index]
