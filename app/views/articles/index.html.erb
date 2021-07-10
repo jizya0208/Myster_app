@@ -6,14 +6,15 @@
     </div>
     <div class="col-lg-9">
       <h5>シェア</h5>
-
-      <%= form_with url: search_in_shares_path, method: :get, local: true do |f| %>
+      <!--カテゴリーで絞込み-->
+      <%= form_with url: search_in_shares_path, method: :get do |f| %>
         <%= f.collection_select :category_id, Category.all, :id, :name %>
         <%= f.submit '検索', class: 'btn btn-primary'  %>
       <% end %>
   
-
-      <%= render 'index', articles: @articles %>
+      <div id="main">
+        <%= render 'index', articles: @articles %>
+      </div>
     </div>
   </div>
 </div>
