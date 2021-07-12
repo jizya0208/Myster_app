@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 side-bar">
+      <h2>サイドバー</h2>
+      <%= render 'members/info', member: current_member %>
+    </div>
+    <div class="col-lg-9">
+      <h2>ハッシュタグ #<%= @tag.name %></h2>
+      <div id="main">
+        <%= render 'index', articles: @articles %>
+      </div>
+    </div>
+  </div>
+</div>
