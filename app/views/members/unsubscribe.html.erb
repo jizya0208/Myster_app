@@ -1,0 +1,8 @@
+<section class="inner">
+	<h2 class="section-ttl">本当に退会しますか？</h2>
+	<h3 class="text-center">退会すると、会員登録情報や<br>これまでの投稿情報が閲覧できなくなります。<br>退会する場合は、「退会する」をクリックしてください。</h3>
+	<div class="flex justify-around mt2">
+		<%= link_to "マイページに戻る", member_path(current_member), class: "btn btn-primary" %>
+		<%= link_to "退会する", withdraw_member_path, method: :patch, "data-confirm" => "OKを押すと退会処理がされます。本当によろしいですか？", class: "btn btn-danger" %>
+	</div>
+</section>
