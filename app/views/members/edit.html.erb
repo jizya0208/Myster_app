@@ -1,2 +1,40 @@
-<h1>Members#edit</h1>
-<p>Find me in app/views/members/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 side-bar">
+      <h2>サイドバー</h2>
+      <%= render 'members/info', member: current_member %>
+    </div>
+    <div class="col-lg-9">
+      <h5>ユーザ情報編集</h5>
+      <%= form_with model: @member, local: true do |f| %>
+        <%= render 'layouts/errors', obj: @member %>
+        <div class="form-group">
+          <%= f.label :name, 'ユーザ名' %>
+          <%= f.text_field :name, autofocus: true, class: "form-control name" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :image, 'プロフィール画像' %>
+          <%= f.attachment_field :image, class: "form-control-file image" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :introduction, '紹介文' %>
+          <%= f.text_area :introduction, class: "form-control introduction" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :age, '年齢' %>
+          <%= f.text_field :age, class: "form-control-file age" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :gender, "性別" %>
+          <%= f.select :gender, [['男性',0],['女性',1]], { include_blank: true, selected: 0 } %>
+        </div>
+        <div class="form-group">
+          <%= f.submit '更新', class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+      <div><%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-danger" %></div>
+    </div>
+  </div>
+</div>
+
+
