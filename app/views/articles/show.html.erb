@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3 side-bar">
-      <h2>サイドバー</h2>
+      <h5>サイドバー</h5>
+      <%= render 'members/info', member: current_member %>
     </div>
     <div class="col-lg-9 main">
       <h5>投稿詳細</h5>
@@ -16,7 +17,7 @@
           <!--複数ある投稿から1つを特定するため、識別子に投稿IDを含める-->
           <tr id="article_<%= @article.id %>">
             <td><%= @article.title %></td>
-            <td><%= @article.body %></td>
+            <td><%= render_with_tags(@article.body) %></td>
             <td class="comments-count">コメント数: <%= @article.article_comments.count %></td>
             <!--お気に入り,コメント一覧のパーシャル呼び出し-->
             <td class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></td>
