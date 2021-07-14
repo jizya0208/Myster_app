@@ -30,7 +30,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(article_params)
+    @article.is_closed = true
+    if @article.save
       redirect_to article_path(@article), notice: "ステータスが更新されました"
     else
       render "show"
@@ -41,7 +42,11 @@ class ArticlesController < ApplicationController
     @article.destroy
     redirect_to articles_path, notice: "削除されました"
   end
-
+  
+  def tag
+    @tag = Tag.find_by(name: params[:name])
+    @articles = @tag.articles.page(params[:page]).reverse_order
+  end
 
   private
   def article_params
