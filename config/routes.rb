@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   #「口座」「口座履歴」「取引」
   resources :accounts, only: [:create] do
     resources :account_histories, only: [:new, :create, :index]
+    post '/accounts/account_histories/charge' => 'account_histories#charge', as: 'charge'
   end
   resources :transactions, only: [:create]
 

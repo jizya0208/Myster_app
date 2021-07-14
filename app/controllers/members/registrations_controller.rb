@@ -10,9 +10,12 @@ class Members::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create # 会員登録時に1:1で紐づく口座を生成する。
+    super
+    resource.build_account
+    resource.account.balance = 0
+    resource.save
+  end
 
   # GET /resource/edit
   # def edit

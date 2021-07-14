@@ -5,6 +5,8 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @relationship = current_member.relationships.new   #フォロー関係を新規に生成するため
+    @account_histroy = AccountHistory.new #ポイント送金履歴を新規に生成するため
+    @account = Account.find_by(member_id: @member.id)
   end
 
   def edit
@@ -17,7 +19,7 @@ class MembersController < ApplicationController
       render "edit"
     end
   end
-  
+
   def unsubscribe  #退会手続きページを表示する
   end
 
@@ -26,7 +28,7 @@ class MembersController < ApplicationController
     reset_session
     redirect_to root_path, notice: "ありがとうございました。またのご利用を心よりお待ちしております。"
   end
-  
+
   protected
   def member_params
     params.require(:member).permit(:image, :introduction, :integer, :age)

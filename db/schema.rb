@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_133215) do
+ActiveRecord::Schema.define(version: 2021_07_14_004414) do
 
   create_table "account_histories", force: :cascade do |t|
-    t.integer "transaction_id"
+    t.integer "transaction_number_id"
     t.integer "transaction_type_id"
     t.integer "account_id"
     t.integer "amount"
@@ -98,6 +98,24 @@ ActiveRecord::Schema.define(version: 2021_07_08_133215) do
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tag_maps", force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transaction_numbers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

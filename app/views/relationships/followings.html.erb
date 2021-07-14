@@ -3,7 +3,7 @@
     <div class="col-lg-3 side-bar">
       <h2>サイドバー</h2>
       <%= render 'members/info', member: current_member %>
-    </div>    
+    </div>
     <div class="col-lg-9">
       <h5>フォロー一覧</h5>
       <% if @members.exists? %>
@@ -18,11 +18,10 @@
           <tbody>
             <% @members.each do |member| %>
               <tr>
-                <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png") %></td>
-                <td><%= member.name %></td>
+                <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png", size: "50x50") %></td>
+                <td><%= link_to member.name,  member_path(member)  %></td>
                 <td>フォロー数: <%= member.followings.count %></td>
                 <td>フォロワー数: <%= member.followers.count %></td>
-                <td><%= link_to '詳細ページ', member_path(member) %></td>
               </tr>
             <% end %>
           </tbody>
