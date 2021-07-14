@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 side-bar">
-      <h2>サイドバー</h2>
-      <%= render 'members/info', member: current_member %>
-    </div>
-    <div class="col-lg-9">
-      <h5>相談</h5>
+    <div class="col-lg-10">
+      <h5>回答募集中</h5>
       <!--カテゴリーで絞込み-->
       <%= form_with url: search_in_inquiries_path, method: :get do |f| %>
         <%= f.collection_select :category_id, Category.all, :id, :name %>
@@ -14,6 +10,9 @@
       <div id="main">
         <%= render 'index', articles: @inquiring_articles %>
       </div>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
     </div>
   </div>
 </div>

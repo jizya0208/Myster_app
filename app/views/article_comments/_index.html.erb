@@ -2,20 +2,15 @@
   <% article_comment_member = article_comment.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
   <tr>
   	<td>
-  		<%= link_to member_path(article_comment_member), class: "member_#{article_comment_member.id}" do %>
-    		<%= attachment_image_tag article_comment_member, :image, :fill, 50, 50, fallback: "no-image.png", size: "50x50" %><br />
-    		<%= article_comment_member.name %>
-  		<% end %>
+  		<%= link_to article_comment_member.name, member_path(article_comment_member), class: "member_#{article_comment_member.id}"%>
   	</td>
     <td><%= link_to article_comment.body, article_article_comment_path(article_comment.article_id, article_comment.id) %></td>
     <td><%= attachment_image_tag article_comment, :image, :fill, 50, 50, fallback: "no-image.png", size: "50x50" %></td>
-  	<% if current_member == article_comment_member %>
-    	<td><%= link_to 'Destroy', article_article_comment_path(article_comment.article_id, article_comment.id), class: 'btn-sm btn-danger', method: :delete, remote: true %></td>
-  	<% end %>
     <% unless article.is_closed == nil %>  <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
       <td>
         <div id="star-rate-<%= article_comment.id %>">この回答に対する評価：<%= article_comment.ratings.count %>件 &nbsp 平均:</div>
         <script> //星評価
+          $('#star-rate-<%= article_comment.id %>').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
           $("#star-rate-<%= article_comment.id %>").raty({
             size: 28,                                      //星のサイズ
             starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
@@ -28,5 +23,8 @@
         </script>
       </td>  
     <% end %>
+    <% if current_member == article_comment_member %>
+    	<td><%= link_to '削除', article_article_comment_path(article_comment.article_id, article_comment.id), class: 'fas fa-trash-alt', method: :delete, remote: true %></td>
+  	<% end %>
   </tr>
 <% end %>

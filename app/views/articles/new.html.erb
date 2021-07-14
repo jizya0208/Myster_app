@@ -1,11 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 side-bar">
-      <h5>サイドバー</h5>
-      <%= render 'members/info', member: current_member %>
-    </div>
-    <div class="col-lg-9">
+    <div class="col-lg-10">
       <%= render 'form', article: @article %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
     </div>
   </div>
 </div>

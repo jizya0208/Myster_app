@@ -17,6 +17,7 @@
           <li><%= link_to '回答募集中', inquire_path, class: 'fas fa-question-circle nav-link' %></li>
         　<li><%= link_to '新着コーデ', articles_path, class: 'fas fa-bullhorn nav-link' %></li>
           <li><%= link_to 'ログアウト', destroy_member_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link' %></li>
+          
         <% else %>
           <li><%= link_to 'About', homes_about_path, class: 'fas fa-store nav-link' %></li>
         　<li><%= link_to '投稿一覧', articles_path, class: 'fas fa-bullhorn nav-link' %></li>
