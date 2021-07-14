@@ -17,7 +17,7 @@ ja:
         balance:	現在ポイント残高
       account_histories:
         amount:	取引ポイント
-        balance:	取引後残高履歴
+        balance:	取引後ポイント残高
         remark:	備考
       article:
         title:	投稿タイトル

@@ -1,6 +1,6 @@
 class AccountHistory < ApplicationRecord
   belongs_to :account
-  belongs_to :transaction
+  belongs_to :transaction_number
   belongs_to :transaction_type
   
   validates :amount, presence: true

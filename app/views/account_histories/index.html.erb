@@ -1,2 +1,24 @@
-<h1>AccountHistories#index</h1>
-<p>Find me in app/views/account_histories/index.html.erb</p>
+<table class='table table-hover table-inverse'>
+  <thead>
+    <tr>
+      <th>日時</th>
+      <th>増減</th>
+      <th>残高</th>
+      <th>備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @account_histories.each do |account_history| %>
+      <tr>
+        <td><%= account_history.created_at %></td>
+        <% if account_history.transaction_type_id == 1 %>
+          <td><%= "-#{account_history.amount}" %></td>
+        <% else %>
+          <td><%= "+#{account_history.amount}" %></td>
+        <% end %>
+        <td><%= account_history.balance %></td>
+        <td><%= account_history.remark %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

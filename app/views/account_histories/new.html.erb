@@ -1,2 +1,9 @@
-<h1>AccountHistories#new</h1>
-<p>Find me in app/views/account_histories/new.html.erb</p>
+<%= form_with model: @account_histroy, url: account_charge_path(@account.id), local: true do |f| %>
+	<div class="form-group">
+ 		<%= f.label :amount, "ポイント" %>
+		<%= f.text_field :amount, class:"form-control" %>
+  </div>
+  <div class="flex align-center pl-5">
+		<%= f.submit "チャージする", class: "btn btn-danger" %>
+	</div>
+<% end %>
