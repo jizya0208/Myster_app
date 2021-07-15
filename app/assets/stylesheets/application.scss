@@ -74,11 +74,11 @@
  }
 
  .question {
-   @include tab-mixin(url(img/question.jpg));
+   @include tab-mixin(image-url("img/question.jpg"));
  }
 
  .share {
-   @include tab-mixin(url(img/share.jpg));
+   @include tab-mixin(image-url("img/share.jpg"));
  }
 
  #wrap{
