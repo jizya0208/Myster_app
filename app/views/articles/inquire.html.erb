@@ -1,12 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10">
-      <h5>回答募集中</h5>
-      <!--カテゴリーで絞込み-->
-      <%= form_with url: search_in_inquiries_path, method: :get do |f| %>
-        <%= f.collection_select :category_id, Category.all, :id, :name %>
-        <%= f.submit '検索', class: 'btn btn-primary'  %>
-      <% end %>
+      <div class="d-flex justify-content-around">
+        <h4>回答募集中</h4>
+        <!--カテゴリーで絞込み-->
+        <%= form_with url: search_in_inquiries_path, method: :get do |f| %>
+          <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "ジャンルで絞り込む", class:"ml-5" %>
+          <%= f.submit '検索', class: 'btn btn-sm btn-danger'  %>
+        <% end %>
+      </div>
       <div id="main">
         <%= render 'index', articles: @inquiring_articles %>
       </div>

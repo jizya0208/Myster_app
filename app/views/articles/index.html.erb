@@ -1,19 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10">
-      <h5>シェア</h5>
-      <!--カテゴリーで絞込み-->
-      <%= form_with url: search_in_shares_path, method: :get do |f| %>
-        <%= f.collection_select :category_id, Category.all, :id, :name %>
-        <%= f.submit '検索', class: 'btn btn-primary'  %>
-      <% end %>
-  
+      <div class="d-flex justify-content-around">
+        <h4>シェア</h4>
+        <!--カテゴリーで絞込み-->
+        <%= form_with url: search_in_shares_path, method: :get do |f| %>
+          <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "ジャンルで絞り込む" %>
+          <%= f.submit '検索', class: 'btn btn-sm btn-danger'  %>
+        <% end %>
+      </div>  
+      
+
       <div id="main">
         <%= render 'index', articles: @articles %>
       </div>
     </div>
     <div class="col-lg-2 side-bar">
-      <h5>サイドバー</h5>
       <%= render 'members/info', member: current_member %>
     </div>
   </div>
