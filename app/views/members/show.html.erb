@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10">
-      <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
-      	<div class="form-group">
-       		<%= f.label :amount, "ポイント" %>
-  				<%= f.text_field :amount, class:"form-control" %>
-  		  </div>
-  		  <div class="flex align-center pl-5">
-      		<%= f.submit "チップを送る", class: "btn btn-danger" %>
-      	</div>
+      <% unless @member == current_member %>
+      <div class="text-center m-3">
+        <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
+       		<%= f.label :amount, "ポイント:" %>
+  				<%= f.text_field :amount  %>
+      		<%= f.submit "チップを送る", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK'}, title: '確認画面', class: "btn btn-sm btn-danger" %>
+        <% end %>
+      </div>
   	  <% end %>
 
       <ul class="nav nav-tabs justify-content-center">
@@ -19,7 +19,54 @@
 
       <div class="tab-content">
         <div class="tab-pane in active" id="tab-a">
-          <%= render 'info', member: @member %>
+          <!--———————-—会員情報を表示-————————————-->
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <h4>Image</h4>
+              <%= attachment_image_tag(@member, :image, :fill, 300, 400, format: 'png', fallback: "no-image-icon.png", size: '300x400') %></div>
+            <div class="col-md-8">
+              <h4>About me</h4>
+              <table class='table table-hover table-inverse mt-5'>
+                <tr>
+                  <th>Name</th>
+              	  <td><%= @member.name %></td>
+              	</tr>
+              	<tr>
+              	  <th>Profile</th>
+              	  <td><%= @member.introduction %></td>
+              	</tr>
+              	<tr>
+              	  <th>Gender</th>
+              	  <td><%= @member.gender %></td>
+              	</tr>
+              	<tr>
+              	  <th>Age</th>
+              	  <td><%= @member.age %></td>
+              	</tr>
+                <tr>
+                  <th>follows</th>
+                  <td><%= link_to @member.followings.count, member_followings_path(@member) %></td>
+                </tr>
+                <tr>
+                  <th>followers</th>
+                  <td><%= link_to @member.followers.count, member_followers_path(@member) %></td>
+                </tr>
+              </table>
+  
+              <!--———————-—フォローボタンを表示-————————————-->
+              <div class="mb-5">
+                <div class="follow">
+                  <% unless current_member == @member %>
+                    <% if current_member.following?(@member) %>
+                      <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-info" %>
+                    <% else %>
+                      <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-success"%>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="tab-pane fade" id="tab-b">
           <%= render 'articles/index', articles: @member.articles.page(params[:page]).reverse_order %>          <!--会員に紐づく投稿一覧-->
@@ -30,7 +77,6 @@
       </div>
     </div>
     <div class="col-lg-2 side-bar">
-      <h5>サイドバー</h5>
       <%= render 'members/info', member: current_member %>
     </div>
   </div>
