@@ -1,24 +1,33 @@
-<table class='table table-hover table-inverse'>
-  <thead>
-    <tr>
-      <th>日時</th>
-      <th>増減</th>
-      <th>残高</th>
-      <th>備考</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @account_histories.each do |account_history| %>
-      <tr>
-        <td><%= account_history.created_at %></td>
-        <% if account_history.transaction_type_id == 1 %>
-          <td><%= "-#{account_history.amount}" %></td>
-        <% else %>
-          <td><%= "+#{account_history.amount}" %></td>
-        <% end %>
-        <td><%= account_history.balance %></td>
-        <td><%= account_history.remark %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>日時</th>
+            <th>増減</th>
+            <th>残高</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @account_histories.each do |account_history| %>
+            <tr>
+              <td><%= account_history.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
+              <% if account_history.transaction_type_id == 1 %>
+                <td><%= "-#{account_history.amount}" %></td>
+              <% else %>
+                <td><%= "+#{account_history.amount}" %></td>
+              <% end %>
+              <td><%= account_history.balance %></td>
+              <td><%= account_history.remark %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
+  </div>
+</div>

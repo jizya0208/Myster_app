@@ -42,7 +42,9 @@ class AccountHistoriesController < ApplicationController
       passive_account.update!(balance: passive_account_history.balance)
     end
       redirect_to root_path, notice: "正常にチップ送金が終了しました" #上記完全成功なら、root_path(ホーム画面へ)
-  rescue ActiveRecord::RecordInvalid => e                                                       #以下は例外が発生（プロセスの内どこかが失敗）したときに行う
+  rescue ActiveRecord::RecordInvalid => e    #以下は例外が発生（プロセスの内どこかが失敗）したときに行う
+    render "root_path", plain: e.message
+  rescue ActiveRecord::RecordNotSaved => e   
     render "root_path", plain: e.message
   end
 

@@ -1,9 +1,23 @@
-<%= form_with model: @account_histroy, url: account_charge_path(@account.id), local: true do |f| %>
-	<div class="form-group">
- 		<%= f.label :amount, "ポイント" %>
-		<%= f.text_field :amount, class:"form-control" %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-2">
+			<%= form_with model: @account_histroy, url: account_charge_path(@account.id), local: true do |f| %>
+				<div class="form-group">
+			 		<%= f.label :amount, "ポイント" %>
+					<%= f.text_field :amount, class:"form-control col-4" %>
+			  </div>
+			  <div>
+					<%= check_box_tag :credit %>
+					<%= label_tag :credit, "クレジット決済" %>
+				</div>
+			  <div class="flex align-center pl-5">
+					<%= f.submit "チャージする", class: "btn btn-danger" %>
+				</div>
+			<% end %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
   </div>
-  <div class="flex align-center pl-5">
-		<%= f.submit "チャージする", class: "btn btn-danger" %>
-	</div>
-<% end %>
+</div>
+
