@@ -26,33 +26,33 @@
    box-sizing: border-box;
  }
 
- span {
-   display:block;
-   font-size: 170%;
- }
+
 
  .date {
    border-right: 1px solid #000;
+   > span {
+     display:block;
+     font-size: 180%;
+   }
  }
 
   h4 {
    display: inline-block;
    position: relative;
+   &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px; /*下線の上下位置調整*/
+    display: inline-block;
+    width: 50%; /*下線の幅*/
+    height: 1px; /*下線の太さ*/
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    background-color: #000; /*下線の色*/
+    }
   }
-
- h4:before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -10px; /*下線の上下位置調整*/
-  display: inline-block;
-  width: 50%; /*下線の幅*/
-  height: 1px; /*下線の太さ*/
-  -moz-transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  background-color: #000; /*下線の色*/
-}
 
  ul {
    list-style: none;
