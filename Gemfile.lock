@@ -77,10 +77,15 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chartable (0.0.0.3)
+      activesupport (>= 3.0.0)
+      chronic (~> 0.10)
+    chartkick (4.0.5)
     childprocess (3.0.0)
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    chronic (0.10.2)
     coderay (1.1.3)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -333,6 +338,8 @@ DEPENDENCIES
   bootstrap (~> 4.5)
   byebug
   capybara (>= 2.15)
+  chartable
+  chartkick
   chromedriver-helper
   coffee-rails (~> 4.2)
   data-confirm-modal

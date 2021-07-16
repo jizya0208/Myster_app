@@ -62,6 +62,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'bootstrap', '~> 4.5'
+gem 'chartable'
+gem 'chartkick'
 gem 'data-confirm-modal'
 gem 'devise'
 gem 'devise-i18n'
