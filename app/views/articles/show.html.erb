@@ -5,14 +5,11 @@
         <div class="col-lg-2 date text-right"><p><%= @article.created_at.strftime('%Y') %><span><%= @article.created_at.strftime('%m/%d') %></span></p></div>
         <div class="col-lg-10 article-heading text-center", id="article_<%= @article.id %>">
           <h3>Title: <%= @article.title %></h3>
-          <!--お気に入り,コメント一覧のパーシャル呼び出し-->
           <ul class="text-right">
-            <li class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></li>
-            <!--ログインユーザと投稿者が同一の場合、削除ボタンを表示-->
-            <% if current_member == @article.member %>
+            <li class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></li> <!--お気に入りパーシャル呼び出し-->
+            <% if current_member == @article.member %>    <!--ログインユーザと投稿者が同一の場合、削除ボタンを表示-->
               <li><%= link_to '', article_path(@article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK', title: '投稿削除'}, class: "destroy_article_#{@article.id} fas fa-trash-alt" %></li>
-              <!--上記且つ、相談ステータスが相談中の場合、更新ボタンを表示-->
-              <% if @article.is_closed ==  false %>
+              <% if @article.is_closed ==  false %>      <!--上記且つ、相談ステータスが相談中の場合、更新ボタンを表示-->
                 <li><%= link_to '', article_path(@article), method: :patch, data: { confirm: 'ステータス解決済みにすると回答募集ページへの掲示を終了します。本当によろしいですか？', cancel: 'キャンセル',commit: 'OK', title: '相談ステータス更新'}, class: "update_article_#{@article.id} fas fa-check-circle"%></li>
               <% end %>
             <% end %>
@@ -21,25 +18,25 @@
         </div>
           <div class="row">
             <div class="col-lg-6" id="wrap">
-                <% if @article.article_images.present? %>
-                  <ul id="slider">
-                    <% @article.article_images.each do |article_image| %>
-                      <li class="slide-item">
-                        <%= attachment_image_tag article_image, :image, :fill, 300, 400, format: 'png' %>
-                      </li>
-                    <% end %>
-                  </ul>
-                  <ul id="thumbnail-list">
-                    <% @article.article_images.each do |article_image| %>
-                      <li class="thumbnail-item">
-                        <%= attachment_image_tag article_image, :image, :fill, 50, 50, format: 'png' %>
-                      </li>
-                    <% end %>
-                  </ul>
-                <% else %>
-                  <%= image_tag 'no-image.png' %>
-                <% end %>
-              </div>
+              <% if @article.article_images.present? %>
+                <ul id="slider">
+                  <% @article.article_images.each do |article_image| %>
+                    <li class="slide-item">
+                      <%= attachment_image_tag article_image, :image, :fill, 400, 500, format: 'png' %>
+                    </li>
+                  <% end %>
+                </ul>
+                <ul id="thumbnail-list">
+                  <% @article.article_images.each do |article_image| %>
+                    <li class="thumbnail-item">
+                      <%= attachment_image_tag article_image, :image, :fill, 50, 50, format: 'png' %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <%= image_tag 'no-image.png' %>
+              <% end %>
+            </div>
       
             <script>
                 document.addEventListener("turbolinks:load", $(function(){
@@ -78,21 +75,20 @@
               </script>
       
             <div class="col-lg-6">
-              <div>  <!--複数ある投稿から1つを特定するため、識別子に投稿IDを含める-->
-                <h4>Text</h4>
-                <p class="mt-3"><%= render_with_tags(@article.body) %></p>
-                <p class="comments-count mt-3"><%= @article.article_comments.count %></p>
-    
-                <table class="article_comments">
-                  <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
-                  <h4 class="mb-5">Comments</h4>
-                  <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
-                    <%= f.text_area :body, size:"30x6" %>
-                    <%= f.attachment_field :image %>
-                    <%= f.submit '送信'%>
-                  <% end %>
-                </table>
-              </div>
+              <h4>Text</h4>
+              <p class="mt-3"><%= render_with_tags(@article.body) %></p>
+              
+              <h4 class="">Comments</h4>
+              <p class="comments-count mt-3">コメント数:<%= @article.article_comments.count %></p>
+              <table class="article_comments">
+                <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
+              </table>
+              <p class="my-3">コメントフォーム</p>
+              <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
+                <%= f.text_area :body, size:"50x5" %>
+                <%= f.attachment_field :image %>
+                <%= f.submit '送信'%>
+              <% end %>
             </div>
           </div>
         </div>
