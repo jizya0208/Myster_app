@@ -18,7 +18,7 @@
           <tbody>
             <% @members.each do |member| %>
               <tr>
-                <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png") %></td>
+                <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png", size: "50x50") %></td>
                 <td><%= member.name %></td>
                 <td>フォロー数: <%= member.followings.count %></td>
                 <td>フォロワー数: <%= member.followers.count %></td>
