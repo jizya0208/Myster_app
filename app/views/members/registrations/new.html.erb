@@ -1,40 +1,38 @@
 <div class='container'>
-  <h2 class='offset-md-1 page_title my-4'>新規会員登録</h2>
+  <h4 class='offset-md-1 page_title my-4'>新規会員登録</h4>
   <div class='row'>
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <div class="col-sm-12 col-md-8 col-lg-6 px-5 px-sm-0 mx-auto">
       <%= form_with model: @member, url: member_registration_path, id: 'new_member', class: 'new_member',  local: true do |f| %>
-
         <%= render "members/shared/error_messages", resource: resource %>
-
-        <div class="field row">
+        <div class="field">
           <%= f.label :name, "ユーザ名" %>
           <%= f.text_field :name, autofocus: true, :placeholder => "ユーザA", class: "form-control" %>
         </div>
 
         <div class="field">
           <%= f.label :email, "メールアドレス" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
         </div>
 
         <div class="field">
     　　    <%= f.label :password, "パスワード" %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <em>(<%= @minimum_password_length %> 文字以上)</em>
           <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password" %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+          <%= f.label :password_confirmation, "パスワード再入力" %><br />
+          <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", class: "form-control" %>
         </div>
-
-
 
         <div class="actions">
-          <%= f.submit "新規登録" %>
+          <%= f.submit "新規登録", class: "btn btn-sm btn-danger" %>
         </div>
       <% end %>
-
-<h2 class="section-ttl">既に登録済みの方</h2>
-<p><%= link_to "こちら", new_member_session_path, class: "underline" %>からログインしてください。</p>
+      <h4 class="section-ttl">既に登録済みの方</h4>
+      <p><%= link_to "こちら", new_member_session_path, class: "underline" %>からログインしてください。</p>
+    </div>
+  </div>
+</div>

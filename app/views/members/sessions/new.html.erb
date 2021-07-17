@@ -1,16 +1,16 @@
 <div class='container'>
+  <h4 class='offset-md-1 page_title my-4'>ログインページ</h4>
   <div class='row'>
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
-      <h2>ログインページ</h2>
+    <div class="col-sm-12 col-md-8 col-lg-6 px-5 px-sm-0  mx-auto">
       <p id="alert"><%= alert %></p>
       <%= form_with model: @member, url: member_session_path, local: true do |f| %>
         <div class="field">
           <%= f.label :name, 'ユーザ名' %><br />
-          <%= f.text_field :name, autofocus: true, class: "name" %>
+          <%= f.text_field :name, autofocus: true, class: "name form-control" %>
         </div>
         <div class="field">
           <%= f.label :password, 'パスワード' %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "password" %>
+          <%= f.password_field :password, autocomplete: "off", class: "password form-control" %>
         </div>
         <% if devise_mapping.rememberable? -%>
           <div class="field">
@@ -19,7 +19,7 @@
           </div>
         <% end %>
         <div class="actions">
-          <%= f.submit "ログイン" ,class: 'btn btn-sm btn-primary'%>
+          <%= f.submit "ログイン" , class: 'btn btn-sm btn-danger'%>
         </div>
       <% end %>
       <%= render "members/shared/links" %>
