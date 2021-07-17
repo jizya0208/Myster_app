@@ -6,7 +6,7 @@
         <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
        		<%= f.label :amount, "ポイント:" %>
   				<%= f.text_field :amount  %>
-      		<%= f.submit "チップを送る", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK'}, title: '確認画面', class: "btn btn-sm btn-danger" %>
+      		<%= f.submit "チップを送る", class: "btn btn-sm btn-danger", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK' }, title: '確認画面' %>
         <% end %>
       </div>
   	  <% end %>

@@ -34,4 +34,6 @@ class Article < ApplicationRecord
   def Article.filter_by_category(category)
     Article.where(category_id: category)
   end
+  
+
 end
