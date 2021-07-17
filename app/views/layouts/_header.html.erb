@@ -12,6 +12,14 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
         <% if member_signed_in? %>
+          <%= form_with url: search_path, local: true, method: :get do |f| %>
+            <li>
+              <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力" %>
+              <%= button_tag do %>
+                <i class="fas fa-search"></i>
+              <% end %>
+            </li>
+          <% end %>
           <li class="d-flex align-items-center"><span>ようこそ、<%= current_member.name %>さん！</span></li>
        　  <li><%= link_to '新規投稿',new_article_path, class: 'fas fa-plus-circle nav-link' %></li>
           <li><%= link_to '回答募集中', inquire_path, class: 'fas fa-question-circle nav-link' %></li>

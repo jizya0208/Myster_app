@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'homes/about'
   get 'search_in_shares' => 'homes#search_in_shares'      
   get 'search_in_inquiries' => 'homes#search_in_inquiries'
+  get '/search' => 'search#search'
   get 'article/tag/:name' => 'articles#tag'
 
   #「会員」
