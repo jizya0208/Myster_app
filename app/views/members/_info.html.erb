@@ -1,26 +1,26 @@
 <!--———————-—会員情報を表示-————————————-->
 <table class='table'>
   <tr>
-    <th><%= attachment_image_tag(member, :image, :fill, 40, 30, format: 'png', fallback: "no-image-icon.png", size: '40x40') %></th>
-	  <th><%= link_to member.name, member_path(current_member) %></th>
+    <td><%= attachment_image_tag(member, :image, :fill, 30, 40, format: 'png', fallback: "no-image-icon.png", size: '30x40') %></td>
+	  <td><%= link_to 'MyPage', member_path(current_member) %></td>
 	</tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to member.followings.count, member_followings_path(member) %></th>
+    <td><%= link_to member.followings.count, member_followings_path(member) %></td>
   </tr>
-    <tr>
+  <tr>
     <th>followers</th>
-    <th><%= link_to member.followers.count, member_followers_path(member) %></th>
+    <td><%= link_to member.followers.count, member_followers_path(member) %></td>
   </tr>
 </table>
 
 <!--———————-—ユーザ編集ページへのリンク-————————————-->
-  <% if current_member == member %>
-    <%= link_to '',edit_member_path(member),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_member_#{member.id}" %>
-    <%= link_to 'チャージ', new_account_account_history_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
-    <%= link_to '履歴', account_account_histories_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
-    <p>現在残高：<%= current_member.account.balance %>p</p>
-  <% end %>
+<% if current_member == member %>
+  <%= link_to '',edit_member_path(member),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_member_#{member.id}" %>
+  <%= link_to 'チャージ', new_account_account_history_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
+  <%= link_to '履歴', account_account_histories_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
+  <p>現在残高：<%= current_member.account.balance %>p</p>
+<% end %>
 
 
 <!--———————-—フォローボタンを表示-————————————-->
@@ -35,6 +35,7 @@
     <% end %>
   </div>
 </div>
+
 
 
 

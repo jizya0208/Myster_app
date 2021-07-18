@@ -15,7 +15,7 @@
         </div>
 
         <div class="field">
-    　　    <%= f.label :password, "パスワード" %>
+          <%= f.label :password, "パスワード" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> 文字以上)</em>
           <% end %><br />
@@ -27,11 +27,11 @@
           <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", class: "form-control" %>
         </div>
 
-        <div class="actions">
+        <div class="actions text-center m-2">
           <%= f.submit "新規登録", class: "btn btn-sm btn-danger" %>
         </div>
       <% end %>
-      <h4 class="section-ttl">既に登録済みの方</h4>
+      <h5 class="section-ttl">既に登録済みの方</h5>
       <p><%= link_to "こちら", new_member_session_path, class: "underline" %>からログインしてください。</p>
     </div>
   </div>

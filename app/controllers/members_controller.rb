@@ -31,7 +31,7 @@ class MembersController < ApplicationController
 
   protected
   def member_params
-    params.require(:member).permit(:image, :introduction, :integer, :age)
+    params.require(:member).permit(:image, :introduction, :integer, :age, :gender)
   end
 
   def ensure_correct_member

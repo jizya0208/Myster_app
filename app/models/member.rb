@@ -26,26 +26,42 @@ class Member < ApplicationRecord
       relationships.create(followed_id: other_member)  #与フォロー時のデータ生成メソッド
     end
   end
-  
+
   def unfollow(other_member)
     unless self == other_member
       relationships.find_by(followed_id: other_member).destroy  #フォロー解除時のデータ削除メソッド
     end
   end
-  
+
   def following?(other_member)
     self.followings.include?(other_member)   #既にフォロー済みかを真偽値で返すメソッド
   end
-  
+
   # deviseメソッド：退会（論理削除）後のログイン
-  def active_for_authentication?  #sessionコントローラーをオーバーライドする。(superを記述することで、継承元の機能は失われずに追加の機能を実装することが可能である)
+  def active_for_authentication?  #sessionコントローラーをオーバーライドする。(superを記述することで、継承元の機能は失われずに追加の機能を実装することが可能)
     super && (self.is_deleted == false)  #superはオーバーライドで用いられる。
   end
 
   def inactive_message
     "退会済みのアカウントです。"
   end
-  
+
+  def classify  #年齢を世代ごとに区分し、性別と合わせて変換するメソッド。modelで定義する際は、selfや引数のカラムは省略可能。
+    case age
+    when age = 10..14 then "10代前半#{gender}"
+    when age = 15..19 then "10代後半#{gender}"
+    when age = 20..24 then "20代前半#{gender}"
+    when age = 25..29 then "20代後半#{gender}"
+    when age = 30..34 then "30代前半#{gender}"
+    when age = 35..39 then "30代後半#{gender}"
+    when age = 40..44 then "40代前半#{gender}"
+    when age = 45..49 then "40代後半#{gender}"
+    when age = 50..54 then "50代前半#{gender}"
+    when age = 55..59 then "50代後半#{gender}"
+    when age = 60..100 then "60歳以上#{gender}"
+    else "年齢非公開#{gender}"
+    end
+  end
 end
 
 

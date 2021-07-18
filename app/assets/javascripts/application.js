@@ -17,13 +17,15 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery.raty.js
+//= require_tree .
 //= require Chart.bundle
 //= require chartkick
 //= require data-confirm-modal
-//= require_tree .
 
 /*global $*/
+// $(document).on('turbolinks:load', function() { 
 document.addEventListener("turbolinks:load", function(){
+// $(function(){
   var slider = "#slider"; // スライダー
   var thumbnailItem = "#thumbnail-list .thumbnail-item"; // サムネイル画像アイテム
   
@@ -45,7 +47,7 @@ document.addEventListener("turbolinks:load", function(){
     autoplay: true,
     arrows: false,
     fade: true,
-    infinite: false //これはつけましょう。
+    infinite: false
   });
   //サムネイル画像アイテムをクリックしたときにスライダー切り替え
   $(thumbnailItem).on('click',function(){
