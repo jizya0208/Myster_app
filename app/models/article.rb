@@ -6,7 +6,7 @@ class Article < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps #投稿テーブルは中間テーブル(tag_maps)を通じて複数のタグを持つ
-  has_many :notifications, dependent: :destroy 
+  has_many :notifications, dependent: :destroy
 
   accepts_attachments_for :article_images, attachment: :image
 
@@ -23,15 +23,50 @@ class Article < ApplicationRecord
     end
   end
 
-  # 既にお気に入り済みか真偽値で返すメソッド
-  def favorited_by?(member)
+  def favorited_by?(member) # 既にお気に入り済みか真偽値で返すメソッド
     favorites.where(member_id: member.id).exists?
   end
 
-  def Article.filter_by_category(category)
+  def Article.filter_by_category(category) # カテゴリーで投稿を絞り込むためのメソッド
     Article.where(category_id: category)
   end
-  
+
+  def create_notification_like!(current_member) #お気に入りに対する通知を生成するメソッド
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and article_id = ? and action = ? ", current_member.id, member_id, id, 'like'])  #すでに「いいね」されているか検索
+    unless temp # 既にお気に入りされていない場合のみ、通知レコードを作成
+      notification = current_member.active_notifications.new(
+        article_id: id,
+        visited_id: member_id,
+        action: 'like'
+      )
+      if notification.visitor_id == notification.visited_id  # 自分の投稿へのお気に入りは通知不要としたいので、ステータスを確認済する。
+        notification.is_checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
+  def create_notification_comment!(current_member, article_comment_id) #コメントに対する通知を生成するメソッド
+    temp_ids = ArticleComment.select(:member_id).where(article_id: id).where.not(member_id: current_member.id).distinct  #投稿にコメントしている自分以外のユーザーを重複なし(=>distinct)でリスト化。
+    temp_ids.each do |temp_id|
+      save_notification_comment!(current_member, article_comment_id, temp_id['member_id'])
+    end
+    save_notification_comment!(current_member, article_comment_id, member_id) if temp_ids.blank?　# まだ誰もコメントしていない場合は、投稿者に通知を送る
+  end
+
+  def save_notification_comment!(current_member, article_comment_id, visited_id) # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
+    notification = current_member.active_notifications.new( #visitor_id == current_member
+      article_id: id,                         #メソッドを呼び出した投稿自身
+      article_comment_id: article_comment_id,
+      visited_id: visited_id,
+      action: 'comment'
+    )
+    if notification.visitor_id == notification.visited_id  # 自分の投稿へのコメントは通知不要としたいので、ステータスを確認済する。
+      notification.checked = true
+    end
+    notification.save if notification.valid?
+  end
+
   scope :search, -> ( keyword ) {     #検索機能用。クラスメソッドを使う際に可読性を保つために定義。
     where("title LIKE :q OR body LIKE :q ", q: "%#{keyword}%") if keyword.present?
   }

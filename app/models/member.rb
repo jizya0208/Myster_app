@@ -16,7 +16,7 @@ class Member < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower #被フォロー関係(passive_relationships)を通じて与フォローモデル(follower)を参照(source)すると、ユーザが持つフォロワー一覧(followers)を取得できる
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy #紐付ける名前とクラス名が異なるため、明示的にクラス名とIDを指定して紐付ける
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy #与通知ユーザ => actiove_notification    被通知ユーザ => passive_notification
-  
+
   enum gender: {男性: 0, 女性: 1}
   attachment :image
 
@@ -62,6 +62,17 @@ class Member < ApplicationRecord
     when age = 55..59 then "50代後半#{gender}"
     when age = 60..100 then "60歳以上#{gender}"
     else "年齢非公開#{gender}"
+    end
+  end
+
+  def create_notification_follow!(current_member)  #フォロー時の通知を生成するメソッド
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", current_member.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
     end
   end
 end
