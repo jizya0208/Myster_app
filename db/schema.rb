@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_004414) do
+ActiveRecord::Schema.define(version: 2021_07_19_072927) do
 
   create_table "account_histories", force: :cascade do |t|
     t.integer "transaction_number_id"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(version: 2021_07_14_004414) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "article_id"
+    t.integer "article_commemt_id"
+    t.string "action", default: "", null: false
+    t.boolean "is_checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ratings", force: :cascade do |t|
