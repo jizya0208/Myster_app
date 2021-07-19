@@ -11,3 +11,7 @@
   Category.create(name: "ビジネス")
   Category.create(name: "ルーム")
   Category.create(name: "その他")
+
+  TransactionType.create(name: 0)
+  TransactionType.create(name: 1)
+  TransactionType.create(name: 2)
