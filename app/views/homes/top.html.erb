@@ -1,18 +1,14 @@
-<div>
-  <div>
-    <div class="top-visual-content">
-      <p><strong>ようこそ、マイスタへ！</strong></p>
-      <p>このサイトは、ファッションSNSです。<br>
-    </div>
-  </div>
-    <div class="container">
-      <h2 class="offset-md-1 my-5">新着コーデ</h2>
-      <div class="col-md-8 offset-md-2">
-        <div class="new-arrival">
-          <% @article.each do |article| %>
-            <div class="mx-3 card-box">
-              <%= link_to article_path(article) do %>
-                <%= attachment_image_tag article.article_images.first, :image, size: '250x200', format: 'jpeg', fallback: "no-image.png", class: "card shadow" %><br>
+<div class="container top-visual-content">
+  <p><strong>ようこそ、マイスタへ！</strong></p>
+  <p>このサイトは、ファッションSNSです。<br>
+  <div class="row">
+    <div class="col-lg-10 offset-1">
+      <h4 class="my-3">新着コーデ</h4>
+      <div class="new-arrival">
+        <% @article.each do |article| %>
+          <div class="mx-3 card-box">
+            <%= link_to article_path(article), data: {"turbolinks" => false} do %>
+              <%= attachment_image_tag article.article_images.first, :image, size: '250x200', format: 'jpeg', fallback: "no-image.png", class: "card shadow" %><br>
                 <div class="item-name">
                   <%= article.title %>
                 </div>
@@ -25,6 +21,7 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
 
 <div class="start">
