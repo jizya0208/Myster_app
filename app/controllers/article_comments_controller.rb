@@ -5,7 +5,10 @@ class ArticleCommentsController < ApplicationController
     @article = Article.find(params[:article_id])
     @article_comment = @article.article_comments.new(article_comment_params)
     @article_comment.member_id = current_member.id
-    unless @article_comment.save
+    if @article_comment.save
+      @article.create_notification_comment!(current_member, @article_comment.id)
+      respond_to :js
+    else
       render 'error'  #非同期通信のため、バリデーションに引っかかった場合のjsファイルを用意する。
     end
   end
@@ -16,12 +19,12 @@ class ArticleCommentsController < ApplicationController
     article_comment = @article.article_comments.find_by(params[:id])
     article_comment.destroy
   end
-  
+
   def show
     @article_comment = ArticleComment.find(params[:id])
     @rating = Rating.new
   end
-  
+
   private
 
   def article_comment_params

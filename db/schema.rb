@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_072927) do
+ActiveRecord::Schema.define(version: 2021_07_19_124838) do
 
   create_table "account_histories", force: :cascade do |t|
     t.integer "transaction_number_id"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_072927) do
     t.integer "visitor_id", null: false
     t.integer "visited_id", null: false
     t.integer "article_id"
-    t.integer "article_commemt_id"
+    t.integer "article_comment_id"
     t.string "action", default: "", null: false
     t.boolean "is_checked", default: false, null: false
     t.datetime "created_at", null: false
