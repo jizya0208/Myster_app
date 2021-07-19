@@ -14,7 +14,9 @@ class Member < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed  #与フォロー関係(relationships)を通じて被フォローモデル(followed)を参照(source)すると、ユーザが持つフォローユーザ一覧(followings)を取得できる。
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower #被フォロー関係(passive_relationships)を通じて与フォローモデル(follower)を参照(source)すると、ユーザが持つフォロワー一覧(followers)を取得できる
-
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy #紐付ける名前とクラス名が異なるため、明示的にクラス名とIDを指定して紐付ける
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy #与通知ユーザ => actiove_notification    被通知ユーザ => passive_notification
+  
   enum gender: {男性: 0, 女性: 1}
   attachment :image
 

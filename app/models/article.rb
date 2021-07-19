@@ -6,6 +6,7 @@ class Article < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps #投稿テーブルは中間テーブル(tag_maps)を通じて複数のタグを持つ
+  has_many :notifications, dependent: :destroy 
 
   accepts_attachments_for :article_images, attachment: :image
 
