@@ -1,4 +1,4 @@
-$(".comments-count").html("コメント数: <%= @article.article_comments.count %>");
+$(".comments-count").html("<%= @article.article_comments.count %>");
 $(".article_comments").html("<%= j(render 'article_comments/index', article: @article) %>");
 <!--コメント入力フォームを空にする-->
 $("#article_comment_body").val("");

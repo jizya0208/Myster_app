@@ -6,12 +6,12 @@
         <div class="col-lg-10 article-heading text-center", id="article_<%= @article.id %>">
           <h3>Title: <%= @article.title %></h3>
           <ul class="text-right">
-            <li>(<%= @article.category.name %>)</li>
+            <li>category: <%= @article.category.name %></li>
             <li class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></li> <!--お気に入りパーシャル呼び出し-->
             <% if current_member == @article.member %>    <!--ログインユーザと投稿者が同一の場合、削除ボタンを表示-->
-              <li><%= link_to '', article_path(@article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK', title: '投稿削除'}, class: "destroy_article_#{@article.id} fas fa-trash-alt" %></li>
+              <li><%= link_to '', article_path(@article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK'}, title: '投稿削除', class: "destroy_article_#{@article.id} fas fa-trash-alt" %></li>
               <% if @article.is_closed ==  false %>       <!--上記且つ、相談ステータスが相談中の場合、更新ボタンを表示-->
-                <li><%= link_to '', article_path(@article), method: :patch, data: { confirm: 'ステータス解決済みにすると回答募集ページへの掲示を終了します。本当によろしいですか？', cancel: 'キャンセル',commit: 'OK', title: '相談ステータス更新'}, class: "update_article_#{@article.id} fas fa-check-circle"%></li>
+                <li><%= link_to '', article_path(@article), method: :patch, data: { confirm: 'ステータス解決済みにすると回答募集ページへの掲示を終了します。本当によろしいですか？', cancel: 'キャンセル',commit: 'OK' }, title: '相談ステータス更新', class: "update_article_#{@article.id} fas fa-check-circle"%></li>
               <% end %>
             <% end %>
             <li>by <%= link_to @article.member.name, member_path(@article.member) %></li>
@@ -39,60 +39,31 @@
               <% end %>
             </div>
 
-            <script>
-              document.addEventListener("turbolinks:load", $(function(){
-                var slider = "#slider";                                // スライダー
-                var thumbnailItem = "#thumbnail-list .thumbnail-item"; // サムネイル画像アイテム
-
-                $(thumbnailItem).each(function(){
-                var index = $(thumbnailItem).index(this); // indexメソッドはレシーバであるオブジェクトが最初から何番目にあるかを整数で返す役割
-                $(this).attr("data-index",index);         // サムネイル画像アイテムのdata-index属性にindex番号を付与
-                });
-
-                $(slider).on('init',function(slick){     　// init => slickのイベント。スライダー初期化後に発火
-                var index = $(".slide-item .slick-slide .slick-current").attr("data-slick-index"); //slick.jsがスライドにした要素には"data-slick-index"というスライド内の通し番号（0~)を付与した属性が自動生成される。
-                $(thumbnailItem+'[data-index="'+index+'"]').addClass("thumbnail-current"); //カレントのサムネイル画像にクラス「thumbnail-current」を付ける
-                });
-
-                $(slider).slick({                          //slickスライダー初期化
-                  autoplay: true,
-                  arrows: false,
-                  fade: true,
-                  infinite: false                          //スライドのループを無効にする
-                });
-
-                $(thumbnailItem).on('click',function(){    //サムネイル画像アイテムをクリックしたときにイベント発火
-                  var index = $(this).attr("data-index");  //クリックされた要素のdata-index属性の値を取得
-                  $(slider).slick("slickGoTo",index,false);//slideGoToで指定したスライドの位置にスライダーを切り替える
-                });
-
-                $(slider).on('beforeChange',function(event, slick, currentSlide, nextSlide){      //「beforeChange」でslickのスライドが切り替わる直前にイベント発火
-                  $(thumbnailItem).each(function(){
-                    $(this).removeClass("thumbnail-current");                                     // 全てのサムネイル画像アイテムからクラス「thumnail-current」を排除
-                  });
-                  $(thumbnailItem+'[data-index="'+nextSlide+'"]').addClass("thumbnail-current");  //「beforeChange」の引数「nextSlide」は切り替わるスライドのindex番号を返すので、nextSlideの値でカレントのサムネイル画像アイテムを特定し、クラス「thumbnail-current」を付ける
-                });
-              });
-            </script>
-
             <div class="col-lg-6">
               <h4>Text</h4>
-              <p class="mt-3"><%= render_with_tags(@article.body) %></p>
+              <p class="my-5"><%= render_with_tags(@article.body) %></p>
 
-              <h4 class="my-3">Comments</h4>
-              <p class="comments-count mt-3">コメント数:<%= @article.article_comments.count %></p>
+              <h4 class="my-5"><span class="comments-count"><%= @article.article_comments.count %></span> Comments</h4>
               <table class="article_comments">
                 <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
               </table>
-              <p class="my-3">コメントフォーム</p>
+              <p class="mt-5">コメントフォーム</p>
               <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
-                <%= f.text_area :body, size:"50x5" %>
-                <%= f.attachment_field :image %>
-                <%= f.submit '送信'%>
+                <%= f.text_area :body, size: "50x5" %>
+                <%= f.label :image, class: "fas fa-image" do %>
+                  画像をアップロード<%= f.attachment_field :image, style: "display:none;" %>
+                <% end %>
+                <div class="text-center">
+                  <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
+                </div>
               <% end %>
               
-              <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
-              
+              <% if current_member == @article.member %>    <!--ログインユーザと投稿者が同一の場合、グラフを表示-->
+                <div class="col-8 offset-2 pie mt-5">
+                  <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
+                </div>
+              <% end %>
+
             </div>
           </div>
         </div>

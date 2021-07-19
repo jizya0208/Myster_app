@@ -1,14 +1,15 @@
 <% article.article_comments.each do |article_comment| %>
   <% article_comment_member = article_comment.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
   <tr>
-    <td style="width:40%"><%= link_to cut_off(article_comment.body, 10), article_article_comment_path(article_comment.article_id, article_comment.id) %></td>
+    <td style="width:40%"><%= link_to cut_off(article_comment.body, 10), article_article_comment_path(article_comment.article_id, article_comment.id), 
+    data: {"turbolinks" => false} %></td>
     <td style="width:20%">
-  		<%= link_to "by #{article_comment_member.name}", member_path(article_comment_member), class: "member_#{article_comment_member.id}"%>
+  		by <%= link_to "#{article_comment_member.name}", member_path(article_comment_member), class: "member_#{article_comment_member.id}"%>
   	</td>
   	<% unless article.is_closed == nil %>  <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
       <td style="width:30%">
         <div id="star-rate-<%= article_comment.id %>">この回答に対する評価：<%= article_comment.ratings.count %>件 &nbsp 平均:</div>
-      </td>  
+      </td>
     <% end %>
     
     <script> //星評価
