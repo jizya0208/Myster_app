@@ -2,6 +2,7 @@ class ArticleComment < ApplicationRecord
   belongs_to :member
   belongs_to :article
   has_many :ratings
+  has_many :notifications, dependent: :destroy
 
   attachment :image
 
