@@ -35,4 +35,6 @@ Rails.application.routes.draw do
       resource :ratings, only: [:create, :update]
     end
   end
+  # 通知
+  resources :notifications, only: :index
 end
