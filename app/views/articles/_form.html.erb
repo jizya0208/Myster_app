@@ -36,7 +36,7 @@
       			<div class="image_field">
      			    <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
       			  <span class="btn btn-file">
-      			    <%= f.attachment_field :article_images_images, multiple: true, class:"article_image_field" %>
+      			    <%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field" %>
       			  </span>
       			  <div>
                 <img id="prev_img_0" style="width:25%;">
@@ -74,7 +74,7 @@
       			<div class="image_field">
       			  <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
       			  <span class="btn btn-file">
-      			    <%= f.attachment_field :article_images_images, multiple: true, class:"article_image_field" %>
+      			    <%= f.attachment_field :article_images_images, multiple: true, class:"share_article_image_field" %>
       			  </span>
       				<p>選択するとプレビューが表示されます。</p>
               <img id="prev_img_4" style="width:25%;">
@@ -94,10 +94,10 @@
 
 <script>
 document.getElementById('inquire').focus();
-$('.article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
+$('.inquire_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
   if(e.target.files.length > 4){
       alert('一度に投稿できる画像は4枚までです。');
-      $('.article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
+      $('.inquire_article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
       for( let i = 0; i < 4; i++) {
         $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
       }
@@ -122,10 +122,10 @@ $('.article_image_field').on('change', function (e) { //ユーザがフォーム
    }
 });
 
-$('.article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
+$('.share_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
   if(e.target.files.length > 4){
       alert('一度に投稿できる画像は4枚までです。');
-      $('.article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
+      $('.share_article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
       for( let i = 0; i < 4; i++) {
         $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
       }
@@ -149,6 +149,4 @@ $('.article_image_field').on('change', function (e) { //ユーザがフォーム
     }
    }
 });
-
-
 </script>
