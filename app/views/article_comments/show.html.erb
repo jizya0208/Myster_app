@@ -1,12 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 side-bar">
-      <h2>サイドバー</h2>
-    </div>
-    <div class="col-lg-9">
-      コメント本文：<%= @article_comment.body %>
-      添付画像：<%= @article_comment.image %>
-      BY：<%= @article_comment.member.name %>
+    <div class="col-lg-10">
+      <h4>コメント本文</h4>
+      <div class="my-4"><%= @article_comment.body %></div>
+      <% if @article_comment.image %>
+        <h4>添付画像</h4>
+        <%= attachment_image_tag(@article_comment, :image, :fill, 200, 200, format: 'png') %>
+      <% end %>
+      <%= link_to @article_comment.member.name, member_path(@article_comment.member) %>
   
       <!--「コメントに対してユーザが評価済みか否か」で条件分岐させる。*自分のコメントには評価できない-->
       <% if @article_comment.rated_by?(current_member) && @article_comment.member != current_member %>
@@ -17,6 +18,7 @@
           </div>
           <%= f.submit "更新する", class: 'btn btn-sm btn-danger' %>
         <% end %>
+        
         <% @rated = Rating.find_by(member_id: current_member, article_comment_id: @article_comment) %>
       
         <script>
@@ -56,6 +58,9 @@
       <%= link_to :back do %>
         <button>戻る</button>
       <% end %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
     </div>
   </div>
 </div>　
