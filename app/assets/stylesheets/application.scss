@@ -197,3 +197,34 @@ figcaption.hover-mask {
   }
 }
 
+.search-form {
+  margin-right: 35px;
+}
+
+.header-icon { /* ヘッダーリンク。アイコンホバー時にテキストを表示 */
+  width: 5rem;
+  overflow:	hidden;
+  padding-top: 20px;
+  position: relative;	/* 相対位置指定 */
+  border-radius: 3%;
+  text-align: center;
+  vertical-align: middle;
+    .mask {
+    line-height: 35px;
+    font-size: 11px;
+    color: white;
+  	width: 120%;
+  	height:	150%;
+  	position:	absolute;	/* 絶対位置指定 */
+  	top: -30%;
+  	left:	-15%;
+  	opacity: 0;	/* マスクを表示しない */
+  	background-color:	rgba(0,0,0,0.7);	/* マスクは半透明 */
+  	-webkit-transition:	all 0.3s ease;
+  	transition:		all 0.3s ease;
+    	&:hover {
+    	opacity: 1;	/* マスクを表示する */
+    	top: 30%;	/* 元に戻す */
+      }
+    }
+  }
