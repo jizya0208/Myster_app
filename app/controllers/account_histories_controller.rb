@@ -9,11 +9,11 @@ class AccountHistoriesController < ApplicationController
       # ポイント取引に関連する変数の宣言
       active_member = current_member
       active_account = Account.find_by(member_id: active_member)
-      passive_account =Account.find(params[:account_id])
+      passive_account = Account.find(params[:account_id])
       passive_member = Member.find(passive_account.member_id)
       amount = params[:account_history][:amount].to_i
 
-      #取引番号
+      # 取引番号
       transaction_number = TransactionNumber.new
       transaction_number.save!
 
@@ -41,11 +41,11 @@ class AccountHistoriesController < ApplicationController
       active_account.update!(balance:  active_account_history.balance)
       passive_account.update!(balance: passive_account_history.balance)
     end
-      redirect_to root_path, notice: "正常にチップ送金が終了しました" #上記完全成功なら、root_path(ホーム画面へ)
-  rescue ActiveRecord::RecordInvalid => e    #以下は例外が発生（プロセスの内どこかが失敗）したときに行う
-    render "root_path", plain: e.message
-  rescue ActiveRecord::RecordNotSaved => e   
-    render "root_path", plain: e.message
+    redirect_to root_path, notice: '正常にチップ送金が終了しました' # 上記完全成功なら、root_path(ホーム画面へ)
+  rescue ActiveRecord::RecordInvalid => e # 以下は例外が発生（プロセスの内どこかが失敗）したときに行う
+    render 'root_path', plain: e.message
+  rescue ActiveRecord::RecordNotSaved => e
+    render 'root_path', plain: e.message
   end
 
   def index
@@ -67,20 +67,21 @@ class AccountHistoriesController < ApplicationController
         account_id: account.id,
         amount: amount,
         balance: account.balance + amount,
-        remark: "ポイントチャージ"
+        remark: 'ポイントチャージ'
       )
       account_history.save!
       # 口座のポイント残高を更新
       account.update!(balance: account_history.balance)
     end
-      redirect_to root_path, notice: "正常にポイントチャージが終了しました"
-  rescue ActiveRecord::RecordInvalid => e                                                       #以下は例外が発生（プロセスの内どこかが失敗）したときに行う
-    render "root_path", plain: e.message
-  rescue ActiveRecord::RecordNotSaved => e   
-    render "root_path", plain: e.message
+    redirect_to root_path, notice: '正常にポイントチャージが終了しました'
+  rescue ActiveRecord::RecordInvalid => e                                                       # 以下は例外が発生（プロセスの内どこかが失敗）したときに行う
+    render 'root_path', plain: e.message
+  rescue ActiveRecord::RecordNotSaved => e
+    render 'root_path', plain: e.message
   end
 
   private
+
   def account_history_params
     params.require(:account_history).permit(:amount)
   end

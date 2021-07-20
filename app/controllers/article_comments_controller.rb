@@ -9,7 +9,7 @@ class ArticleCommentsController < ApplicationController
       @article.create_notification_comment!(current_member, @article_comment.id)
       respond_to :js
     else
-      render 'error'  #非同期通信のため、バリデーションに引っかかった場合のjsファイルを用意する。
+      render 'error'  # 非同期通信のため、バリデーションに引っかかった場合のjsファイルを用意する。
     end
   end
 

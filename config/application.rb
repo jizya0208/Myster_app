@@ -15,7 +15,7 @@ module Myster
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.i18n.default_locale = :ja #devise日本語化のための記述
-    config.time_zone = 'Tokyo' #タイムゾーンを日本時間にするための
+    config.i18n.default_locale = :ja # devise日本語化のための記述
+    config.time_zone = 'Tokyo' # タイムゾーンを日本時間にするための
   end
 end

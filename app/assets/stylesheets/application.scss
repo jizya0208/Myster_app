@@ -229,11 +229,11 @@ figcaption.hover-mask {
     }
   }
   
-  .profile-image {
+  .profile-image { /* アイコン中央揃え */
     text-align: center;
   }
 
-  .profile-image-circle {
+  .profile-image-circle { /* アイコン丸く */
     width: 80%;
     border-radius: 50%;
     border-width: 5px;
