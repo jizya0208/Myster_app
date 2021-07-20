@@ -88,7 +88,7 @@
   }
 
  .side-bar {/*サイドバー背景色*/
-   background-color: #eae3d1;
+   background-color: #eae3d1; 
  }
 
  .fas {/*アイコン少し強調*/
@@ -227,4 +227,16 @@ figcaption.hover-mask {
     	top: 30%;	/* 元に戻す */
       }
     }
+  }
+  
+  .profile-image {
+    text-align: center;
+  }
+
+  .profile-image-circle {
+    width: 80%;
+    border-radius: 50%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white;
   }
