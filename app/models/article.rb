@@ -31,15 +31,15 @@ class Article < ApplicationRecord
     Article.where(category_id: category)
   end
 
-  def create_notification_favorite!(current_member)                   # お気に入りに対する通知を生成するメソッド
-    temp = Notification.find_by(["visitor_id = ? and visited_id = ? and article_id = ? and action = ? ", current_member.id, member_id, id, 'favorite'])  #すでに「いいね」されているか検索
-    if temp.blank?                                                  # 既にお気に入りされていない場合のみ、通知レコードを作成
+  def create_notification_favorite!(current_member)               # お気に入りに対する通知を生成するメソッド
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and article_id = ? and action = ? ", current_member.id, member_id, id, 'favorite'])  #すでに「いいね」されているか検索
+    if temp.blank?                                                # 既にお気に入りされていない場合のみ、通知レコードを作成
       notification = current_member.active_notifications.new(
         article_id: id,
         visited_id: member_id,
-        action: 'like'
+        action: 'favorite'
       )
-      if notification.visitor_id == notification.visited_id       # 自分の投稿へのお気に入りは通知不要としたいので、ステータスを確認済する。
+      if notification.visitor_id == notification.visited_id       # 自分の投稿へのお気に入りは通知不要としたいので、生成時からステータスは確認済とする。
         notification.is_checked = true
       end
       notification.save if notification.valid?
@@ -57,12 +57,12 @@ class Article < ApplicationRecord
   def save_notification_comment!(current_member, article_comment_id, visited_id) # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
     notification = current_member.active_notifications.new( #visitor_id == current_member
       article_id: id,                                      #メソッドを呼び出した投稿データのID
-      article_comment_id: article_comment_id,              
+      article_comment_id: article_comment_id,
       visited_id: visited_id,
       action: 'comment'
     )
     if notification.visitor_id == notification.visited_id  # 自分の投稿へのコメントは通知不要としたいので、ステータスを確認済する。
-      notification.checked = true
+      notification.is_checked = true
     end
     notification.save if notification.valid?
   end

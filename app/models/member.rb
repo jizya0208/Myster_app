@@ -68,7 +68,7 @@ class Member < ApplicationRecord
   def create_notification_follow!(current_member)  #フォロー時の通知を生成するメソッド
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", current_member.id, id, 'follow'])
     if temp.blank?
-      notification = current_user.active_notifications.new(
+      notification = current_member.active_notifications.new(
         visited_id: id,
         action: 'follow'
       )

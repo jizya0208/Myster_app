@@ -1,8 +1,20 @@
-<% notifications = @notifications.where.not(visitor_id: current_member.id) %>
-  <% if notifications.exists? %>
-    <%= render 'notifications', notifications: @notifications %>
-  <% else %>
-    <p>通知はありません</p>
-  <% end %>
-  
-  
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <h4 class="text-center">Notice</h4>
+      <%= link_to destroy_all_members_notifications_path, method: :delete do %>
+        <i class="fas fa-trash" style="color: black;"></i>
+        <h7 style="color: black;">全削除</h7>
+      <% end %>
+      <% notifications = @notifications.where.not(visitor_id: current_member.id) %>
+      <% if notifications.exists? %>
+        <%= render 'notifications', notifications: @notifications %>
+      <% else %>
+        <p>通知はありません</p>
+      <% end %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
+  </div>
+</div>
