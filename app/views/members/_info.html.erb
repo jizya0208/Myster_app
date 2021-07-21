@@ -15,9 +15,9 @@
 
 <!--———————-—ユーザ編集ページへのリンク-————————————-->
 <% if current_member == member %>
-  <%= link_to '編集',edit_member_path(member),class: "btn btn-outline-secondary btn-block edit_member_#{member.id}" %>
-  <%= link_to 'チャージ', new_account_account_history_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
-  <%= link_to '履歴', account_account_histories_path(member.account.id),class: "btn btn-outline-secondary btn-block" %>
+  <%= link_to '編集',edit_member_path(member),class: "btn btn-outline-danger btn-block edit_member_#{member.id}" %>
+  <%= link_to 'チャージ', new_account_account_history_path(member.account.id),class: "btn btn-outline-danger btn-block" %>
+  <%= link_to '履歴', account_account_histories_path(member.account.id),class: "btn btn-outline-danger btn-block" %>
   <p>現在残高：<%= current_member.account.balance %>p</p>
 <% end %>
 

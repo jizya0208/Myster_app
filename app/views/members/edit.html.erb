@@ -19,15 +19,15 @@
           </div>
           <div class="form-group">
             <%= f.label :age, '年齢' %>
-            <%= f.select :age, options_for_select((10..100).to_a, {selected: @member.age}), class: "form-control age" %>
+            <%= f.select :age, options_for_select((10..100).to_a, { selected: @member.age }), { prompt: "未選択" }, { class: "form-control age"} %>
           </div>
           <div class="form-group">
             <%= f.label :gender, "性別" %>
-            <%= f.select :gender, Member.genders.keys, { prompt: "選択してください", selected: 0, :selected => @member.gender } %>  <!--enumのデータを表示-->
+            <%= f.select :gender, Member.genders.keys, { prompt: "未選択", selected: 0, :selected => @member.gender } %>  <!--enumのデータを表示-->
           </div>
           <div class="form-group text-center">
             <%= f.submit '更新', class: 'btn btn-secondary' %>
-            <%= link_to "退会", confirm_unsubscribe_path, class: "btn btn-danger ml-5", id: "withdraw" %>
+            <%= link_to "退会手続き", confirm_unsubscribe_path, class: "btn btn-danger ml-5", id: "withdraw" %>
           </div>
         <% end %>
       </div>

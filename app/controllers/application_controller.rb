@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   # 新規登録、ログイン時にそれぞれ許可するキーを設定
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email age gender]) # %記法 %i => シンボルを表す
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
   end
 end
