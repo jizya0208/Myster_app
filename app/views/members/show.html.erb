@@ -12,15 +12,15 @@
   	  <% end %>
 
       <ul class="nav nav-tabs justify-content-center">
-        <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li>
+        <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li
         <li><a class="nav-link" href="#tab-b" data-toggle="tab">投稿一覧</a></li>
         <li><a class="nav-link" href="#tab-c" data-toggle="tab">お気に入り一覧</a></li>
       </ul>
 
       <div class="tab-content">
-        <div class="tab-pane in active" id="tab-a">
+        <div class="tab-pane in active" id="tab-a"> 
           <!--———————-—会員情報を表示-————————————-->
-          <div class="row mt-3">
+          <div class="row my-3">
             <div class="col-md-4">
               <h4>Image</h4>
               <%= attachment_image_tag(@member, :image, :fill, 300, 400, format: 'png', fallback: "no-image-icon.png", size: '300x400') %></div>
@@ -55,12 +55,12 @@
   
               <!--———————-—フォローボタンを表示-————————————-->
               <div class="mb-5">
-                <div class="follow">
+                <div class="follow text-center">
                   <% unless current_member == @member %>
                     <% if current_member.following?(@member) %>
-                      <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-info" %>
+                      <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-secondary", id: "follow" %>
                     <% else %>
-                      <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-success"%>
+                      <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-danger", id: "unfollow" %>
                     <% end %>
                   <% end %>
                 </div>

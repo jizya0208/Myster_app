@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   before_action :authenticate_member!
   before_action :ensure_correct_member, only: %i[edit update]
+  before_action :check_guest, only: :withdraw
 
   def show
     @member = Member.find(params[:id])
@@ -37,5 +38,11 @@ class MembersController < ApplicationController
   def ensure_correct_member
     @member = Member.find(params[:id])
     redirect_to member_path(current_member) unless @member == current_member
+  end
+  
+  def check_guest
+    if current_member.email == 'guest@example.com'
+      redirect_to request.referer, alert: 'ゲストユーザーは退会できません。'
+    end
   end
 end

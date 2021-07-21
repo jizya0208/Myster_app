@@ -1,18 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 side-bar">
-      <h2>サイドバー</h2>
-      <%= render 'members/info', member: current_member %>
-    </div>
-    <div class="col-lg-9">
-      <h5>フォロー一覧</h5>
+    <div class="col-lg-10">
+      <h4>フォロー一覧</h4>
       <% if @members.exists? %>
-        <table class="table">
+        <table class="table mt-3">
           <thead>
             <tr>
               <th>プロフィール画像</th>
               <th>ユーザ名</th>
-              <th colspan="3"></th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
             </tr>
           </thead>
           <tbody>
@@ -20,8 +17,8 @@
               <tr>
                 <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png", size: "50x50") %></td>
                 <td><%= link_to member.name,  member_path(member)  %></td>
-                <td>フォロー数: <%= member.followings.count %></td>
-                <td>フォロワー数: <%= member.followers.count %></td>
+                <td><%= member.followings.count %></td>
+                <td><%= member.followers.count %></td>
               </tr>
             <% end %>
           </tbody>
@@ -29,6 +26,9 @@
       <% else %>
         <p>ユーザーはいません</p>
       <% end %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
     </div>
   </div>
 </div>

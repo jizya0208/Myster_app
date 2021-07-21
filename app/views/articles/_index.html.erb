@@ -11,12 +11,12 @@
             <div class="col-10">
               <p class="card-title">
                 <%= link_to(article_path(article.id), data: {"turbolinks" => false}, class:"text-dark") do %>
-                  <p><i class="fas fa-flag"></i><%= cut_off(article.title, 10) %></p>
-                  <p><i class="fas fa-align-justify"></i><%= cut_off(article.body, 20) %></p>
+                  <p><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
+                  <p><i class="fas fa-align-justify"></i>&nbsp <%= cut_off(article.body, 20) %></p>
                 <% end %>
               </p>
-              <p><i class="fas fa-user"></i> <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>
-              <p><i class="fas fa-comment"></i><%= link_to " #{article.article_comments.count} comments", article_path(article.id), data: {"turbolinks" => false}, class:"text-dark" %></p>
+              <p><i class="fas fa-user"></i> &nbsp <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>
+              <p><i class="fas fa-comment"></i> &nbsp <%= link_to " #{article.article_comments.count} comments", article_path(article.id), data: {"turbolinks" => false}, class:"text-dark" %></p>
             </div>
           </div>
         </div>

@@ -31,7 +31,7 @@
   }
 
   header {
-    background-color: #876654;
+    background-color: #876654;/* 茶色 */
     color: #ffffff;
     .fas { /* ヘッダーアイコン白色 */
       color: white;
@@ -57,7 +57,7 @@
   	top: -30%;
   	left:	-15%;
   	opacity: 0;	/* マスクを表示しない */
-  	background-color:	rgba(255,255,204,0.8);	/* マスクは半透明 */
+  	background-color:	rgba(255,255,204,0.8);	/* マスクは半透明 ベージュ */
   	-webkit-transition:	all 0.3s ease;
   	transition:		all 0.3s ease;
     	&:hover {
@@ -78,7 +78,7 @@
       color:#333333;
     }
     &:hover {/*マウスをのせたとき*/
-      color:#a62901;
+      color:#a62901; /* 濃い赤 */
       font-style:normal;
       text-decoration:underline;
     }
@@ -86,11 +86,21 @@
       text-decoration:none;
     }
   }
-  
-  #login-member {
+
+  #login-member, #cancel, #withdraw, #follow, #unfollow {
     color: white;
   }
-  
+
+  #inquire, #share {
+    color: #a62901;
+    &:hover {
+      color: white;
+    }
+    &.active {
+      color: white;
+    }
+  }
+
   .clear-decoration {
     border: none;  /* 枠線を消す */
     outline: none; /* クリックしたときに表示される枠線を消す */
@@ -258,4 +268,8 @@ figcaption.hover-mask {
     border-width: 5px;
     border-style: solid;
     border-color: white;
+  }
+
+  .article_comments {
+    font-size: 12px;
   }

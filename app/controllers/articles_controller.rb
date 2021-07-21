@@ -30,12 +30,9 @@ class ArticlesController < ApplicationController
     #-------------------グラフ表示用の変数　(世代・男女別) --------------------------
     favorite_member_attributes = Member.where(id: @article.favorites.map(&:member_id)) # 投稿に紐づくお気に入りから、その会員情報を取得する
     array = favorite_member_attributes.map(&:classify)                                 # 世代･男女別(30代前半女性etc..)に変換した上で、新たな配列を生成
-    @attribute_ratio = # 上記の配列を評価して、同じ区分の数をバリューに入れハッシュ化。sortメソッドで多い順に並ぶ
-      array.group_by(&:itself).map do |key, value|
-        [key, value.count]
-      end
+    @attribute_ratio = array.group_by(&:itself).map{ |key,value| [key, value.count] }.sort.to_h # 上記の配列を評価して、同じ区分の数をバリューに入れハッシュ化。sortメソッドで多い順に並ぶ
     @attribute_ratio.each do |k, v|
-      ratio = (v * 100).to_f / favorite_member_attributes.count   # それぞれの割合を%表示
+      ratio = (v * 100).to_f / favorite_member_attributes.count   # 区分ごとのデータ数割合を%表示
       @attribute_ratio[k] = ratio.round(1)
     end
   end

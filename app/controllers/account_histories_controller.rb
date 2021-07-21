@@ -57,10 +57,11 @@ class AccountHistoriesController < ApplicationController
       # ポイントチャージに関連する変数の宣言
       account = Account.find_by(member_id: current_member)
       amount = params[:amount].to_i
+      
       # 取引番号
       transaction_number = TransactionNumber.new
       transaction_number.save!
-
+      
       # チャージ履歴
       account_history = transaction_number.account_histories.new(
         transaction_type_id: 2,
@@ -70,11 +71,12 @@ class AccountHistoriesController < ApplicationController
         remark: 'ポイントチャージ'
       )
       account_history.save!
+      
       # 口座のポイント残高を更新
       account.update!(balance: account_history.balance)
     end
     redirect_to root_path, notice: '正常にポイントチャージが終了しました'
-  rescue ActiveRecord::RecordInvalid => e                                                       # 以下は例外が発生（プロセスの内どこかが失敗）したときに行う
+  rescue ActiveRecord::RecordInvalid => e   # 以下は例外が発生（プロセスの内どこかが失敗）したときに行う
     render 'root_path', plain: e.message
   rescue ActiveRecord::RecordNotSaved => e
     render 'root_path', plain: e.message

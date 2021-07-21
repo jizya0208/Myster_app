@@ -8,7 +8,7 @@
         <p>「相談する」では、他のユーザからのアドバイスを募集することが出来ます。相談ステータスを「解決済」に更新することで、回答募集ページへの掲示を終了します。</p>
       </li>
   	  <li role="presentation" class="active w-50 share">
-  	    <a aria-controls="tab_share" data-toggle="tab" href="#tab_share" role="tab" class="btn btn-lg btn-outline-danger">シェアする</a>
+  	    <a aria-controls="tab_share" data-toggle="tab" href="#tab_share" role="tab" class="btn btn-lg btn-outline-danger" id="share">シェアする</a>
   	    <p>「シェアする」では、新着コーデに投稿されます。あなたの一押しアイテムやコーディネートを皆んなとシェアしましょう！</p>
   	  </li>
   	</ul>
@@ -48,7 +48,7 @@
       		</div>
       	</div>
         
-        <div class="flex align-center pl5">
+        <div class="text-center">
         	<%= f.submit "投稿", class: "btn btn-danger" %>
         </div>
         
@@ -84,7 +84,7 @@
             </div>
       		</div>
       	</div>
-      	<div class="flex align-center pl-5">
+      	<div class="text-center">
       		<%= f.submit "シェア", class: "btn btn-danger" %>
       	</div>
       <% end %>
@@ -149,4 +149,6 @@ $('.share_article_image_field').on('change', function (e) { //ユーザがフォ
     }
    }
 });
+
+
 </script>
