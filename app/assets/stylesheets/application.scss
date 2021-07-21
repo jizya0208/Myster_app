@@ -25,29 +25,76 @@
    padding: 0;
    box-sizing: border-box;
  }
- 
+
   header, nav, body, footer, p, a {/*フォントを変更*/
   font-family: 'HanziPen TC', 'Sawarabi Mincho', 'Teko', 'arial narrow', "Segoe Print", sans-serif;
   }
 
-  a {/*リンクされた文字*/
-    color:0000ff;
+  header {
+    background-color: #876654;
+    color: #ffffff;
+    .fas { /* ヘッダーアイコン白色 */
+      color: white;
+    }
+  }
+
+  .navbar-nav > .header-icon { /* ヘッダーリンク。アイコンホバー時にテキストを表示 */
+  color: white;
+  width: 5rem;
+  overflow:	hidden;
+  padding-top: 20px;
+  position: relative;	/* 相対位置指定 */
+  border-radius: 3%;
+  text-align: center;
+  vertical-align: middle;
+    .mask {
+    line-height: 35px;
+    font-size: 12px;
+    color: #111111;
+  	width: 120%;
+  	height:	150%;
+  	position:	absolute;	/* 絶対位置指定 */
+  	top: -30%;
+  	left:	-15%;
+  	opacity: 0;	/* マスクを表示しない */
+  	background-color:	rgba(255,255,204,0.8);	/* マスクは半透明 */
+  	-webkit-transition:	all 0.3s ease;
+  	transition:		all 0.3s ease;
+    	&:hover {
+    	opacity: 1;	/* マスクを表示する */
+    	top: 30%;	/* 元に戻す */
+      }
+    }
+  }
+
+  a {/*リンクされた文字「a:link」→「a:visited」→「a:hover」→「a:active」の順で記述*/
+    color:#333333;
     font-style:normal;
+    &:link {/*未訪問のリンク*/
+      color:#876654;
+      font-style:normal;
+    }
+      &:visited {/*訪問後のリンク*/
+      color:#333333;
+    }
+    &:hover {/*マウスをのせたとき*/
+      color:#a62901;
+      font-style:normal;
+      text-decoration:underline;
+    }
+      &:active {/*クリック中*/
+      text-decoration:none;
+    }
   }
-  a:link {/*未訪問のリンク*/
-    color:0000ff;
-    font-style:normal;
+  
+  #login-member {
+    color: white;
   }
-  a:visited {/*訪問後のリンク*/
-    color:#876654;
-  }
-  a:hover {/*マウスをのせたとき*/
-    color:#a62901;
-    font-style:normal;
-    text-decoration:underline;
-  }
-  a:active {/*クリック中*/
-    text-decoration:none;
+  
+  .clear-decoration {
+    border: none;  /* 枠線を消す */
+    outline: none; /* クリックしたときに表示される枠線を消す */
+    background: transparent; /* 背景の灰色を消す */
   }
 
  .date {/*投稿日時の日付を強調、右側に枠線*/
@@ -74,25 +121,25 @@
     -moz-transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
-    background-color: #000; /*下線の色*/
+    background-color: #a62901; /*下線の色*/
     }
   }
 
   ul {/*・マークを消す*/
    list-style: none;
   }
-  
+
   .article-heading ul li {/*要素横並び*/
   display: inline-block;
   padding: 5px;
   }
 
  .side-bar {/*サイドバー背景色*/
-   background-color: #eae3d1; 
+   background-color: #eae3d1;
  }
 
  .fas {/*アイコン少し強調*/
-   font-size: 120%
+   font-size: 120%;
  }
 
  @mixin tab-mixin($background-image:url){/*新規投稿時タブ切替の背景画像*/
@@ -114,8 +161,8 @@
    @include tab-mixin(image-url("img/share.jpg"));
  }
 
- #wrap{
-  background-color: #876654;
+ #wrap {
+  background-color: #eae3d1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -201,35 +248,7 @@ figcaption.hover-mask {
   margin-right: 35px;
 }
 
-.header-icon { /* ヘッダーリンク。アイコンホバー時にテキストを表示 */
-  width: 5rem;
-  overflow:	hidden;
-  padding-top: 20px;
-  position: relative;	/* 相対位置指定 */
-  border-radius: 3%;
-  text-align: center;
-  vertical-align: middle;
-    .mask {
-    line-height: 35px;
-    font-size: 11px;
-    color: white;
-  	width: 120%;
-  	height:	150%;
-  	position:	absolute;	/* 絶対位置指定 */
-  	top: -30%;
-  	left:	-15%;
-  	opacity: 0;	/* マスクを表示しない */
-  	background-color:	rgba(0,0,0,0.7);	/* マスクは半透明 */
-  	-webkit-transition:	all 0.3s ease;
-  	transition:		all 0.3s ease;
-    	&:hover {
-    	opacity: 1;	/* マスクを表示する */
-    	top: 30%;	/* 元に戻す */
-      }
-    }
-  }
-  
-  .profile-image { /* アイコン中央揃え */
+  .profile-image { /* 会員のアイコン中央揃え */
     text-align: center;
   }
 
