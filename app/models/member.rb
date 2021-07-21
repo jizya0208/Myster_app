@@ -78,4 +78,11 @@ class Member < ApplicationRecord
       notification.save if notification.valid?
     end
   end
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |member|
+      member.name = "ゲストユーザ"
+      member.password = SecureRandom.urlsafe_base64 # ランダムで URL-safe な base64 文字列を生成し、パスワードに入れる
+    end
+  end
 end

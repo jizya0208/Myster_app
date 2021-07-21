@@ -1,6 +1,13 @@
 class Members::SessionsController < Devise::SessionsController
   before_action :reject_member, only: [:create]
 
+  def guest_login # ゲストユーザーとしてログイン
+    member = Member.guest
+    member.build_account(balance: 0).save if member.account == nil 
+    sign_in member # Deviseのsign_inメソッド。
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   private
 
   def reject_member

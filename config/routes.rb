@@ -7,8 +7,12 @@ Rails.application.routes.draw do
   get 'article/tag/:name' => 'articles#tag'
 
   # 「会員」
+  devise_scope :member do # ゲストログイン
+    post 'members/guest_sign_in' => 'members/sessions#guest_login'
+  end
   get 'members/unsubscribe' => 'members#unsubscribe', as: 'confirm_unsubscribe'
   patch 'members/withdraw' => 'members#withdraw', as: 'withdraw_member'
+  
   devise_for :members, controllers: {
     sessions: 'members/sessions',
     registrations: 'members/registrations'
@@ -38,4 +42,5 @@ Rails.application.routes.draw do
   # 通知
   resources :notifications, only: :index
   delete 'destroy_all_members_notifications' => 'notifications#destroy_all'
+  
 end
