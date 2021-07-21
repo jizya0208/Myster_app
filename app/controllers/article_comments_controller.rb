@@ -16,7 +16,7 @@ class ArticleCommentsController < ApplicationController
   def destroy
     @article = Article.find(params[:article_id])
     # 結びつく投稿とコメントIDから抽出
-    article_comment = @article.article_comments.find_by(params[:id])
+    article_comment = @article.article_comments.find_by(id: params[:id])
     article_comment.destroy
   end
 

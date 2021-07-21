@@ -1,6 +1,6 @@
 <% article.article_comments.each do |article_comment| %>
   <% article_comment_member = article_comment.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
-  <tr>
+  <tr id="article_comment_<%= article_comment.id%>">
     <td style="width:40%"><%= link_to cut_off(article_comment.body, 10), article_article_comment_path(article_comment.article_id, article_comment.id), 
     data: {"turbolinks" => false} %></td>
     <td style="width:20%">
