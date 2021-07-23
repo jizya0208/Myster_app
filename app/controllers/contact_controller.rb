@@ -1,27 +1,26 @@
 class ContactController < ApplicationController
   def index # 入力画面を表示
-    @contact = contact.new
+    @contact = Contact.new
     render :index
   end
 
   def confirm # 入力値のチェック
     @contact = Contact.new(contact_params)
     if @contact.valid?
-      # OK。確認画面を表示
-      render :confirm
+      render :confirm # OK。確認画面を表示
     else
-      # NG。入力画面を再表示
-      render :index
+      render :index # NG。入力画面を再表示
     end
   end
 
-  def thanks
-    # メール送信
+  def thanks # メール送信
     @contact = Contact.new(contact_params)
+    ContactMailer.received_email(@contact, current_member).deliver # received_email(自動返信メール) => contact_mailerにて定義済み。   deliver =>  メール送信を担うMailerクラス特異のメソッド。
+    render :thanks # 完了画面を表示
   end
 
   private
   def contact_params
-    params(:contact).permit(:name, :email, :message)
+    params.require(:contact).permit(:name, :email, :message)
   end
 end

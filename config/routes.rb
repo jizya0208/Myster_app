@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'contact/index'
+  get 'contact/confirm'
+  get 'contact/thanks'
   root 'homes#top'
   get 'homes/about'
   get 'search_in_shares' => 'homes#search_in_shares'
@@ -43,4 +46,8 @@ Rails.application.routes.draw do
   resources :notifications, only: :index
   delete 'destroy_all_members_notifications' => 'notifications#destroy_all'
   
+  # 問合せ
+  get   'contacts' => 'contact#index' # 入力画面
+  post  'contact/confirm' => 'contact#confirm', as: 'confirm'   # 確認画面
+  post  'contact/thanks'  => 'contact#thanks', as: 'thanks'    # 送信完了画面
 end

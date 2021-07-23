@@ -1,2 +1,37 @@
-<h1>Contact#index</h1>
-<p>Find me in app/views/contact/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <h4>お問い合わせフォーム</h4>
+      <%= form_with(model: @contact, url: confirm_path, local: true) do |f| %>
+        <div class="correct-msg-box">
+          <%= render 'layouts/errors', obj: @contact %>
+          <div class="correct-msg-main">
+            <div class="contact-form">
+              <div class="correct-text-field">
+                <%= f.label "お名前" %>
+                <%= f.text_field :name, placeholder: "お名前", class: "input-form" %>
+              </div>
+              <div class="correct-text-field">
+                <%= f.label "お問合せ内容" %>
+                <%= f.text_area :content, placeholder: "お問合せ内容を入力してください", class: "input-form" %>
+              </div>
+              <div class="send-btn-contents">
+                <div class="register-btn">
+                  <%= f.button type: "submit", class:"register-red-btn", style:'border-style: none;' do %>
+                    送信 <i class="fas fa-paper-plane"></i>
+                  <% end %>
+                </div>
+                <div class="register-btn">
+                  <%= link_to "もどる", root_path, class:"register-red-btn", style:"background-color: #aaa" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
+  </div>
+</div>
