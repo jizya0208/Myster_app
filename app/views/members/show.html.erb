@@ -6,19 +6,21 @@
         <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
        		<%= f.label :amount, "ポイント:" %>
   				<%= f.text_field :amount  %>
-      		<%= f.submit "チップを送る", class: "btn btn-sm btn-danger", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK' }, title: '確認画面' %>
+      		<%= f.button type: "submit", class: "btn btn-sm btn-danger", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK' }, title: '確認画面' do %>
+      		  チップを送る<i class="fas fa-hand-holding-heart"></i>
+          <% end %>
         <% end %>
       </div>
   	  <% end %>
 
       <ul class="nav nav-tabs justify-content-center">
-        <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li
+        <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li>
         <li><a class="nav-link" href="#tab-b" data-toggle="tab">投稿一覧</a></li>
         <li><a class="nav-link" href="#tab-c" data-toggle="tab">お気に入り一覧</a></li>
       </ul>
 
       <div class="tab-content">
-        <div class="tab-pane in active" id="tab-a"> 
+        <div class="tab-pane in active" id="tab-a">
           <!--———————-—会員情報を表示-————————————-->
           <div class="row my-3">
             <div class="col-md-4">
@@ -52,7 +54,7 @@
                   <td><%= link_to @member.followers.count, member_followers_path(@member) %></td>
                 </tr>
               </table>
-  
+
               <!--———————-—フォローボタンを表示-————————————-->
               <div class="mb-5">
                 <div class="follow text-center">

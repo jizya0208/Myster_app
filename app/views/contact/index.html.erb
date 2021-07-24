@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 form-wrap">
+      <h4>お問い合わせフォーム</h4>
+      <% if @contact.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <strong>入力内容にエラーがあります</strong>
+          <ul>
+            <% @contact.errors.each do |attr, msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <%= form_with(model: @contact, url: confirm_path, local: true) do |f| %>
+        <table class="table">
+        　<tr>
+            <th><%= f.label :name, "お名前" %></th>
+            <td><%= f.text_field :name, placeholder: "お名前" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :message, "お問合わせ内容" %></th>
+            <td><%= f.text_area :message, placeholder: "お問合わせ内容を入力してください", size: "80x5" %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <%= f.button type: "submit", class: "btn btn-danger" do %>
+            　  確認<i class="fas fa-check-double"></i>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
+  </div>
+</div>
