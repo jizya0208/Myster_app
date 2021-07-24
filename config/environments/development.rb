@@ -65,10 +65,10 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     port:                 587,                      # SMTPサーバーのポート番号
     address:              'smtp.gmail.com',         # SMTPサーバーのホスト名
-    domain:               'smtp.gmail.com',         # HELOドメイン
+    domain:               'gmail.com',              # HELOドメイン
     user_name:            ENV["SEND_MAIL"],         # メール送信に使用するgmailのアカウント
     password:             ENV["SEND_MAIL_PASSWORD"],# メール送信に使用するgmailのパスワード
-    authentication:       'login',                  # 認証方法
+    authentication:       'plain',                  # 認証方法
     enable_starttls_auto: true                      # メールの送信にTLS認証を使用するか
    }
 end
