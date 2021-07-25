@@ -24,29 +24,30 @@
    margin: 0;
    padding: 0;
    box-sizing: border-box;
- }
-
-  header, nav, body, footer, p, a {/*フォントを変更*/
-  font-family: 'HanziPen TC', 'Sawarabi Mincho', 'Teko', 'arial narrow', "Segoe Print", sans-serif;
+   font-family: Courier, Chalkduster, 'Segoe Print', 'Hannari', 'Sawarabi Mincho', 'Hannotate SC', sans-serif; /*フォントを変更*/
   }
 
   header {
+    margin: 0;
     background-color: #876654;/* 茶色 */
     color: #ffffff;
     .fas { /* ヘッダーアイコン白色 */
-      color: white;
+      color: #ffffff;
+    }
+    .header-msg, .search-form {
+      font-size: 12px;
     }
   }
 
   .navbar-nav > .header-icon { /* ヘッダーリンク。アイコンホバー時にテキストを表示 */
-  color: white;
-  width: 5rem;
-  overflow:	hidden;
-  padding-top: 20px;
-  position: relative;	/* 相対位置指定 */
-  border-radius: 3%;
-  text-align: center;
-  vertical-align: middle;
+    color: white;
+    width: 5rem;
+    overflow:	hidden;
+    padding-top: 14px;
+    position: relative;	/* 相対位置指定 */
+    border-radius: 3%;
+    text-align: center;
+    vertical-align: middle;
     .mask {
     line-height: 35px;
     font-size: 12px;
@@ -56,15 +57,124 @@
   	position:	absolute;	/* 絶対位置指定 */
   	top: -30%;
   	left:	-15%;
-  	opacity: 0;	/* マスクを表示しない */
+  	opacity: 0;	/* 通常時はマスクを表示しない */
   	background-color:	rgba(255,255,204,0.8);	/* マスクは半透明 ベージュ */
   	-webkit-transition:	all 0.3s ease;
   	transition:		all 0.3s ease;
     	&:hover {
     	opacity: 1;	/* マスクを表示する */
-    	top: 30%;	/* 元に戻す */
+    	top: 30%;	/* 表示位置を元に戻す */
       }
     }
+  }
+
+
+   @mixin p-top-mixin($background-image:url){/*トップページの背景画像,円形*/
+    background-image:$background-image;
+    background-color:rgba(255,255,255,.3);
+    background-blend-mode:lighten;
+    background-size: cover;
+    background-position: 75%; /* 画像の左端をコンテナーの左端からオフセット */
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border-width: 3px;
+    border-style: solid;
+    border-color: white;
+    position: relative;
+  }
+
+
+
+  .p-top_mainImage {
+    height: 30vw;
+    width: 30vw;
+    top: 3vw;
+    @include p-top-mixin(image-url("img/top_img01.png"));
+  }
+
+  .p-top_subImage {
+    height: 18vw;
+    width: 18vw;
+    top: 26vw;
+    @include p-top-mixin(image-url("img/top_img03.jpg"));
+  }
+
+  .p-top_circle {
+    border: calc(3em/16) solid #fff;
+    border-radius: 50%;
+    position: relative;
+    height: 45vw;
+    width: 45vw;
+    left: 5vw;
+    top: -10vw;
+  }
+
+  .p-top_txt {
+    color: #876654; /* 茶色 */
+    font-weight: bold;
+    letter-spacing: .4rem;
+    position: relative;
+    top: 20vw;
+    left: 2vw;
+  }
+
+  .p-top_heading {
+    color: #876654; /* 茶色 */
+    font-weight: bold;
+    letter-spacing: .4rem;
+    text-align: center;
+  }
+
+  .p-top_logo {
+    height: 280px;
+    background-image: image-url("img/p-top_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .p-top_about {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .p-top_aboutTtl, .p-top_newsTtl {
+    position: absolute;
+    left: 5%;
+    font-size: 8em;
+    color: rgba(255,255,255,.7);
+    line-height: 1;
+    letter-spacing: .03em;
+    z-index: 0;
+  }
+
+  .p-top_newsTtl {
+    padding-top: 2vw;
+    right: 10%;
+    left: auto;
+  }
+
+  .p-top_aboutBody {
+    font-family: 'Sawarabi Mincho', Teko, 'arial narrow', 'Segoe Print', sans-serif;
+    color: #876654; /* 茶色 */
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .4rem;
+    padding: 5% 5% 0 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .news {
+    border-radius: 3em;
+    transition:transform 0.3s;
+    &:hover {
+      transform:scale(1.05);
+    }
+  }
+
+  main {
+    background: linear-gradient(110deg, #f9f7f1, 60%, #eae3d1); /*斜め右下方向へグラデーション(0degだと下から上)。0〜40%まで薄いベージュ、残り濃いベージュ*/
   }
 
   a {/*リンクされた文字「a:link」→「a:visited」→「a:hover」→「a:active」の順で記述*/
@@ -120,6 +230,7 @@
     position: relative;
     color:#a62901;
     font-family: 'Homemade Apple', cursive;
+    margin: 20px 5px;
     &:before {
       content: '';
       position: absolute;
@@ -144,8 +255,12 @@
   padding: 5px;
   }
 
+  .more {
+    vertical-align:text-bottom;
+  }
+
  .side-bar {/*サイドバー背景色*/
-   background-color: #eae3d1;
+    background: linear-gradient(to right, #eae6da, 50%, #eae3d1);
   }
 
  .fas {/*アイコン少し強調*/
@@ -172,7 +287,7 @@
  }
 
  #wrap {
-  background-color: #eae3d1;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -184,7 +299,7 @@
     width: 100%;
     margin:0 auto 15px;
   }
-  
+
   .slide-item{
     img {
       width: 460px;
@@ -222,7 +337,7 @@
       margin: 0 auto;
     }
   }
-  
+
   figure.hover-parent {
   　width: 250px;
   　height: 175px;
@@ -246,14 +361,14 @@
   　text-align: center;
   　padding: 30px;
   }
-  
+
   .card {/*カードホバー時にゆっくり浮かび上がる*/
     transition:transform 0.3s;
     &:hover {
       transform:scale(1.05);
     }
   }
-  
+
   .search-form {
     margin-right: 35px;
   }
@@ -290,5 +405,9 @@
     	display: none;
     	z-index: 9999;
     	width: 280px;
-    } 
+    }
+  }
+  
+  .btn-danger, .btn-secondary {
+    box-shadow: 7px 3px 3px #5F2428;
   }

@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @article = Article.where(is_closed: nil).limit(6).order(created_at: 'DESC')
+    @articles = Article.where(is_closed: nil).limit(4).order(created_at: 'DESC')
   end
 
   def about; end

@@ -49,7 +49,7 @@
               </table>
               <p class="mt-5">コメントフォーム</p>
               <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
-                <%= f.text_area :body, size: "50x5" %>
+                <%= f.text_area :body, size: "40x5" %>
                 <%= f.label :image, class: "fas fa-image" do %>
                   画像をアップロード<%= f.attachment_field :image, style: "display:none;" %>
                 <% end %>

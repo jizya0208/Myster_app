@@ -3,7 +3,7 @@
     <div class="container">
       <div>
         <%= link_to "/" do %>
-          <%= image_tag "top-logo.png", :class => "logo", :alt => "Myster", width: 150 %>
+          <%= image_tag "header_logo.png", :class => "logo", :alt => "Myster", width: 150 %>
         <% end %>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto text-align-center d-flex">
           <% if member_signed_in? %>
-            <li class="d-flex align-items-center"><span>ようこそ、<%= link_to current_member.name, member_path(current_member), id: "login-member" %>さん！</span></li>
+            <li class="d-flex align-items-center header-msg"><span>ようこそ、<%= link_to current_member.name, member_path(current_member), id: "login-member" %>さん！</span></li>
             <li class="d-flex align-items-center search-form">
               <%= form_with url: search_path, local: true, method: :get do |f| %>
                 <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力" %>
@@ -24,18 +24,17 @@
             <%= link_to new_article_path, class: 'nav-link header-icon' do %> <li class="fas fa-plus-circle"><span class="mask">新規投稿</span></li> <% end %>
             <%= link_to inquire_path, class: 'nav-link header-icon' do %> <li class="fas fa-question-circle"><span class="mask">回答募集中</span></li> <% end %>
             <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">タイムライン</span></li> <% end %>
-          　<%= link_to contacts_path, class: 'nav-link header-icon' do %>
+          　<%= link_to notifications_path, class: 'nav-link header-icon' do %>
               <% if unchecked_notifications.any? %> <!--未確認の通知があれば、アイコンを金色で表示する-->
                 <li class="fa fa-bell" style="color: gold;"><span class="mask">通知</span></li>
               <% else %>
                 <li class="fas fa-bell"><span class="mask">通知</span></li>
               <% end %>
             <% end %>
-            <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-envelope"><span class="mask">問合せ</span></li> <% end %>
+            <%= link_to contacts_path, class: 'nav-link header-icon' do %> <li class="fas fa-envelope"><span class="mask">問合せ</span></li> <% end %>
           　<%= link_to destroy_member_session_path, method: :delete, class: 'nav-link header-icon' do %> <li class="fas fa-sign-out-alt"><span class="mask">ログアウト</span></li> <% end %>
           <% else %>
             <%= link_to 'ゲストユーザに簡単ログイン', members_guest_sign_in_path, method: :post, class: "btn btn-sm btn-light mr-3 pt-3" %>
-            <%= link_to homes_about_path, class: 'nav-link header-icon' do %> <li class="fas fa-store"><span class="mask">About</span></li> <% end %>
             <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">投稿一覧</span></li> <% end %>
             <%= link_to new_member_registration_path, class: 'nav-link header-icon' do %> <li class="fas fa-user-plus"><span class="mask">新規登録</span></li> <% end %>
             <%= link_to new_member_session_path, class: 'nav-link header-icon' do %> <li class="fas fa-sign-in-alt"><span class="mask">ログイン</span></li> <% end %>

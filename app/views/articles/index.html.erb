@@ -6,7 +6,7 @@
         <!--カテゴリーで絞込み-->
         <%= form_with url: search_in_shares_path, method: :get do |f| %>
           <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "ジャンルで絞り込む" %>
-          <%= f.submit '検索', class: 'btn btn-sm btn-danger'  %>
+          <%= f.submit '検索', class: 'btn btn-sm btn-danger' %>
         <% end %>
       </div>  
       

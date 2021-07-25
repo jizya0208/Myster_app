@@ -2,7 +2,7 @@
 <div class="containar py-5">
   <div class="row">
     <% articles.each do |article| %>
-      <div class="card shadow-lg mt-3 mx-3" style="width: 17rem">
+      <div class="card shadow-lg mt-4 mx-3" style="width: 17rem">
         <%= link_to article_path(article), data: {"turbolinks" => false} do %>
           <%= attachment_image_tag(article.article_images.first, :image, :fill, 200, 200, format: 'png', fallback: "no-image.png", size:'200x200', class:"card-img-top") %>
         <% end %>
@@ -12,7 +12,7 @@
               <p class="card-title">
                 <%= link_to(article_path(article.id), data: {"turbolinks" => false}, class:"text-dark") do %>
                   <p><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
-                  <p><i class="fas fa-align-justify"></i>&nbsp <%= cut_off(article.body, 20) %></p>
+                  <p><i class="fas fa-align-justify"></i> &nbsp <%= cut_off(article.body, 20) %></p>
                 <% end %>
               </p>
               <p><i class="fas fa-user"></i> &nbsp <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>

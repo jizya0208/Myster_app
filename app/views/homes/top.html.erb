@@ -1,31 +1,65 @@
-<div class="container top-visual-content">
-  <p><strong>ようこそ、マイスタへ！</strong></p>
-  <p>このサイトは、ファッションSNSです。<br>
-  <div class="row">
-    <div class="col-lg-10 offset-1">
-      <h4 class="my-3">新着コーデ</h4>
-      <div class="new-arrival">
-        <% @article.each do |article| %>
-          <div class="mx-3 card-box">
+<div class="top-visual-content">
+  <section class="p-top_images d-flex">
+    <div class="p-top_mainImage"></div>
+    <div class="p-top_subImage"></div>
+    <div class="p-top_circle">
+      <h2 class="p-top_txt">Fashion Cordinate Ideas</h2>
+    </div>
+  </section>
+
+  <section class="p-top_logo my-5">
+    <h2 class="p-top_heading mt-5">welcome to<h2>
+  </section>
+
+  <section class="p-top_about py-5">
+    <h2 class="p-top_aboutTtl">
+      <span>A</span>
+      <span>B</span>
+      <span>O</span>
+      <span>U</span>
+      <span>T</span>
+    </h2>
+
+    <p class="p-top_aboutBody mt-2">
+       &nbsp マイスタは、ファッションコーディネート画像の投稿を目的としたSNSサイトです！<br>
+      旬なファッション情報を収集することはもちろん、コーディネートに関する相談も可能です。<br>
+      「持っている洋服が活用できない」「体型に合う服装が分からない」「特別な場所へ行く予定<br>
+      があり、相応しいスタイルを提案して欲しい」など、一人ひとりの悩みに応じたアドバイスを<br>
+      手軽に得ることが出来、スタイリストがもっと身近な存在になります。
+    </p>
+  </section>
+
+  <section class="p-top_news pt-5 my-3">
+    <h2 class="p-top_newsTtl pb-2">
+      <span>N</span>
+      <span>E</span>
+      <span>W</span>
+      <span>S</span>
+    </h2>
+    
+    <div class="container mt-5 py-5">
+      <div class="row">
+        <div class="col-md-9 col-sm-12 d-flex flex-wrap pt-4">
+          <% @articles.each do |article| %>
             <%= link_to article_path(article), data: {"turbolinks" => false} do %>
-              <%= attachment_image_tag article.article_images.first, :image, size: '250x200', format: 'jpeg', fallback: "no-image.png", class: "card shadow" %><br>
-                <div class="item-name">
-                  <%= article.title %>
-                </div>
-              <% end %>
-            </div>
+              <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
+              <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "news mx-5") %>
+            <% end %>
           <% end %>
-        </div>
-        <div>
-          <%= link_to ">>>もっと見る", articles_path %>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    
+    <div class="text-center pb-3">
+      <%= link_to articles_path, class: "btn btn-light" do %>
+        <i class="fas fa-angle-double-right"></i>More…
+      <% end %>
+    </div>
+  </section>
+
 
 <div class="start">
-  <p><%= image_tag "logo.png", alt:"Myster", width: 250 %></p>
+  <p><%= image_tag "img/p-top_logo.png", alt:"Myster", width: 360 %></p>
 </div>
 
 <script>

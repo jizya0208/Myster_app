@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <html lang="ja">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
     <title>Myster</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> <!--slick.cssの読込-->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>　<!--slick-theme.cssの読込-->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> <!--slick-theme.cssの読込-->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <header class="sticky-top border-bottom">
+      <%= render 'layouts/header' %>
+    </header>
     <main>
-      <p id="notice"><%= notice %></p>
-      <p id="alert"><%= alert %></p>
+      <% if notice || alert %>
+        <p id="notice"><%= notice %></p>
+        <p id="alert"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
