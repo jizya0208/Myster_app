@@ -33,10 +33,9 @@
         <div class="flex">
       		<div  class="flex-item">
       			<div class="image_field">
-     			    <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
-      			  <span class="btn btn-file">
-      			    <%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field" %>
-      			  </span>
+     		      <%= f.label :article_images_images, class: "fas fa-image" do %>
+                添付画像をアップロード(最大4枚まで)<%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field", style: "display:none;" %>
+              <% end %>
       			  <div>
       			    <p>選択するとプレビューが表示されます。</p>
                 <img id="prev_img_0" style="width:25%;">
@@ -71,10 +70,9 @@
       	<div class="flex">
       		<div  class="flex-item">
       			<div class="image_field">
-      			  <%= f.label :article_images_images, "添付画像 (最大4枚まで)" %>
-      			  <span class="btn btn-file">
-      			    <%= f.attachment_field :article_images_images, multiple: true, class:"share_article_image_field" %>
-      			  </span>
+     		      <%= f.label :article_images_images, class: "fas fa-image" do %>
+                添付画像をアップロード(最大4枚まで)<%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field", style: "display:none;" %>
+              <% end %>
       				<p>選択するとプレビューが表示されます。</p>
               <img id="prev_img_4" style="width:25%;">
               <img id="prev_img_5" style="width:25%;">

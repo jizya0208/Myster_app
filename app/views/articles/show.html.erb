@@ -29,8 +29,8 @@
                 </ul>
                 <ul id="thumbnail-list">
                   <% @article.article_images.each do |article_image| %>
-                    <li class="thumbnail-item">
-                      <%= attachment_image_tag article_image, :image, :fill, 50, 50, format: 'png' %>
+                    <li class="thumbnail-item my-3">
+                      <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
                     </li>
                   <% end %>
                 </ul>
@@ -57,9 +57,10 @@
                   <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
                 </div>
               <% end %>
-              
+
               <% if current_member == @article.member %>    <!--ログインユーザと投稿者が同一の場合、グラフを表示-->
-                <div class="col-8 offset-2 pie mt-5">
+                <p class="mt-3">以下は投稿者本人にのみ表示されます。</p>
+                <div class="col-8 offset-2 pie my-1">
                   <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
                 </div>
               <% end %>

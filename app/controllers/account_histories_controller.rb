@@ -1,4 +1,6 @@
 class AccountHistoriesController < ApplicationController
+  before_action :ensure_correct_member
+  
   def new
     @account_history = AccountHistory.new
     @account = Account.find_by(member_id: current_member.id)
@@ -56,12 +58,16 @@ class AccountHistoriesController < ApplicationController
     ActiveRecord::Base.transaction do
       # ポイントチャージに関連する変数の宣言
       account = Account.find_by(member_id: current_member)
-      amount = params[:amount].to_i
-      
+      case params[:charge_option]
+        when "0" then amount = 100
+        when "1" then amount = 500
+        when "2" then amount = 1000
+        when "3" then amount = params[:amount].to_i
+      end
       # 取引番号
       transaction_number = TransactionNumber.new
       transaction_number.save!
-      
+
       # チャージ履歴
       account_history = transaction_number.account_histories.new(
         transaction_type_id: 2,
@@ -71,7 +77,7 @@ class AccountHistoriesController < ApplicationController
         remark: 'ポイントチャージ'
       )
       account_history.save!
-      
+
       # 口座のポイント残高を更新
       account.update!(balance: account_history.balance)
     end
@@ -86,5 +92,10 @@ class AccountHistoriesController < ApplicationController
 
   def account_history_params
     params.require(:account_history).permit(:amount)
+  end
+  
+  def ensure_correct_member
+    account = Account.find(params[:account_id])
+    redirect_to root_path unless account.member == current_member
   end
 end
