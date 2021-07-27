@@ -17,7 +17,6 @@
   <!--タブ①相談中の記述。tab-paneはタブの表示内容、fadeは切替に動きを出す役割-->
   <div class="tab-content mt-3">
   	<div class="tab-pane in active" id="tab_inquire" role="tabpanel">
-  	  <%= render 'layouts/errors', obj: article %>
       <%= form_with model: article,local: true do |f| %>
         <!--相談ステータス:false(相談中)を渡す-->
         <%= f.hidden_field :is_closed, value: false %>
@@ -39,6 +38,7 @@
       			    <%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field" %>
       			  </span>
       			  <div>
+      			    <p>選択するとプレビューが表示されます。</p>
                 <img id="prev_img_0" style="width:25%;">
                 <img id="prev_img_1" style="width:25%;">
                 <img id="prev_img_2" style="width:25%;">
@@ -47,24 +47,23 @@
             </div>
       		</div>
       	</div>
-        
+
         <div class="text-center my-3">
         	<%= f.submit "投稿", class: "btn btn-danger" %>
         </div>
-        
+
       <% end %>
      </div>
 
     <!--タブ②シェアの記述-->
   	<div class="tab-pane fade mt-3" id="tab_share" role="tabpanel">
-  	  <%= render 'layouts/errors', obj: article %>
       <%= form_with model: article,local: true do |f| %>
       	<div class="form-group">
        		<%= f.label :title, "タイトル" %>
   				<%= f.text_field :title, class:"form-control" %>
   		  </div>
   			<div class="form-group">
-  				<%= f.label :body, "キャプション" %>
+  				<%= f.label :body, "キャプション  #(ハッシュマーク)をつけて投稿することでタグ付き投稿が可能です" %>
   				<%= f.text_area :body, rows: 5, class:"form-control" %>
   			</div>
   			<%= f.label :category_id, "生活シーン" %>
@@ -101,18 +100,18 @@
         for( let i = 0; i < 4; i++) {
           $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
         }
-  
+
     } else {
       let reader = new Array(4);                          　      //  4つまでデータ格納できる配列を生成。
         for( let i = 0; i < 4; i++) {
           $(`#prev_img_${i}`).attr('src', "");                  　//  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
         }
-  
+
         for( let i = 0; i < e.target.files.length; i++) {          //  選択された画像の数だけ繰返し処理
           reader[i] = new FileReader();                            //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
           reader[i].onload = finisher(i,e);                        //  画像の読込が完了後、下記のfinisherイベント発火
           reader[i].readAsDataURL(e.target.files[i]);              //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
-  
+
           function finisher(i,e){                                  //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
             return function(e){
             $(`#prev_img_${i}`).attr('src', e.target.result);      //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される。
@@ -121,7 +120,7 @@
       }
      }
   });
-  
+
   $('.share_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
     if(e.target.files.length > 4){
         alert('一度に投稿できる画像は4枚までです。');
@@ -129,18 +128,18 @@
         for( let i = 0; i < 4; i++) {
           $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
         }
-  
+
     } else {
       let reader = new Array(4);                          　      //  4つまでデータ格納できる配列を生成。
         for( let i = 0; i < 4; i++) {
           $(`#prev_img_${i + 4}`).attr('src', "");                  　//  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
         }
-  
+
         for( let i = 0; i < e.target.files.length; i++) {          //  選択された画像の数だけ繰返し処理
           reader[i] = new FileReader();                            //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
           reader[i].onload = finisher(i,e);                        //  画像の読込が完了後、下記のfinisherイベント発火
           reader[i].readAsDataURL(e.target.files[i]);              //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
-  
+
           function finisher(i,e){                                  //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
             return function(e){
             $(`#prev_img_${i + 4}`).attr('src', e.target.result);      //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される。

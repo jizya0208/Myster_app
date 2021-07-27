@@ -18,7 +18,8 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.member_id = current_member.id
     if @article.save
-      redirect_to member_path(current_member), notice: '投稿が完了しました'
+      redirect_to inquire_path, notice: '投稿が完了しました' if @article.is_closed == false
+      redirect_to articles_path, notice: '投稿が完了しました' if @article.is_closed == nil
     else
       render 'new'
     end
