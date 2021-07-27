@@ -1,7 +1,7 @@
 <div class='container'>
   <h4 class='offset-md-1 page_title my-4'>新規会員登録</h4>
   <div class='row'>
-    <div class="col-sm-12 col-md-8 col-lg-6 px-5 px-sm-0 mx-auto">
+    <div class="col-sm-12 col-md-8 col-lg-6 px-5 px-sm-0 mx-auto py-5">
       <%= form_with model: @member, url: member_registration_path, id: 'new_member', class: 'new_member',  local: true do |f| %>
         <%= render "members/shared/error_messages", resource: resource %>
         <div class="field">
@@ -27,12 +27,12 @@
           <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", class: "form-control" %>
         </div>
         
-        <div class="form-group">
+        <div class="form-group my-3">
           <%= f.label :age, '年齢' %>
-          <%= f.select :age, options_for_select((10..100).to_a), { prompt: "未選択" }, { class: "form-control age"} %>
+          <%= f.select :age, options_for_select((10..100).to_a), { prompt: "未選択" } %>
         </div>
         
-        <div class="form-group">
+        <div class="form-group my-3">
           <%= f.label :gender, "性別" %>
           <%= f.select :gender, Member.genders.keys, { prompt: "未選択", selected: 0, :selected => @member.gender } %>  <!--enumのデータを表示-->
         </div>

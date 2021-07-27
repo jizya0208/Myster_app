@@ -18,8 +18,11 @@
       <%= render 'layouts/header' %>
     </header>
     <main>
-      <% if notice || alert %>
-        <p id="notice"><%= notice %></p>
+      <% if notice %>
+    <p id="notice"><%= notice %></p>
+      <% end %>
+
+      <% if alert %>
         <p id="alert"><%= alert %></p>
       <% end %>
       <%= yield %>

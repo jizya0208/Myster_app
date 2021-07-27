@@ -164,7 +164,7 @@
     position: relative;
     z-index: 1;
   }
-  
+
   .news {
     border-radius: 3em;
     transition:transform 0.3s;
@@ -260,7 +260,8 @@
   }
 
  .side-bar {/*サイドバー背景色*/
-    background: linear-gradient(to right, #eae6da, 50%, #eae3d1);
+    // background: linear-gradient(to right, #eae6da, 50%, #eae3d1);
+    background-color: white;
   }
 
  .fas {/*アイコン少し強調*/
@@ -407,7 +408,24 @@
     	width: 280px;
     }
   }
-  
+
   .btn-danger, .btn-secondary {
     box-shadow: 7px 3px 3px #5F2428;
+  }
+
+  .daylight {
+    width: 100%;
+    transform: skewY(40deg);
+    .thin {
+      background: linear-gradient(to right, rgba(248, 255, 248, .2) 60%, rgba(255, 255, 255, 0));
+      position: relative;
+      top: 30vh;
+      height: 3vh;
+      box-shadow: 0 1vh 1vh rgba(254, 255, 255, .2) inset;
+    }
+    .thick {
+      background: linear-gradient(to right, rgba(246, 255, 245, .3) 60%, rgba(255, 255, 255, .1));
+      height: 12vh;
+      box-shadow: 0 3vh 5vh rgba(250, 255, 245, .7) inset;
+    }
   }
