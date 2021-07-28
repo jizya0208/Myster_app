@@ -1,13 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-10">
+    <div class="col-md-5">
       <p><%= @article_comment.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></p>
       <h4>コメント本文</h4>
       <div class="my-4"><%= @article_comment.body %></div>
-      <% if @article_comment.image %>
-        <h4>添付画像</h4>
-        <%= attachment_image_tag(@article_comment, :image, :fill, 200, 200, format: 'png') %>
-      <% end %>
       <p>by &nbsp <%= link_to @article_comment.member.name, member_path(@article_comment.member) %></p>
 
 
@@ -48,7 +44,7 @@
 
         <script>
           $("#star").raty({
-            size: 28,                                      //星のサイズ
+            size: 12,                                      //星のサイズ
             starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
             starOn : '<%= asset_path('star-on.png') %>',
             starHalf: '<%= asset_path('star-half.png') %>',
@@ -58,7 +54,13 @@
         </script>
       <% end %>
     </div>
-    <div class="col-lg-2 side-bar">
+    <div class="col-md-5">
+      <% if @article_comment.image %>
+        <p>添付画像</p>
+        <%= attachment_image_tag(@article_comment, :image, :fill, 400, 500, format: 'png') %>
+      <% end %>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-8 side-bar">
       <%= render 'members/info', member: current_member %>
     </div>
   </div>
