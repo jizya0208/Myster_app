@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
   end
 
   def ensure_correct_member
-    @article = Article.find(params[:id])
-    redirect_to articles_path unless @article.member == current_member
+    article = Article.find(params[:id])
+    redirect_to articles_path unless article.member == current_member
   end
 end
