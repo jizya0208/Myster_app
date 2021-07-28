@@ -18,11 +18,11 @@
           </ul>
         </div>
           <div class="row">
-            <div class="col-lg-6" id="wrap">
+            <div class="col-lg-6 col-md-8 col-sm-10 mb-4" id="wrap">
               <% if @article.article_images.present? %>
                 <ul id="slider">
                   <% @article.article_images.each do |article_image| %>
-                    <li class="slide-item">
+                    <li class="slide-item", style="width:100%">
                       <%= attachment_image_tag article_image, :image, :fill, 400, 500, format: 'png' %>
                     </li>
                   <% end %>
@@ -30,7 +30,8 @@
                 <ul id="thumbnail-list">
                   <% @article.article_images.each do |article_image| %>
                     <li class="thumbnail-item my-3">
-                      <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
+                        <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
+ 
                     </li>
                   <% end %>
                 </ul>
@@ -39,11 +40,12 @@
               <% end %>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-8 col-sm-10">
               <h4>Text</h4>
-              <p class="my-5"><%= render_with_tags(@article.body) %></p>
+              <% article_body = safe_join(@article.body.split("\n"), tag(:br)) %>　<!--改行には<br>を付与し、段落を反映して変数に代入。-->
+              <div class="my-3"><%= render_with_tags(article_body) %></div>        <!--上記を評価し、ハッシュタグにリンクを付与-->
 
-              <h4 class="my-5"><span class="comments-count"><%= @article.article_comments.count %></span> Comments</h4>
+              <h4 class="my-3"><span class="comments-count"><%= @article.article_comments.count %></span> Comments</h4>
               <table class="article_comments table table-md">
                 <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
               </table>
@@ -51,7 +53,7 @@
               <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
                 <%= f.text_area :body, size: "40x5" %>
                 <%= f.label :image, class: "fas fa-image" do %>
-                  画像をアップロード<%= f.attachment_field :image, style: "display:none;" %>
+                  画像をアップロード<%= f.attachment_field :image %>
                 <% end %>
                 <div class="text-center">
                   <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
@@ -69,7 +71,7 @@
           </div>
         </div>
       </div>
-    <div class="col-lg-2 side-bar">
+    <div class="col-lg-2 col-md-6 side-bar">
       <%= render 'members/info', member: current_member %>
     </div>
   </div>

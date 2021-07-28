@@ -1,14 +1,30 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 offset-2">
+    	<h4>ポイントチャージ</h4>
+    	<p>1円 = 1ポイント でチャージすることが出来ます</p>
 			<%= form_with model: @account_histroy, url: account_charge_path(@account.id), local: true do |f| %>
 				<div class="form-group">
-			 		<%= f.label :amount, "ポイント" %>
-					<%= f.text_field :amount, class:"form-control col-4" %>
+      	  <%= f.radio_button :charge_option, 0, checked: true %>
+      		<%= f.label :charge_option_0, 100, class: 'col-md-7 col-sm-8 radio_btn' %>P
+				</div>
+				<div class="form-group">
+      	  <%= f.radio_button :charge_option, 1 %>
+      		<%= f.label :charge_option_1, 500, class: 'col-md-7 col-sm-8 radio_btn' %>P
+      	</div>
+      	<div class="form-group">
+      	  <%= f.radio_button :charge_option, 2 %>
+      		<%= f.label :charge_option_2, 1000, class: 'col-md-7 col-sm-8 radio_btn' %>P
+      	</div>
+      	<div class="form-group">
+      	  <%= f.radio_button :charge_option, 3 %>
+      	  <%= f.label :charge_option_3, 'その他', class: 'col-md-7 col-sm-8 radio_btn' %>
+					<%= f.text_field :amount, placeholder: 'こちらに金額を入力してください', size:12, class:"col-5", id: "textforscb3", disabled: true %> P
 			  </div>
-			  <div>
+
+			  <div class="my-3">
 					<%= check_box_tag :credit %>
-					<%= label_tag :credit, "クレジット決済" %>
+					<%= label_tag :credit, "クレジット決済(こちらの機能は未実装です)" %>
 				</div>
 			  <div class="flex align-center pl-5">
 					<%= f.submit "チャージする", class: "btn btn-danger" %>

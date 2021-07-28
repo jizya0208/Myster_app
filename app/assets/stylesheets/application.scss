@@ -69,7 +69,7 @@
   }
 
 
-   @mixin p-top-mixin($background-image:url){/*トップページの背景画像,円形*/
+  @mixin p-top-mixin($background-image:url){ /*トップページの背景画像,円形*/
     background-image:$background-image;
     background-color:rgba(255,255,255,.3);
     background-blend-mode:lighten;
@@ -100,6 +100,7 @@
   .p-top_circle {
     border: calc(3em/16) solid rgba(250, 255, 245, .4);
     box-shadow: 0 0 12vh rgba(248, 250, 245, .8) inset;
+    background:radial-gradient(rgba(246, 250, 250, .6), rgba(243, 247, 212, .3) 30%, rgba(243, 250, 244, .2) 60%);
     border-radius: 50%;
     position: relative;
     height: 45vw;
@@ -132,7 +133,7 @@
     background-position: center;
   }
 
-  .daylight {
+  .daylight { /* TOPページ斜め右下方向に横幅いっぱいに線 */
     width: 100%;
     transform: skewY(39deg);
     .thin {
@@ -145,7 +146,7 @@
     .thick {
       background: linear-gradient(to right, rgba(246, 255, 245, .2) 60%, rgba(255, 255, 255, .1));
       height: 12vh;
-      box-shadow: 0 0 5vh rgba(250, 255, 245, .7) inset;
+      box-shadow: 0 0 6vh rgba(250, 255, 245, .6) inset;
     }
   }
 
@@ -155,7 +156,8 @@
     height: 35vh;
     width: 35vh;
     border-radius: 50%;
-    background:radial-gradient(rgba(250, 243, 246, .3) 50%, rgba(245, 250, 241, .3) 70%);
+    background: radial-gradient(rgba(248, 248, 247, .5), rgba(245, 233, 238, .3) 50%, rgba(248, 248, 240, .4)), radial-gradient(circle at -50% -50%, rgba(162, 255, 220, .4) 10%, rgba(253, 232, 232, .4));
+    box-shadow: 0 0 2vh rgba(250, 255, 245, .5) inset;
     position: relative;
     &::before {
       content: '';
@@ -212,14 +214,14 @@
   }
 
   main {
-    background: linear-gradient(320deg, #f1e9d5 70%, #fff); /*斜め右下方向へグラデーション(0degだと下から上)。0〜40%まで薄いベージュ、残り濃いベージュ*/
+    background: linear-gradient(320deg, #f1e9d5 70%, #fff); /*斜め右下から左上へグラデーション(0degだと下から上)。0〜70%まで薄いベージュ、残り白*/
   }
 
   a {/*リンクされた文字「a:link」→「a:visited」→「a:hover」→「a:active」の順で記述*/
     color:#333333;
     font-style:normal;
     &:link {/*未訪問のリンク*/
-      color:#876654;
+      color:#876654; /* 茶色 */
       font-style:normal;
     }
       &:visited {/*訪問後のリンク*/
@@ -263,7 +265,7 @@
     }
   }
 
-  h4, h3 {/*セクションのタイトルで使用。文字列より少し短い下線*/
+  h4 {/*セクションのタイトルで使用。文字列より少し短い下線*/
     display: inline-block;
     position: relative;
     color:#a62901;
@@ -298,15 +300,14 @@
   }
 
  .side-bar {/*サイドバー背景色*/
-    // background: linear-gradient(to right, #eae6da, 50%, #eae3d1);
-    background-color: white;
+    background-color: #f1e9d5;
   }
 
  .fas {/*アイコン少し強調*/
    font-size: 120%;
   }
 
- @mixin tab-mixin($background-image:url){/*新規投稿時タブ切替の背景画像*/
+ @mixin tab-mixin($background-image:url){ /*新規投稿時タブ切替の背景画像*/
    background-image:$background-image;
    background-color:rgba(255,255,255,0.5);
    background-blend-mode:lighten;
@@ -428,11 +429,15 @@
     border-color: white;
   }
 
-  .article_comments {
+  .article_comments { /* 投稿記事のコメント欄サイズ調整、文字と星評価画像を小さく */
     font-size: 12px;
+    .rate_average > img {
+      height: 10%;
+      width: 8%;
+    }
   }
 
-  .start {
+  .start { /* トップページ遷移時はロゴのみ表示する。jqueryと合わせてゆっくり消えていく */
   	background: #FFF;
   	position: fixed;
   	top: 0;
@@ -454,9 +459,9 @@
   .btn-danger, .btn-secondary {
     box-shadow: 7px 3px 3px #5F2428;
   }
-  
-  
-  input[type=radio] { // 　デフォルトラジオボタンを非表示にしてカスタマイズ
+
+
+  input[type=radio] { /*デフォルトラジオボタンを非表示にしてカスタマイズ*/
     display: none;
   }
 
@@ -473,7 +478,7 @@
       border-radius: 50%;
       content: '';
       display: block;
-      left: 7px;
+      left: -8px;
       margin-top: -7px;
       position: absolute;
       top: 16px;
@@ -486,7 +491,7 @@
       content: '';
       display: block;
       height: 16px;
-      left: 7px;
+      left: -8px;
       margin-top: -7px;
       opacity: 0;
       position: absolute;
@@ -500,21 +505,21 @@
   .radio_btn:hover::before {
     transform: scale(1.2);
   }
-  
+
   input[type=radio]:checked + .radio_btn::before {
     border-color: #df5a5c;
     background: #df5a5c;
     box-shadow: none;
   }
-  
+
   input[type=radio]:checked + .radio_btn::after {
     width: 10px;
     height: 10px;
     background: #fff;
     transform: scale3d(1,1,1);
     opacity: 1;
-    left: 12px;
+    left: -3px;
     top: 21px;
   }
-    
+
 

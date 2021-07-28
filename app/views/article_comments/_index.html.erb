@@ -10,7 +10,7 @@
         <span id="star-rate-<%= article_comment.id %>"></span> (評価<%= article_comment.ratings.count %>件)
       </td>
     <% end %>
-    
+
     <script> //星評価
       $('#star-rate-<%= article_comment.id %>').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
       $('#star-rate-<%= article_comment.id %>').raty({
@@ -23,7 +23,7 @@
         score: '<%= article_comment.ratings.average(:rate).to_f.round(1) %>', //averageメソッドで平均点を算出し、round関数で切り上げ
       });
     </script>
-    
+
     <% if current_member == article_comment_member %>　<!--コメント投稿者には削除ボタンを表示させる-->
     	<td style="width:2%"><%= link_to '', article_article_comment_path(article_comment.article_id, article_comment.id), class: 'fas fa-trash-alt', method: :delete, remote: true %></td>
   	<% end %>

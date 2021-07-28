@@ -35,8 +35,7 @@ document.addEventListener("turbolinks:load", function(){
    $(this).attr("data-index",index);
   });
   
-  // スライダー初期化後、カレントのサムネイル画像にクラス「thumbnail-current」を付ける
-  // 「slickスライダー作成」の前にこの記述は書いてください。
+  // スライダー初期化後、カレントのサムネイル画像にクラス「thumbnail-current」を付与
   $(slider).on('init',function(slick){
    var index = $(".slide-item .slick-slide .slick-current").attr("data-slick-index");
    $(thumbnailItem+'[data-index="'+index+'"]').addClass("thumbnail-current");
@@ -61,5 +60,15 @@ document.addEventListener("turbolinks:load", function(){
       $(this).removeClass("thumbnail-current");
     });
     $(thumbnailItem+'[data-index="'+nextSlide+'"]').addClass("thumbnail-current");
+  });
+  
+  
+  $('input[name="charge_option"]').change(function() {
+      var val = $(this).val(); 	// 選択したvalue値を変数に格納
+      if (val == 3) {						// 金額入力のボタンを選択中は、テキストフォームへの入力可とする
+          $("#textforscb3").prop('disabled', false);
+      } else {
+      	 $("#textforscb3").prop('disabled', true);
+      }
   });
 });
