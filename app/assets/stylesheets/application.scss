@@ -237,7 +237,7 @@
     }
   }
 
-  #login-member, #cancel, #withdraw, #follow, #unfollow {/*ボタンの文字を白抜き*/
+  #login-member, #cancel, #withdraw, #follow, #unfollow, #btn_back {/*ボタンの文字を白抜き*/
     color: white;
   }
 
@@ -431,7 +431,7 @@
 
   .article_comments { /* 投稿記事のコメント欄サイズ調整、文字と星評価画像を小さく */
     font-size: 12px;
-    .rate_average > img {
+    .rate_average img {
       height: 10%;
       width: 8%;
     }
