@@ -152,20 +152,21 @@
 
 
   .goastFlare {
-    margin-left: 81%;
-    height: 35vh;
-    width: 35vh;
+    margin-left: 75%;
+    height: 28vh;
+    width: 28vh;
     border-radius: 50%;
     background: radial-gradient(rgba(248, 248, 247, .5), rgba(245, 233, 238, .3) 50%, rgba(248, 248, 240, .4)), radial-gradient(circle at -50% -50%, rgba(162, 255, 220, .4) 10%, rgba(253, 232, 232, .4));
     box-shadow: 0 0 2vh rgba(250, 255, 245, .5) inset;
     position: relative;
+    top: -15vh;
     &::before {
       content: '';
       position: absolute;
-      top: -10vh;
-      left: -10vh;
-      height: 29vh;
-      width: 29vh;
+      top: -9vh;
+      left: -9vh;
+      height: 24vh;
+      width: 24vh;
       border-radius: 50%;
       background:radial-gradient(rgba(245, 248, 250, .7), rgba(228, 244, 239, .4) 35%, rgba(243, 250, 241, .3) 62%);
     }
