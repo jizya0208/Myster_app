@@ -265,7 +265,8 @@
     }
   }
 
-  h4 {/*セクションのタイトルで使用。文字列より少し短い下線*/
+
+  h3, h4 {/*セクションのタイトルで使用。文字列より少し短い下線*/
     display: inline-block;
     position: relative;
     color:#a62901;
@@ -341,7 +342,7 @@
 
   #slider{
     width: 100%;
-    margin:0 auto 15px;
+    margin:0 auto 5px;
   }
 
   .slide-item{
@@ -522,4 +523,11 @@
     top: 21px;
   }
 
+  #error_explanation, #alert {
+    color: red;
+  }
+
+   #notice {
+    color: green;
+  }
 

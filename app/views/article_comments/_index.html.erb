@@ -1,12 +1,12 @@
 <% article.article_comments.each do |article_comment| %>
   <% article_comment_member = article_comment.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
   <tr id="article_comments article_comment_<%= article_comment.id%>" class="my-2">
-    <td style="width:28%"><%= link_to cut_off(article_comment.body, 15), article_article_comment_path(article_comment.article_id, article_comment.id), data: {"turbolinks" => false}%></td>
-    <td style="width:25%">
+    <td style="width:24%"><%= link_to cut_off(article_comment.body, 15), article_article_comment_path(article_comment.article_id, article_comment.id), data: {"turbolinks" => false}%></td>
+    <td style="width:22%">
   		by <%= link_to cut_off(article_comment_member.name, 10), member_path(article_comment_member), class: "member_#{article_comment_member.id}"%>
   	</td>
   	<% unless article.is_closed == nil %>  <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
-      <td style="width:45%" class="rate_average">
+      <td style="width:42%" class="rate_average">
         <span id="star-rate-<%= article_comment.id %>"></span> (評価<%= article_comment.ratings.count %>件)
       </td>
     <% end %>
@@ -25,7 +25,7 @@
     </script>
 
     <% if current_member == article_comment_member %>　<!--コメント投稿者には削除ボタンを表示させる-->
-    	<td style="width:2%"><%= link_to '', article_article_comment_path(article_comment.article_id, article_comment.id), class: 'fas fa-trash-alt', method: :delete, remote: true %></td>
+    	<td style="width:12%"><%= link_to '', article_article_comment_path(article_comment.article_id, article_comment.id), class: 'fas fa-trash-alt', method: :delete, remote: true %></td>
   	<% end %>
   </tr>
 <% end %>
