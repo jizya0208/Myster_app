@@ -33,11 +33,11 @@
         <div class="flex">
       		<div  class="flex-item">
       			<div class="image_field">
-     		      <%= f.label :article_images_images, class: "fas fa-image" do %>
-                添付画像をアップロード(最大4枚まで)<%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field", style: "display:none;" %>
+         		  <%= f.label :article_images_images, class: "fas fa-image" do %>
+                <%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field" %>
               <% end %>
       			  <div>
-      			    <p>選択するとプレビューが表示されます。</p>
+      			    <p>選択するとプレビューが表示されます。(最大4枚まで)</p>
                 <img id="prev_img_0" style="width:25%;">
                 <img id="prev_img_1" style="width:25%;">
                 <img id="prev_img_2" style="width:25%;">
@@ -71,13 +71,15 @@
       		<div  class="flex-item">
       			<div class="image_field">
      		      <%= f.label :article_images_images, class: "fas fa-image" do %>
-                添付画像をアップロード(最大4枚まで)<%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field", style: "display:none;" %>
+                <%= f.attachment_field :article_images_images, multiple: true, class:"share_article_image_field" %>
               <% end %>
-      				<p>選択するとプレビューが表示されます。</p>
-              <img id="prev_img_4" style="width:25%;">
-              <img id="prev_img_5" style="width:25%;">
-              <img id="prev_img_6" style="width:25%;">
-              <img id="prev_img_7" style="width:25%;">
+              <div>
+        				<p>選択するとプレビューが表示されます。(最大4枚まで)</p>
+                <img id="prev_img_4" style="width:25%;">
+                <img id="prev_img_5" style="width:25%;">
+                <img id="prev_img_6" style="width:25%;">
+                <img id="prev_img_7" style="width:25%;">
+              </div>
             </div>
       		</div>
       	</div>

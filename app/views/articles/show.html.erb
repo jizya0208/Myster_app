@@ -30,8 +30,7 @@
                 <ul id="thumbnail-list">
                   <% @article.article_images.each do |article_image| %>
                     <li class="thumbnail-item my-3">
-                        <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
- 
+                      <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
                     </li>
                   <% end %>
                 </ul>
@@ -66,7 +65,6 @@
                   <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
                 </div>
               <% end %>
-
             </div>
           </div>
         </div>
