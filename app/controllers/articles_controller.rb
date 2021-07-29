@@ -40,15 +40,10 @@ class ArticlesController < ApplicationController
 
   def update
     @article.is_closed = true
-    if @article.save
-      redirect_to article_path(@article), notice: 'ステータスが更新されました'
-    else
-      render 'show'
-    end
+    @article.save ? (redirect_to article_path(@article), notice: 'ステータスが更新されました') : (render 'show')
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path, notice: '削除されました'
   end
@@ -64,8 +59,8 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body, :category_id, :is_closed, article_images_images: [])
   end
 
-  def ensure_correct_member
-    article = Article.find(params[:id])
-    redirect_to articles_path unless article.member == current_member
+  def ensure_correct_member # 取得したデータ(@article)をbefore_actionでセットするからインスタンス変数にしている
+    @article = Article.find(params[:id])
+    redirect_to articles_path unless @article.member == current_member
   end
 end

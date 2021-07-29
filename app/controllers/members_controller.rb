@@ -14,7 +14,7 @@ class MembersController < ApplicationController
 
   def update
     if @member.update(member_params)
-      redirect_to member_path(@member), notice: '更新されました'
+      redirect_to member_path(@member), notice: '会員情報が更新されました'
     else
       render 'edit'
     end
@@ -39,7 +39,7 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
     redirect_to member_path(current_member) unless @member == current_member
   end
-  
+
   def check_guest
     if current_member.email == 'guest@example.com'
       redirect_to request.referer, alert: 'ゲストユーザーは退会できません。'

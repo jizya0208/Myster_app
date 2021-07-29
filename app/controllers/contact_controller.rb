@@ -5,11 +5,7 @@ class ContactController < ApplicationController
 
   def confirm # 入力値のチェック
     @contact = Contact.new(contact_params)
-    if @contact.valid? # 入力値が有効かどうかで条件分岐
-      render :confirm # OK。確認画面を表示
-    else
-      render :index # NG。入力画面を再表示
-    end
+    @contact.valid? ? (render :confirm ) : (render :index) # 入力値が有効かどうかで条件分岐。 OKなら確認画面を表示。 NGなら入力画面を再表示
   end
 
   def thanks # メール送信
