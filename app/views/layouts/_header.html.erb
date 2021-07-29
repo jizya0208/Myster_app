@@ -16,10 +16,8 @@
             <li class="d-flex align-items-center search-form">
               <%= form_with url: search_path, local: true, method: :get do |f| %>
                 <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力" %>
-                <%= button_tag class:"clear-decoration" do %>
-                  <i class="fas fa-search clear-decoration"></i>
-                <% end %>
-              <% end %>
+                <%= button_tag "", class:"clear-decoration fas fa-search clear-decoration" %>
+              <% end%>
             </li>
             <%= link_to new_article_path, class: 'nav-link header-icon' do %> <li class="fas fa-plus-circle"><span class="mask">新規投稿</span></li> <% end %>
             <%= link_to inquire_path, class: 'nav-link header-icon' do %> <li class="fas fa-question-circle"><span class="mask">回答募集中</span></li> <% end %>

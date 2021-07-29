@@ -23,25 +23,25 @@
 //= require data-confirm-modal
 
 /*global $*/
-// $(document).on('turbolinks:load', function() { 
+// $(document).on('turbolinks:load', function() {
 document.addEventListener("turbolinks:load", function(){
 // $(function(){
   var slider = "#slider"; // スライダー
   var thumbnailItem = "#thumbnail-list .thumbnail-item"; // サムネイル画像アイテム
-  
+
   // サムネイル画像アイテムに data-index でindex番号を付与
   $(thumbnailItem).each(function(){
    var index = $(thumbnailItem).index(this);
    $(this).attr("data-index",index);
   });
-  
+
   // スライダー初期化後、カレントのサムネイル画像にクラス「thumbnail-current」を付与
   $(slider).on('init',function(slick){
    var index = $(".slide-item .slick-slide .slick-current").attr("data-slick-index");
    $(thumbnailItem+'[data-index="'+index+'"]').addClass("thumbnail-current");
   });
 
-  //slickスライダー初期化  
+  //slickスライダー初期化
   $(slider).slick({
     autoplay: true,
     arrows: false,
@@ -53,7 +53,7 @@ document.addEventListener("turbolinks:load", function(){
     var index = $(this).attr("data-index");
     $(slider).slick("slickGoTo",index,false);
   });
-  
+
   //サムネイル画像のカレントを切り替え
   $(slider).on('beforeChange',function(event,slick, currentSlide,nextSlide){
     $(thumbnailItem).each(function(){
@@ -61,14 +61,13 @@ document.addEventListener("turbolinks:load", function(){
     });
     $(thumbnailItem+'[data-index="'+nextSlide+'"]').addClass("thumbnail-current");
   });
-  
-  
+
   $('input[name="charge_option"]').change(function() {
-      var val = $(this).val(); 	// 選択したvalue値を変数に格納
-      if (val == 3) {						// 金額入力のボタンを選択中は、テキストフォームへの入力可とする
-          $("#textforscb3").prop('disabled', false);
-      } else {
-      	 $("#textforscb3").prop('disabled', true);
-      }
+    var val = $(this).val();         // 選択したvalue値を変数に格納
+    if (val == 3) {                  // 金額入力のボタンを選択中は、テキストフォームへの入力可とする
+        $("#textforscb3").prop('disabled', false);
+    } else {
+     $("#textforscb3").prop('disabled', true);
+    }
   });
 });
