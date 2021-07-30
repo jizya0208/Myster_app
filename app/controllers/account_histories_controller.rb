@@ -1,6 +1,5 @@
 class AccountHistoriesController < ApplicationController
-  before_action :ensure_correct_member
-  
+
   def new
     @account_history = AccountHistory.new
     @account = Account.find_by(member_id: current_member.id)
@@ -94,8 +93,4 @@ class AccountHistoriesController < ApplicationController
     params.require(:account_history).permit(:amount)
   end
   
-  def ensure_correct_member
-    account = Account.find(params[:account_id])
-    redirect_to root_path unless account.member == current_member
-  end
 end

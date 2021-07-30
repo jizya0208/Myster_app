@@ -337,12 +337,12 @@
     font-size: .9rem;
   }
 
-  #slider, .article__no-img {
+  #slider, .article__no-img, .member__img {
     height: 500px;
     width: 400px;
   }
 
-  .slide-item img,  .article__no-img > img {
+  .slide-item img,  .article__no-img > img, .member__img > img {
     border-radius: 15%;
     height: 100%;
     object-fit: contain; /*縦横比を保持し、ボックスに収まるようにリサイズ*/
@@ -509,7 +509,6 @@
 
   input[type=radio]:checked + .radio_btn::before {
     background: #df5a5c;
-    border-color: #df5a5c;
     box-shadow: none;
   }
 
@@ -559,7 +558,7 @@
     }
   }
 
-  #slider, .article__no-img {
+  #slider, .article__no-img, .member__img  {
     height: 400px;
     margin: 0 auto;
     width: 300px;
@@ -625,7 +624,7 @@
     width: 200px;
   }
 
-  #slider,  .article__no-img {
+  #slider,  .article__no-img,  .member__img  {
     height: 250px;
     width: 200px;
   }

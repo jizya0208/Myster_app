@@ -2,7 +2,6 @@
   <h4 class='offset-md-1 page_title my-4'>ログインページ</h4>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-6 px-5 px-sm-0  mx-auto">
-      <p id="alert"><%= alert %></p>
       <%= form_with model: @member, url: member_session_path, local: true do |f| %>
         <div class="field">
           <%= f.label :name, 'ユーザ名' %><br />

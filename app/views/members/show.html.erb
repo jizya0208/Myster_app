@@ -23,10 +23,13 @@
         <div class="tab-pane in active" id="tab-a">
           <!--———————-—会員情報を表示-————————————-->
           <div class="row my-3">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <h4>Image</h4>
-              <%= attachment_image_tag(@member, :image, :fill, 300, 400, format: 'png', fallback: "no-image-icon.png", size: '300x400') %></div>
-            <div class="col-md-8">
+              <div class="member__img">
+                <%= attachment_image_tag(@member, :image, :fill, 400, 500, format: 'png', fallback: "no-image-icon.png", size: '400x500') %>
+              </div>
+            </div>
+            <div class="col-md-6">
               <h4>About me</h4>
               <table class='table table-hover table-inverse mt-5'>
                 <tr>
@@ -84,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 side-bar">
+    <div class="col-lg-2  col-sm-4 side-bar">
       <%= render 'members/info', member: current_member %>
     </div>
   </div>
