@@ -62,7 +62,7 @@
               <% end %>
 
               <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、グラフを表示-->
-                <p class="mt-3">以下は投稿者本人にのみ表示されます。</p>
+                <p class="mt-3">お気に入りにしたユーザ(こちらは投稿者自身のみが閲覧できます)</p>
                 <div class="col-8 offset-2 pie my-1">
                   <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
                 </div>
