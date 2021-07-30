@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container article-contents">
   <div class="row">
     <div class="col-lg-10 main">
       <div class="row">
@@ -35,7 +35,9 @@
                   <% end %>
                 </ul>
               <% else %>
-                <%= image_tag 'no-image.png', class: "img-responsive" %>
+                <div class="article__no-img">
+                  <%= image_tag 'no-image.png' %>
+                </div>
               <% end %>
             </div>
           <div class="col-lg-6 article_content">
