@@ -8,6 +8,13 @@ class MembersController < ApplicationController
     @relationship = current_member.relationships.new   # フォロー関係を新規に生成するため
     @account_histroy = AccountHistory.new # ポイント送金履歴を新規に生成するため
     @account = Account.find_by(member_id: @member.id)
+
+    # ページネーションで複数のparams[:page]があると、お気に入り一覧か投稿一覧か判別できないのでキー名を分ける
+    @articles = @member.articles.order('created_at desc')
+    @articles = Kaminari.paginate_array(@articles).page(params[:articles_page]).per(6)
+
+    @favorite_articles = @member.favorite_articles.order('created_at desc')
+    @favorite_articles = Kaminari.paginate_array(@favorite_articles).page(params[:favorites_page]).per(6)
   end
 
   def edit; end
@@ -41,8 +48,6 @@ class MembersController < ApplicationController
   end
 
   def check_guest
-    if current_member.email == 'guest@example.com'
-      redirect_to request.referer, alert: 'ゲストユーザーは退会できません。'
-    end
+    redirect_to request.referer, alert: 'ゲストユーザーは退会できません。' if current_member.email == 'guest@example.com'
   end
 end

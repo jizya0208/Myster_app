@@ -17,6 +17,7 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery.raty.js
+//= require jquery.jscroll.min.js
 //= require_tree .
 //= require Chart.bundle
 //= require chartkick
@@ -68,6 +69,31 @@ document.addEventListener("turbolinks:load", function(){
         $("#textforscb3").prop('disabled', false);
     } else {
      $("#textforscb3").prop('disabled', true);
+    }
+  });
+
+  // 無限スクロールの処理 　上はindexページ用、下は切替タブを含む会員showページ用。
+  $(window).on('scroll', function() {
+    var scrollHeight = $(document).height();
+    var scrollPosition = $(window).height() + $(window).scrollTop();
+    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+      $('#scroll-list_articles').jscroll({
+        contentSelector: '.scroll-list',
+        nextSelector: 'span.next:last a',
+        loadingHtml: '読み込み中'
+      });
+    }
+  });
+
+  $(window).on('scroll', function() { //スクロールで発火
+    var scrollHeight = $(document).height();                         // 画面全体の高さ
+    var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
+    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {   // スクロールの位置が画面下部5%の範囲に該当するか
+      $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、それで特定する
+        contentSelector: $('.show > .scroll-list').attr('tab'),      // 読み込んだ要素を追加する場所 = .show > .scroll-listにtabを追加(tabの中身はclass名）
+        nextSelector: 'span.next:last a',                            // 次のページのリンクの場所
+        loadingHtml: '読み込み中'
+      });
     }
   });
 });

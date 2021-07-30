@@ -9,8 +9,9 @@
           <%= f.submit '検索', class: 'btn btn-sm btn-danger'  %>
         <% end %>
       </div>
-      <div id="main">
+      <div  class="scroll-list jscroll", id="scroll-list_articles">
         <%= render 'index', articles: @inquiring_articles %>
+        <%= paginate @inquiring_articles %>
       </div>
     </div>
     <div class="col-lg-2 side-bar">

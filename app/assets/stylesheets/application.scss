@@ -27,11 +27,11 @@
    padding: 0;
   }
 
-  
+
   ul {/*・マークを消す*/
     list-style: none;
   }
-  
+
   main {
     background: linear-gradient(320deg, #f1e9d5 70%, #fff); /*斜め右下から左上へグラデーション(0degだと下から上)。0〜70%まで薄いベージュ、残り白*/
   }
@@ -55,7 +55,7 @@
       text-decoration:none;
     }
   }
-  
+
   header {
     background-color: #876654;/* 茶色 */
     color: #ffffff;
@@ -333,7 +333,7 @@
 
  .share {
     @include tab-mixin(image-url("img/share.jpg"));
-    color: #670f0f
+    color: #670f0f;
     font-size: .9rem;
   }
 
@@ -462,7 +462,7 @@
   }
 
 
-  input[type=radio] { /*デフォルトラジオボタンを非表示にしてカスタマイズ*/
+  input[type=radio], nav.pagination { /*デフォルトのラジオボタン, ページネーションの操作キーを非表示*/
     display: none;
   }
 

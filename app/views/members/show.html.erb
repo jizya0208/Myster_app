@@ -13,7 +13,7 @@
       </div>
   	  <% end %>
 
-      <ul class="nav nav-tabs justify-content-center">
+      <ul class="nav nav-tabs justify-content-center scroll-list jscroll">
         <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li>
         <li><a class="nav-link" href="#tab-b" data-toggle="tab">投稿一覧</a></li>
         <li><a class="nav-link" href="#tab-c" data-toggle="tab">お気に入り一覧</a></li>
@@ -71,10 +71,16 @@
           </div>
         </div>
         <div class="tab-pane fade" id="tab-b">
-          <%= render 'articles/index', articles: @member.articles.page(params[:page]).reverse_order %>          <!--会員に紐づく投稿一覧-->
+          <div class="scroll-list jscroll articles-tab" tab=".articles-tab">
+            <%= render 'articles/index', articles: @articles %>          <!--会員に紐づく投稿一覧-->
+            <%= paginate @articles, param_name: "articles_page" %>
+          </div>
         </div>
         <div class="tab-pane fade" id="tab-c">
-          <%= render 'articles/index', articles: @member.favorite_articles.page(params[:page]).reverse_order %>  <!--会員に紐づくお気に入り投稿一覧-->
+          <div class="scroll-list jscroll favorites-tab" tab=".favorites-tab">
+            <%= render 'articles/index', articles: @favorite_articles %>  <!--会員に紐づくお気に入り投稿一覧-->
+            <%= paginate @favorite_articles, param_name: "favorites_page" %>
+          </div>
         </div>
       </div>
     </div>
