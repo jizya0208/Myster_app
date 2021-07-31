@@ -24,9 +24,7 @@
 //= require data-confirm-modal
 
 /*global $*/
-// $(document).on('turbolinks:load', function() {
 document.addEventListener("turbolinks:load", function(){
-// $(function(){
   var slider = "#slider"; // スライダー
   var thumbnailItem = "#thumbnail-list .thumbnail-item"; // サムネイル画像アイテム
 
@@ -84,7 +82,6 @@ document.addEventListener("turbolinks:load", function(){
       });
     }
   });
-
   $(window).on('scroll', function() { //スクロールで発火
     var scrollHeight = $(document).height();                         // 画面全体の高さ
     var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置

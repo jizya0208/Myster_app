@@ -5,7 +5,7 @@
     <td style="width:22%">
   		by <%= link_to cut_off(article_comment_member.name, 10), member_path(article_comment_member), class: "member_#{article_comment_member.id}"%>
   	</td>
-  	<% unless article.is_closed == nil %>  <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
+  	<% unless article.is_closed.nil? %>  <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
       <td style="width:42%" class="rate_average">
         <span id="star-rate-<%= article_comment.id %>"></span> (評価<%= article_comment.ratings.count %>件)
       </td>

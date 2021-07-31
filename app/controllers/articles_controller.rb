@@ -59,8 +59,8 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body, :category_id, :is_closed, article_images_images: [])
   end
 
-  def ensure_correct_member # 取得したデータ(@article)をbefore_actionでセットするからインスタンス変数にしている
-    @article = Article.find(params[:id])
+  def ensure_correct_member 
+    @article = Article.find(params[:id]) # 取得したデータ(@article)をbefore_actionでセットするからインスタンス変数にしている
     redirect_to articles_path unless @article.member == current_member
   end
 end

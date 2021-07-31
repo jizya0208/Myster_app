@@ -1,8 +1,8 @@
 class ArticleCommentsController < ApplicationController
   before_action :authenticate_member!
+  before_action :set_article
 
   def create
-    @article = Article.find(params[:article_id])
     @article_comment = @article.article_comments.new(article_comment_params)
     @article_comment.member_id = current_member.id
     if @article_comment.save
@@ -14,8 +14,6 @@ class ArticleCommentsController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:article_id])
-    # 結びつく投稿とコメントIDから抽出
     article_comment = @article.article_comments.find_by(id: params[:id])
     article_comment.destroy
   end
@@ -29,5 +27,9 @@ class ArticleCommentsController < ApplicationController
 
   def article_comment_params
     params.require(:article_comment).permit(:body, :image)
+  end
+  
+  def set_article
+    @article = Article.find(params[:article_id])
   end
 end
