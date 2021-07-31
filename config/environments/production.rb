@@ -93,14 +93,13 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.delivery_method = :smtp      # メールを送信する方法：通信プロトコル SMTP を指定
-
-  config.action_mailer.smtp_settings = {
-    port:                 587,                      # SMTPサーバーのポート番号
-    address:              'smtp.gmail.com',         # SMTPサーバーのホスト名
-    domain:               'gmail.com',              # HELOドメイン
-    user_name:            ENV["SEND_MAIL"],         # メール送信に使用するgmailのアカウント
-    password:             ENV["SEND_MAIL_PASSWORD"],# メール送信に使用するgmailのパスワード
-    authentication:       'plain',                  # 認証方法
-    enable_starttls_auto: true                      # メールの送信にTLS認証を使用するか
-   }
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.gmail.com',         # SMTPサーバーのホスト名
+      domain:               'gmail.com',              # HELOドメイン
+      user_name:            ENV["SEND_MAIL"],         # メール送信に使用するgmailのアカウント
+      password:             ENV["SEND_MAIL_PASSWORD"],# メール送信に使用するgmailのパスワード
+      port:                 587,                      # SMTPサーバーのポート番号
+      authentication:       'plain',                  # 認証方法
+      enable_starttls_auto: true                      # メールの送信にTLS認証を使用するか
+    }
 end
