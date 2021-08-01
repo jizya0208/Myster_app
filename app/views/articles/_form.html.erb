@@ -4,7 +4,7 @@
     <ul class="nav nav-tabs d-flex" role="tablist">
       <li role="presentation" class="w-50 question">
         <!--表示内容の識別子を指定。data-taggle="tab"により切替タブのJavaScriptを指定-->
-        <a aria-controls="tab_inquire" data-toggle="tab" href="#tab_inquire" role="tab" class="btn btn-lg btn-outline-danger" id="inquire" >相談する</a>
+        <a aria-controls="tab_question" data-toggle="tab" href="#tab_question" role="tab" class="btn btn-lg btn-outline-danger active" id="question" >相談する</a>
         <p>「相談する」では、他のユーザからのアドバイスを募集することが出来ます。相談ステータスを「解決済」に更新することで、回答募集ページへの掲示を終了します。</p>
       </li>
   	  <li role="presentation" class="active w-50 share">
@@ -34,7 +34,7 @@
       		<div  class="flex-item">
       			<div class="image_field">
          		  <%= f.label :article_images_images, class: "fas fa-image" do %>
-                <%= f.attachment_field :article_images_images, multiple: true, class:"inquire_article_image_field" %>
+                <%= f.attachment_field :article_images_images, multiple: true, class:"question_article_image_field" %>
               <% end %>
       			  <div>
       			    <p>選択するとプレビューが表示されます。(最大4枚まで)</p>
@@ -90,62 +90,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.getElementById('inquire').focus();
-  $('.inquire_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
-    if(e.target.files.length > 4){
-        alert('一度に投稿できる画像は4枚までです。');
-        $('.inquire_article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
-        for( let i = 0; i < 4; i++) {
-          $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
-        }
-
-    } else {
-      let reader = new Array(4);                          　      //  4つまでデータ格納できる配列を生成。
-        for( let i = 0; i < 4; i++) {
-          $(`#prev_img_${i}`).attr('src', "");                  　//  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
-        }
-
-        for( let i = 0; i < e.target.files.length; i++) {          //  選択された画像の数だけ繰返し処理
-          reader[i] = new FileReader();                            //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
-          reader[i].onload = finisher(i,e);                        //  画像の読込が完了後、下記のfinisherイベント発火
-          reader[i].readAsDataURL(e.target.files[i]);              //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
-
-          function finisher(i,e){                                  //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
-            return function(e){
-            $(`#prev_img_${i}`).attr('src', e.target.result);      //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される。
-          }
-        }
-      }
-     }
-  });
-
-  $('.share_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
-    if(e.target.files.length > 4){
-        alert('一度に投稿できる画像は4枚までです。');
-        $('.share_article_image_field').val = "";　           // 4枚以上画像を選択された場合、ファイルをリセット。
-        for( let i = 0; i < 4; i++) {
-          $(`#prev_img_${i}`).attr('src', "");　                  // ファイルリセットに伴いプレビュー初期化
-        }
-
-    } else {
-      let reader = new Array(4);                          　      //  4つまでデータ格納できる配列を生成。
-        for( let i = 0; i < 4; i++) {
-          $(`#prev_img_${i + 4}`).attr('src', "");                  　//  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
-        }
-
-        for( let i = 0; i < e.target.files.length; i++) {          //  選択された画像の数だけ繰返し処理
-          reader[i] = new FileReader();                            //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
-          reader[i].onload = finisher(i,e);                        //  画像の読込が完了後、下記のfinisherイベント発火
-          reader[i].readAsDataURL(e.target.files[i]);              //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
-
-          function finisher(i,e){                                  //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
-            return function(e){
-            $(`#prev_img_${i + 4}`).attr('src', e.target.result);      //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される。
-          }
-        }
-      }
-     }
-  });
-</script>
