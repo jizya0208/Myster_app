@@ -70,12 +70,66 @@ document.addEventListener("turbolinks:load", function(){
     }
   });
 
+   // 画像選択時のプレビュー
+  $('.question_article_image_field').on('change', function (e) {  //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
+    if(e.target.files.length > 4){
+        alert('一度に投稿できる画像は4枚までです。');
+        $('.question_article_image_field').val = "";              // 4枚以上画像を選択された場合、ファイルをリセット。
+        for( let i = 0; i < 4; i++) {
+          $(`#prev_img_${i}`).attr('src', "");                    // ファイルリセットに伴いプレビュー初期化
+        }
+    } else {
+      let reader = new Array(4);                                  //  4つまでデータ格納できる配列を生成。
+        for( let i = 0; i < 4; i++) {
+          $(`#prev_img_${i}`).attr('src', "");                    //  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
+        }
+        for( let i = 0; i < e.target.files.length; i++) {         //  選択された画像の数だけ繰返し処理
+          reader[i] = new FileReader();                           //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
+          reader[i].onload = finisher(i,e);                       //  画像の読込が完了後、下記のfinisherイベント発火
+          reader[i].readAsDataURL(e.target.files[i]);             //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
+          function finisher(i,e){                                 //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
+            return function(e){
+            $(`#prev_img_${i}`).attr('src', e.target.result);     //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される
+          };
+        }
+      }
+    }
+  });
+
+  $('.share_article_image_field').on('change', function (e) { //ユーザがフォーム(input要素)に変更を加えた時にイベント発火。eには、article_imageのデータが入っている状態
+    if(e.target.files.length > 4){
+        alert('一度に投稿できる画像は4枚までです。');
+        $('.share_article_image_field').val = "";                 // 4枚以上画像を選択された場合、ファイルをリセット。
+        for( let i = 0; i < 4; i++) {
+          $(`#prev_img_${i}`).attr('src', "");                    // ファイルリセットに伴いプレビュー初期化
+        }
+    } else {
+      let reader = new Array(4);                                  //  4つまでデータ格納できる配列を生成。
+        for( let i = 0; i < 4; i++) {
+          $(`#prev_img_${i + 4}`).attr('src', "");                //  画像選択を上書きした時に、1回目より数が少なかったりすると画面上にプレビューが残るので初期化
+        }
+
+        for( let i = 0; i < e.target.files.length; i++) {         //  選択された画像の数だけ繰返し処理
+          reader[i] = new FileReader();                           //  FileReaderオブジェクトを生成し、配列に追加。FileReaderは、BlobやFileが保有するバッファを非同期で読み取ることが出来る
+          reader[i].onload = finisher(i,e);                       //  画像の読込が完了後、下記のfinisherイベント発火
+          reader[i].readAsDataURL(e.target.files[i]);             //  readAsDataURLメソッドで、指定されたBlob又はFileのファイルの読込みとそのURL生成を行う。
+          function finisher(i,e){                                 //  onloadは別関数で準備しないと繰返し処理内では使用できないので、関数を準備。
+            return function(e){
+            $(`#prev_img_${i + 4}`).attr('src', e.target.result); //  img要素のsrc属性の中身を置換する。e.target=イベントを発生させたオブジェクト。result属性=FileReaderの読取ったファイルが文字列として格納される。
+          };
+        }
+      }
+     }
+  });
+
+
   // 無限スクロールの処理 　上はindexページ用、下は切替タブを含む会員showページ用。
   $(window).on('scroll', function() {
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
     if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
       $('#scroll-list_articles').jscroll({
+        refresh: true,
         contentSelector: '.scroll-list',
         nextSelector: 'span.next:last a',
         loadingHtml: '読み込み中'
@@ -86,11 +140,12 @@ document.addEventListener("turbolinks:load", function(){
     var scrollHeight = $(document).height();                         // 画面全体の高さ
     var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
     if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {   // スクロールの位置が画面下部5%の範囲に該当するか
-      $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、それで特定する
-        contentSelector: $('.show > .scroll-list').attr('tab'),      // 読み込んだ要素を追加する場所 = .show > .scroll-listにtabを追加(tabの中身はclass名）
+      $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、これを利用し読み込んだ要素を追加する場所を特定する
+        contentSelector: $('.show > .scroll-list').attr('tab'),      //  読み込む範囲を指定しつつ、 .show > .scroll-listにtabを追加(tabの中身はclass名）
         nextSelector: 'span.next:last a',                            // 次のページのリンクの場所
         loadingHtml: '読み込み中'
       });
     }
   });
 });
+

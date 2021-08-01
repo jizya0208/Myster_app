@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'contact/thanks'
   root 'homes#top'
   get 'search_in_shares' => 'homes#search_in_shares'
-  get 'search_in_inquiries' => 'homes#search_in_inquiries'
+  get 'search_in_questions' => 'homes#search_in_questions'
   get '/search' => 'search#search'
   get 'article/tag/:name' => 'articles#tag'
 
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :transactions, only: [:create]
 
   # 「投稿」とそれに紐づく「お気に入り」「コメント」「星評価」
-  get 'articles/inquirings' => 'articles#inquire', as: 'inquire'
+  get 'articles/questions' => 'articles#questions', as: 'questions'
   resources :articles, except: [:edit] do
     resources :article_images
     resource  :favorites, only: %i[create destroy]

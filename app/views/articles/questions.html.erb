@@ -1,0 +1,20 @@
+<div class="container article-list">
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="d-flex justify-content-around">
+        <h4>回答募集中</h4>
+        <!--カテゴリーで絞込み-->
+        <%= form_with url: search_in_questions_path, method: :get do |f| %>
+          <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "ジャンルで絞り込む", class:"ml-5" %>
+          <%= f.submit '検索', class: 'btn btn-sm btn-danger'  %>
+        <% end %>
+      </div>
+      <div class="scroll-list jscroll", id="scroll-list_articles">
+        <%= render 'index', articles: @question_articles %>
+      </div>
+    </div>
+    <div class="col-lg-2 side-bar">
+      <%= render 'members/info', member: current_member %>
+    </div>
+  </div>
+</div>
