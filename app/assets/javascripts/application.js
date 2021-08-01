@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require jquery.raty.js
 //= require jquery.jscroll.min.js
+//= require infinite-scroll.pkgd.min
 //= require_tree .
 //= require Chart.bundle
 //= require chartkick
