@@ -75,4 +75,9 @@ class Article < ApplicationRecord
   scope :search, lambda { |keyword|     # 検索機能用。クラスメソッドを使う際に可読性を保つために定義。
     where('title LIKE :q OR body LIKE :q ', q: "%#{keyword}%") if keyword.present?
   }
+
+  # scope :スコープ名, -> (引数) { 条件式 }
+  scope :recent, -> (count) { where(is_closed: nil).order(created_at: 'DESC').limit(count) }
+  scope :shares, -> { where(is_closed: nil).order(created_at: 'DESC') }
+  scope :questions, -> { where(is_closed: false).order(created_at: 'DESC') }
 end

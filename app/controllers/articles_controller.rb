@@ -3,11 +3,11 @@ class ArticlesController < ApplicationController
   before_action :ensure_correct_member, only: %i[update destroy]
 
   def index
-    @articles = Article.where(is_closed: nil).page(params[:page]).reverse_order
+    @articles = Article.shares.page(params[:page])
   end
 
-  def inquire
-    @inquiring_articles = Article.where(is_closed: false).page(params[:page]).reverse_order
+  def questions
+    @question_articles = Article.questions.page(params[:page])
   end
 
   def new
@@ -18,8 +18,8 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.member_id = current_member.id
     if @article.save
-      redirect_to inquire_path, notice: '投稿が完了しました' if @article.is_closed == false
-      redirect_to articles_path, notice: '投稿が完了しました' if @article.is_closed == nil
+      redirect_to questions_path, notice: '投稿が完了しました' if @article.is_closed == false #ステータス相談中の場合、回答募集中一覧へ
+      redirect_to articles_path, notice: '投稿が完了しました' if @article.is_closed.nil?
     else
       render 'new'
     end
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @article_comment = ArticleComment.new
-    #-------------------グラフ表示用の変数　(世代・男女別) --------------------------
+    #-------------------グラフ表示用の変数 (世代・男女別) --------------------------
     favorite_member_attributes = Member.where(id: @article.favorites.map(&:member_id)) # 投稿に紐づくお気に入りから、その会員情報を取得する
     array = favorite_member_attributes.map(&:classify)                                 # 世代･男女別(30代前半女性etc..)に変換した上で、新たな配列を生成
     @attribute_ratio = array.group_by(&:itself).map{ |key,value| [key, value.count] }.sort.to_h # 上記の配列を評価して、同じ区分の数をバリューに入れハッシュ化。sortメソッドで多い順に並ぶ
@@ -59,7 +59,7 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body, :category_id, :is_closed, article_images_images: [])
   end
 
-  def ensure_correct_member 
+  def ensure_correct_member
     @article = Article.find(params[:id]) # 取得したデータ(@article)をbefore_actionでセットするからインスタンス変数にしている
     redirect_to articles_path unless @article.member == current_member
   end

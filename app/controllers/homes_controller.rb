@@ -1,15 +1,16 @@
 class HomesController < ApplicationController
   def top
-    @articles = Article.where(is_closed: nil).limit(4).order(created_at: 'DESC')
+    @articles = Article.recent(4)
   end
 
   def about; end
 
   def search_in_shares
-    @articles = Article.where(is_closed: nil).filter_by_category(params[:category_id]).page(params[:page]).reverse_order
+    @articles = Article.shares.filter_by_category(params[:category_id]).page(params[:page])
+    logger.info('&&&&' + params.inspect)
   end
 
-  def search_in_inquiries
-    @articles = Article.where(is_closed: false).filter_by_category(params[:category_id]).page(params[:page]).reverse_order
+  def search_in_questions
+    @question_articles = Article.questions.filter_by_category(params[:category_id]).page(params[:page])
   end
 end
