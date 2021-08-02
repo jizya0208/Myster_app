@@ -19,55 +19,60 @@
         </div>
         <div class="row">
           <div class="col-lg-6 article_img">
-              <% if @article.article_images.present? %>
-                <ul id="slider">
-                  <% @article.article_images.each do |article_image| %>
-                    <li class="slide-item">
-                      <%= attachment_image_tag article_image, :image, :fill, 300, 400, format: 'png' %>
-                    </li>
-                  <% end %>
-                </ul>
-                <ul id="thumbnail-list">
-                  <% @article.article_images.each do |article_image| %>
-                    <li class="thumbnail-item my-3">
-                      <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% else %>
-                <div class="article__no-img">
-                  <%= image_tag 'no-image.png' %>
-                </div>
-              <% end %>
-            </div>
-          <div class="col-lg-6 article_content">
-              <h4>Text</h4>
-              <% article_body = safe_join(@article.body.split("\n"), tag(:br)) %>　<!--改行には<br>を付与し、段落を反映して変数に代入。-->
-              <div class="my-3"><%= render_with_tags(article_body) %></div>        <!--上記を評価し、ハッシュタグにリンクを付与-->
-
-              <h4 class="my-3"><span class="comments-count"><%= @article.article_comments.count %></span> Comments</h4>
-              <table class="article_comments table table-md">
-                <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
-              </table>
-              <p class="mt-3">コメントフォーム</p>
-              <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
-                <%= f.text_area :body, size: "40x5" %>
-                <%= f.label :image, class: "fas fa-image image-form" do %>
-                  画像をアップロード
-                  <%= f.attachment_field :image %>
+            <% if @article.article_images.present? %>
+              <ul id="slider">
+                <% @article.article_images.each do |article_image| %>
+                  <li class="slide-item">
+                    <%= attachment_image_tag article_image, :image, :fill, 300, 400, format: 'png' %>
+                  </li>
                 <% end %>
-                <div class="text-center">
-                  <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
-                </div>
-              <% end %>
-
-              <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、グラフを表示-->
-                <p class="mt-3">お気に入りにしたユーザ(こちらは投稿者自身のみが閲覧できます)</p>
-                <div class="col-8 offset-2 pie my-1">
-                  <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
-                </div>
+              </ul>
+              <ul id="thumbnail-list">
+                <% @article.article_images.each do |article_image| %>
+                  <li class="thumbnail-item my-3">
+                    <%= attachment_image_tag article_image, :image, :fill, 80, 100, format: 'png' %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <div class="article__no-img">
+                <%= image_tag 'no-image.png' %>
+              </div>
+            <% end %>
+            <div class="tag-box">
+              <% @article.tags.each do |tag| %>
+                <span class="label"><%= link_to tag.name, "/article/tag/#{tag.name}" %></span>
               <% end %>
             </div>
+          </div>
+        <div class="col-lg-6 article_content">
+            <h4>Text</h4>
+            <% article_body = safe_join(@article.body.split("\n"), tag(:br)) %>　<!--改行には<br>を付与し、段落を反映して変数に代入。-->
+            <div class="my-3"><%= render_with_tags(article_body) %></div>        <!--上記を評価し、ハッシュタグにリンクを付与-->
+
+            <h4 class="my-3"><span class="comments-count"><%= @article.article_comments.count %></span> Comments</h4>
+            <table class="article_comments table table-md">
+              <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
+            </table>
+            <p class="mt-3">コメントフォーム</p>
+            <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
+              <%= f.text_area :body, size: "40x5" %>
+              <%= f.label :image, class: "fas fa-image image-form" do %>
+                画像をアップロード
+                <%= f.attachment_field :image %>
+              <% end %>
+              <div class="text-center">
+                <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
+              </div>
+            <% end %>
+
+            <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、グラフを表示-->
+              <p class="mt-3">お気に入り登録したユーザ層(こちらは投稿者本人のみ閲覧できます)</p>
+              <div class="col-8 offset-2 pie my-1">
+                <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

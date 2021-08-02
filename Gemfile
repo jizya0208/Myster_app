@@ -60,7 +60,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'faker'
-  
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -71,6 +71,7 @@ gem 'data-confirm-modal'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'dotenv-rails'
 gem 'font-awesome-sass', '~> 5.13'
 gem 'jquery-rails'
 gem 'kaminari', '~> 1.2.1'
@@ -83,8 +84,6 @@ gem 'rubocop-performance', require: false # パフォーマンス低下に繋が
 gem 'rubocop-rails', require: false # rails用の拡張
 gem 'rubocop-rspec', require: false # rspec用の拡張
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'dotenv-rails'
 group :production do
   gem 'mysql2'          # MySQLを利用するため
 end

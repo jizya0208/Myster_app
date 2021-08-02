@@ -28,7 +28,7 @@ class ArticleCommentsController < ApplicationController
   def article_comment_params
     params.require(:article_comment).permit(:body, :image)
   end
-  
+
   def set_article
     @article = Article.find(params[:article_id])
   end
