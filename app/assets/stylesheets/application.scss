@@ -462,7 +462,7 @@
   }
 
 
-  input[type=radio], nav.pagination { /*デフォルトのラジオボタン, ページネーションの操作キーを非表示*/
+  input[type=radio] { /*デフォルトのラジオボタンを非表示*/
     display: none;
   }
 

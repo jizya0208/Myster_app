@@ -1,1 +1,5 @@
-$(".scroll-list").html("<%= j(render 'articles/index', articles: @articles) %>");
+$(".scroll-list").prepend("<%= j(render 'articles/index', articles: @articles) %>");
+$("#test-area").remove("#test-area");
+history.replaceState( "", "" ,"?page=<%= @page %>"); <!--リロードできる様にURLを書き換えている-->
+
+

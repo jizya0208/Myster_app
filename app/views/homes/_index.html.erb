@@ -1,0 +1,28 @@
+<!--Bootstrapの「card」コンポーネントを使用-->
+<div class="containar py-5">
+  <div class="row"> <!--囲った範囲をスクロールした際に表示-->
+    <% articles.each do |article| %>
+      <div class="card shadow-lg mt-4 mx-3" style="width: 17rem">
+        <%= link_to article_path(article), data: {"turbolinks" => false} do %>
+          <%= attachment_image_tag(article.article_images.first, :image, :fill, 200, 200, format: 'png', fallback: "no-image.png", size:'200x200', class:"card-img-top") %>
+        <% end %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <p class="card-title">
+                <%= link_to(article_path(article.id), data: {"turbolinks" => false}, class:"text-dark") do %>
+                  <p><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
+                  <p><i class="fas fa-align-justify"></i> &nbsp <%= cut_off(article.body, 20) %></p>
+                <% end %>
+              </p>
+              <p><i class="fas fa-user"></i> &nbsp <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>
+              <p><i class="fas fa-comment"></i> &nbsp <%= link_to " #{article.article_comments.count} comments", article_path(article.id), data: {"turbolinks" => false}, class:"text-dark" %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate articles %>
