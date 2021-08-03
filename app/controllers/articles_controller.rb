@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
     @article.member_id = current_member.id
     if @article.save
       @article.article_images_images.each do |img|
-        tags = Vision.get_image_data(img)
+        tags = Vision.get_image_data(img) #API(Cloud Vision API)を読み込んだモジュールで定義したメソッド。
         # ja_tags = Translate.translate_to_japanese(tags)
         tags.each do |tag|
           tag = Tag.find_or_create_by(name: tag)
