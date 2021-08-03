@@ -19,15 +19,15 @@ module Vision
           },
           features: [
             {
-              type: 'LABEL_DETECTION'
+              type: 'LABEL_DETECTION' #画像全体に対して画像コンテンツ分析を実行し、結果を返す
             }
           ]
         }]
       }.to_json
 
       # Google Cloud Vision APIにリクエスト
-      uri = URI.parse(api_url)
-      https = Net::HTTP.new(uri.host, uri.port)
+      uri = URI.parse(api_url)                    #パースの役割はデータを解析し必要なデータを取り出すこと
+      https = Net::HTTP.new(uri.host, uri.port)   
       https.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri)
       request['Content-Type'] = 'application/json'
