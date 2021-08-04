@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require jquery.raty.js
 //= require jquery.jscroll.min.js
+//= require infinite-scroll.pkgd.min
 //= require_tree .
 //= require Chart.bundle
 //= require chartkick
@@ -123,19 +124,7 @@ document.addEventListener("turbolinks:load", function(){
   });
 
 
-  // 無限スクロールの処理 　上はindexページ用、下は切替タブを含む会員showページ用。
-  $(window).on('scroll', function() {
-    var scrollHeight = $(document).height();
-    var scrollPosition = $(window).height() + $(window).scrollTop();
-    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-      $('#scroll-list_articles').jscroll({
-        refresh: true,
-        contentSelector: '.scroll-list',
-        nextSelector: 'span.next:last a',
-        loadingHtml: '読み込み中'
-      });
-    }
-  });
+  // 無限スクロールの処理 => 切替タブを含む会員showページ用
   $(window).on('scroll', function() { //スクロールで発火
     var scrollHeight = $(document).height();                         // 画面全体の高さ
     var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
@@ -147,5 +136,17 @@ document.addEventListener("turbolinks:load", function(){
       });
     }
   });
+
+  $('#scroll-list_articles').infiniteScroll({
+    path: "nav.pagination  a[rel=next]",    // 次に読み込むページのURLの指定  kaminariのnext >のセレクタを指定
+    append: ".infiniteScroll",              // 読み込んだ次ページの内容のうち、追加する要素の指定。
+    hideNav: "nav.pagination",              // 非表示にするnavigationを指定する。
+    history: false,                         // urlを変更し、履歴を残すか。 falseなら固定のurlになる
+    scrollThreshold: false,                 // スクロールで自動で読み込むか。 falseなら読み込まない
+    prefill: true,
+    button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
+    status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
+  });
 });
+
 

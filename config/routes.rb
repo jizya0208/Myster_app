@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get 'contact/confirm'
   get 'contact/thanks'
   root 'homes#top'
-  get 'search_in_shares' => 'homes#search_in_shares'
-  get 'search_in_questions' => 'homes#search_in_questions'
   get '/search' => 'search#search'
   get 'article/tag/:name' => 'articles#tag'
 

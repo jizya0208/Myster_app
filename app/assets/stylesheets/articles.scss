@@ -16,4 +16,31 @@
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
+.loadmore-btn {
+	background: #dc3545;
+	border:1px solid #fff;
+	color: #fff;
+	display: inline-block;
+  font-size: 9px;
+  margin-bottom: 20px;
+	overflow: hidden;
+	padding: 0.8em;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	width: 100px;
+  &:before {
+	background : #fff;
+	content:"";
+	height: 100%;
+	left: -90px;
+	opacity: 0.3;
+	position: absolute;
+	transition: .4s;
+	top: 0px;
+	width: 100px;
+  }
+  &:hover:before {
+	left:0;
+  }
 }

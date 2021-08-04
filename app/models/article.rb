@@ -80,4 +80,5 @@ class Article < ApplicationRecord
   scope :recent, -> (count) { where(is_closed: nil).order(created_at: 'DESC').limit(count) }
   scope :shares, -> { where(is_closed: nil).order(created_at: 'DESC') }
   scope :questions, -> { where(is_closed: false).order(created_at: 'DESC') }
+  # scope :shares_category, -> { where(is_closed: nil).filter_by_category(params[:category_id]).order(created_at: 'DESC') }
 end
