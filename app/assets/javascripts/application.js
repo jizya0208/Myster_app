@@ -124,41 +124,29 @@ document.addEventListener("turbolinks:load", function(){
   });
 
 
-  // 無限スクロールの処理 　上はindexページ用、下は切替タブを含む会員showページ用。
-  // $(window).on('scroll', function() {
-  //   var scrollHeight = $(document).height();
-  //   var scrollPosition = $(window).height() + $(window).scrollTop();
-  //   if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-  //     $('#scroll-list_articles').jscroll({
-  //       refresh: true,
-  //       contentSelector: '.scroll-list',
-  //       nextSelector: 'span.next:last a',
-  //       loadingHtml: '読み込み中'
-  //     });
-  //   }
-  // });
-  // $(window).on('scroll', function() { //スクロールで発火
-  //   var scrollHeight = $(document).height();                         // 画面全体の高さ
-  //   var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
-  //   if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {   // スクロールの位置が画面下部5%の範囲に該当するか
-  //     $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、これを利用し読み込んだ要素を追加する場所を特定する
-  //       contentSelector: $('.show > .scroll-list').attr('tab'),      //  読み込む範囲を指定しつつ、 .show > .scroll-listにtabを追加(tabの中身はclass名）
-  //       nextSelector: 'span.next:last a',                            // 次のページのリンクの場所
-  //       loadingHtml: '読み込み中'
-  //     });
-  //   }
-  // });
-
+  // 無限スクロールの処理 => 切替タブを含む会員showページ用
+  $(window).on('scroll', function() { //スクロールで発火
+    var scrollHeight = $(document).height();                         // 画面全体の高さ
+    var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
+    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {   // スクロールの位置が画面下部5%の範囲に該当するか
+      $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、これを利用し読み込んだ要素を追加する場所を特定する
+        contentSelector: $('.show > .scroll-list').attr('tab'),      //  読み込む範囲を指定しつつ、 .show > .scroll-listにtabを追加(tabの中身はclass名）
+        nextSelector: 'span.next:last a',                            // 次のページのリンクの場所
+        loadingHtml: '読み込み中'
+      });
+    }
+  });
 
   $('#scroll-list_articles').infiniteScroll({
-    path: "nav.pagination  a[rel=next]",                //次に読み込むページのURLの指定  kaminariのnext >のセレクタを指定
-    append: ".infiniteScroll",      //読み込んだ次ページの内容のうち、追加する要素の指定。
-    hideNav: "nav.pagination",      //非表示にするnavigationを指定する。
-    history: false,                //urlを変更し、履歴を残すか。 falseなら固定のurlになる
-    scrollThreshold: false,    //スクロールで自動で読み込むか。 falseなら読み込まない。
+    path: "nav.pagination  a[rel=next]",    // 次に読み込むページのURLの指定  kaminariのnext >のセレクタを指定
+    append: ".infiniteScroll",              // 読み込んだ次ページの内容のうち、追加する要素の指定。
+    hideNav: "nav.pagination",              // 非表示にするnavigationを指定する。
+    history: false,                         // urlを変更し、履歴を残すか。 falseなら固定のurlになる
+    scrollThreshold: false,    // スクロールで自動で読み込むか。 falseなら読み込まない
     prefill: true,
-    button: ".loadmore-btn",   //ページをロードするためのボタン要素の指定。
-    status: ".page-load-status",  //読み込み中や全部読み込んだ後に表示するもの指定。
+    button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
+    status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
   });
 });
+
 

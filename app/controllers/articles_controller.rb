@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
       @article.article_images_images.each do |img|
         tags = Vision.get_image_data(img)
         # ja_tags = Translate.translate_to_japanese(tags)
-        tags.each do |tag|
+         tags.each do |tag|
           tag = Tag.find_or_create_by(name: tag)
           @article.tags << tag
         end

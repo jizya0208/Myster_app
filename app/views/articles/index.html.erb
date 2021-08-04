@@ -11,6 +11,17 @@
       </div>
       <div class="scroll-list jscroll", id="scroll-list_articles">
         <%= render 'index', articles: @articles %>
+        <%= paginate @articles %>
+      </div>
+      <div class="scroll-menu text-center">
+        <% unless @articles.size < 6 %>
+          <button class="loadmore-btn" type="button">もっと見る</button>
+        <% end %>
+        <div class="page-load-status" style="display:none;">
+          <div class="infinite-scroll-request">ロード中</div>
+          <p class="infinite-scroll-last">これ以上は記事がありません</p>
+          <p class="infinite-scroll-error">読み込むページがありません</p>
+        </div>
       </div>
     </div>
     <div class="col-lg-2 side-bar">
@@ -18,5 +29,3 @@
     </div>
   </div>
 </div>
-
-
