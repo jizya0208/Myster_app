@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 .label {
   background-color: #fff;
   font-weight: 500;
@@ -16,6 +15,8 @@
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
+}
+
 .loadmore-btn {
 	background: #dc3545;
 	border:1px solid #fff;
@@ -30,17 +31,17 @@
 	text-decoration: none;
 	width: 100px;
   &:before {
-	background : #fff;
-	content:"";
-	height: 100%;
-	left: -90px;
-	opacity: 0.3;
-	position: absolute;
-	transition: .4s;
-	top: 0px;
-	width: 100px;
+		background : #fff;
+		content:"";
+		height: 100%;
+		left: -90px;
+		opacity: 0.3;
+		position: absolute;
+		transition: .4s;
+		top: 0px;
+		width: 100px;
   }
   &:hover:before {
-	left:0;
+		left:0;
   }
 }

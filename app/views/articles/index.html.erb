@@ -5,7 +5,7 @@
         <h4>シェア</h4>
         <!--カテゴリーで絞込み-->
         <%= form_with url: articles_path, method: :get, local: true do |f| %>
-          <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "すべて" %>
+          <%= f.collection_select :category_id, Category.all, :id, :name,{ include_blank: "すべて", selected: params[:category_id]}, class:"ml-5"  %>
           <%= f.submit '検索', class: 'btn btn-sm btn-danger' %>
         <% end %>
       </div>
