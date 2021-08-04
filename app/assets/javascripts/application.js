@@ -142,7 +142,7 @@ document.addEventListener("turbolinks:load", function(){
     append: ".infiniteScroll",              // 読み込んだ次ページの内容のうち、追加する要素の指定。
     hideNav: "nav.pagination",              // 非表示にするnavigationを指定する。
     history: false,                         // urlを変更し、履歴を残すか。 falseなら固定のurlになる
-    scrollThreshold: false,    // スクロールで自動で読み込むか。 falseなら読み込まない
+    scrollThreshold: false,                 // スクロールで自動で読み込むか。 falseなら読み込まない
     prefill: true,
     button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
     status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。

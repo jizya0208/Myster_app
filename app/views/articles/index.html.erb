@@ -14,7 +14,7 @@
         <%= paginate @articles %>
       </div>
       <div class="scroll-menu text-center">
-        <% unless @articles.size < 6 %>
+        <% unless @articles.last_page? %> <!--最終ページでない限り読み込みボタンを-->
           <button class="loadmore-btn" type="button">もっと見る</button>
         <% end %>
         <div class="page-load-status" style="display:none;">
