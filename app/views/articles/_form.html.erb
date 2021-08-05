@@ -16,7 +16,7 @@
 
   <!--タブ①相談中の記述。tab-paneはタブの表示内容、fadeは切替に動きを出す役割-->
   <div class="tab-content mt-3">
-  	<div class="tab-pane in active" id="tab_inquire" role="tabpanel">
+  	<div class="tab-pane in active" id="tab_question" role="tabpanel">
       <%= form_with model: article,local: true do |f| %>
         <!--相談ステータス:false(相談中)を渡す-->
         <%= f.hidden_field :is_closed, value: false %>

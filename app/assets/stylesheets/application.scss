@@ -343,7 +343,7 @@
   }
 
   .slide-item img,  .article__no-img > img, .member__img > img {
-    border-radius: 15%;
+    border-radius: 10%;
     height: 100%;
     object-fit: contain; /*縦横比を保持し、ボックスに収まるようにリサイズ*/
     width: 100%;
@@ -630,11 +630,15 @@
   }
 
   .article_content {
-    max-width: 220px;
+    max-width: 280px;
   }
 
   #article_comment_body, .image-form, #article_comment_image {
     font-size: 7px;
     width: 80%;
+  }
+
+  #contact_name, #contact_message {
+    width: 90%;
   }
 }
