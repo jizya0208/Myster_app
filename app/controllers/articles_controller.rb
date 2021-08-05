@@ -27,11 +27,11 @@ class ArticlesController < ApplicationController
     @article.member_id = current_member.id
     if @article.save
       @article.article_images_images.each do |img|
-        tags = Vision.get_image_data(img) #API(Cloud Vision API)を読み込んだモジュールで定義したメソッド。
-        # ja_tags = Translate.translate_to_japanese(tags)
+        tags = Vision.get_image_data(img) # API(Cloud Vision API)を読み込んだモジュールで定義したメソッド。
         tags.each do |tag|
-          tag = Tag.find_or_create_by(name: tag)
-          @article.tags << tag
+          ja_tag = Translate.to_japanese(tag) # タグの日本語化
+          ja_tag = Tag.find_or_create_by(name: ja_tag)
+          @article.tags << ja_tag
         end
       end
       redirect_to questions_path, notice: '投稿が完了しました' if @article.is_closed == false #ステータス相談中の場合、回答募集中一覧へ

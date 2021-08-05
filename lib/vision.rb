@@ -27,8 +27,8 @@ module Vision
 
       # Google Cloud Vision APIにリクエスト
       uri = URI.parse(api_url)                    #パースの役割はデータを解析し必要なデータを取り出すこと
-      https = Net::HTTP.new(uri.host, uri.port)   
-      https.use_ssl = true
+      https = Net::HTTP.new(uri.host, uri.port) # ホスト名とはドメイン名のこと(translation.googleapis.comとか)で、ポート番号とはアプリなどが使用する出入口(443とか)
+      https.use_ssl = true # SSL（Secure Sockets Layer）とは、インターネット上におけるウェブブラウザとウェブサーバ間でのデータの通信を暗号化し、送受信させる仕組み
       request = Net::HTTP::Post.new(uri.request_uri)
       request['Content-Type'] = 'application/json'
       response = https.request(request, params)
