@@ -72,7 +72,7 @@ class Article < ApplicationRecord
     notification.save if notification.valid?
   end
 
-  scope :search, lambda { |keyword|     # 検索機能用。クラスメソッドを使う際に可読性を保つために定義。
+  scope :search, lambda { |keyword|     # 検索機能用。クラスメソッドを使う際に可読性を保つために定義。lambdaは無名関数を表す。
     where('title LIKE :q OR body LIKE :q ', q: "%#{keyword}%") if keyword.present?
   }
 

@@ -147,6 +147,30 @@ document.addEventListener("turbolinks:load", function(){
     button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
     status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
   });
+  
+  
+  $(function() {
+    $(".search-input").on("keyup", function() { //.search-inputをkeyup(キーボードから指あげた時)にその値を.valで取得し、
+      let input = $(".search-input").val();
+       $.ajax({                                 // 非同期でサーバーに要求データ（リクエスト）を送る
+        type: 'GET',                            // HTTPメソッドを指定                        
+        url: '/search/search',                  // データ送信先
+        data: { keyword: input },               // コントローラーに送るデータを指定 => キー(:keyword)にバリュー(input)をセット
+        dataType: 'json'                        // json形式で送る
+      });
+      $.done(function(keywords) {                 // .doneとはjbuilderから送られてきた情報を受け取るところ
+        $(".contents.row").empty();
+        if (keywords.length !== 0) {
+          keywords.forEach(function(keyword){
+            appendArticle(keyword);
+          });
+        }
+        else {
+          appendErrMsgToHTML("一致する投稿がありません");
+        }
+      })
+    });
+  });
 });
 
 
