@@ -3,7 +3,7 @@ document.addEventListener("turbolinks:load", function(){
   $(function() {
       const searchResult = $('.result ul'); //検索候補表示位置のセレクタ
 
-  　　　// データがあった場合に呼ばれる関数。jsでテンプレートリテラルを使用するには``内に${}で囲って記述する。letはブロック変数。
+  　　　// データがあった場合に呼ばれる関数。jsでテンプレートリテラルを使用するには``内に${}で囲って記述する。letはブロック変数
       function builtHTML(data){
         let html = `
         <li>
