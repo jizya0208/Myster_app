@@ -68,6 +68,16 @@ class ArticlesController < ApplicationController
     @tag = Tag.find_by(name: params[:name])
     @articles = @tag.articles.page(params[:page]).reverse_order
   end
+  
+  def search
+    @keyword = params[:keyword]
+    return nil if @keyword.blank? 
+    @articles = Article.search(@keyword).limit(6)
+    respond_to do |format| # サーバーがjson形式で値をかえし、jbuilderファイルを使えるようにする。respond_toがフォーマット毎に処理を分ける役割
+      format.html
+      format.json # jsonで送られた時はその情報はjbuilderへと流れるjbuilderの役割としては、html形式だった情報をjsonに変換して、非同期でhtml上で表示をさせることができる形に変換させること)
+    end
+  end
 
   private
 

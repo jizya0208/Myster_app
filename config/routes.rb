@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get 'contact/confirm'
   get 'contact/thanks'
   root 'homes#top'
-  get '/search' => 'search#search'
   get 'article/tag/:name' => 'articles#tag'
 
   # 「会員」
@@ -33,6 +32,9 @@ Rails.application.routes.draw do
   # 「投稿」とそれに紐づく「お気に入り」「コメント」「星評価」
   get 'articles/questions' => 'articles#questions', as: 'questions'
   resources :articles, except: [:edit] do
+    collection do
+      get 'search'
+    end
     resources :article_images
     resource  :favorites, only: %i[create destroy]
     resources :article_comments, only: %i[create destroy show] do

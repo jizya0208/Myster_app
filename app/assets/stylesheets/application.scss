@@ -66,8 +66,10 @@
     .header-msg, .search-form {
       font-size: 11px;
     }
+    .result a {
+      color: #fff;
+    }
   }
-
   .navbar-nav > .header-icon { /* ヘッダーリンク。アイコンホバー時にテキストを表示 */
     color: white;
     border-radius: 3%;
@@ -86,13 +88,13 @@
     line-height: 35px;
   	opacity: 0;	/* 通常時はマスクを表示しない */
   	position:	absolute;	/* 絶対位置指定 */
-  	top: -30%;
+  	top: -25%;
   	transition:		all 0.3s ease;
   	-webkit-transition:	all 0.3s ease;
   	width: 120%;
     	&:hover {
     	opacity: 1;	/* マスクを表示する */
-    	top: 30%;	/* 表示位置を元に戻す */
+    	top: 25%;	/* 表示位置を元に戻す */
       }
     }
   }

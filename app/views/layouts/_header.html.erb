@@ -14,9 +14,10 @@
           <% if member_signed_in? %>
             <li class="d-flex align-items-center header-msg"><span>ようこそ、<%= link_to current_member.name, member_path(current_member), id: "login-member" %>さん！</span></li>
             <li class="d-flex align-items-center search-form">
-              <%= form_with url: search_path, local: true, method: :get do |f| %>
-                <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力" %>
+              <%= form_with url: search_articles_path, local: true, method: :get do |f| %>
+                <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力", id:'search-form' %>
                 <%= button_tag "", class:"clear-decoration fas fa-search clear-decoration" %>
+                <div class="result"><ul></ul></div>
               <% end%>
             </li>
             <%= link_to new_article_path, class: 'nav-link header-icon' do %> <li class="fas fa-plus-circle"><span class="mask">新規投稿</span></li> <% end %>
