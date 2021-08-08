@@ -339,12 +339,12 @@
     font-size: .9rem;
   }
 
-  #slider, .article__no-img, .member__img {
+  #slider, .article__no-img{
     height: 500px;
     width: 400px;
   }
 
-  .slide-item img,  .article__no-img > img, .member__img > img {
+  .slide-item img,  .article__no-img > img {
     border-radius: 10%;
     height: 100%;
     object-fit: contain; /*縦横比を保持し、ボックスに収まるようにリサイズ*/
@@ -560,7 +560,7 @@
     }
   }
 
-  #slider, .article__no-img, .member__img  {
+  #slider, .article__no-img {
     height: 400px;
     margin: 0 auto;
     width: 300px;
@@ -569,6 +569,11 @@
   .article_content, .side-bar {
     text-align: center;
     margin: 0 auto;
+  }
+  
+  .profile-image-circle {
+    height: 150px;
+    width: 150px;
   }
 
 }
@@ -626,7 +631,7 @@
     width: 200px;
   }
 
-  #slider,  .article__no-img,  .member__img  {
+  #slider,  .article__no-img {
     height: 250px;
     width: 200px;
   }

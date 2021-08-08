@@ -1,3 +1,20 @@
 // Place all the styles related to the members controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.member__img > img {
+  border-color: white;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+  width: 80%;
+}
+
+@media screen and (max-width: 1024px) {
+  .member__img > img {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+
