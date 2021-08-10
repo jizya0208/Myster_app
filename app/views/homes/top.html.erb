@@ -1,5 +1,5 @@
 <div class="p-top">
-    <div class="p-top__daylight">
+  <div class="p-top__daylight">
     <div class="p-top__daylight--thin"></div>
   </div>
   <section class="p-top__img-list d-flex">
@@ -15,7 +15,7 @@
   </div>
 
   <section class="p-top__ttl">
-    <h2 class="p-top__ttl--heading">welcome to<h2>
+    <h2 class="p-top__ttl--heading">welcome to</h2>
     <div class="p-top__ttl--logo mx-auto"></div>
     <div class="p-top__goastFlare"></div>
   </section>
@@ -38,24 +38,21 @@
     </p>
   </section>
 
-  <section class="p-top__news">
+  <section class="p-top__news container">
     <h2 class="p-top__news--ttl">
       <span>N</span>
       <span>E</span>
       <span>W</span>
       <span>S</span>
     </h2>
-
-    <div class="container my-5 py-5">
-      <div class="row">
-        <div class="col-md-12 col-lg-8 d-flex flex-wrap pt-4">
-          <% @articles.each do |article| %>
-            <%= link_to article_path(article), data: {"turbolinks" => false} do %>
-              <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
-              <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "p-top__news--img") %>
-            <% end %>
+    <div class="row  my-5 py-5">
+      <div class="col-md-12 col-lg-8 d-flex flex-wrap pt-4">
+        <% @articles.each do |article| %>
+          <%= link_to article_path(article), data: {"turbolinks" => false} do %>
+            <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
+            <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "p-top__news--img") %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
 
@@ -70,7 +67,6 @@
     <p><%= image_tag "img/p-top_logo.png", alt:"Myster", width: 280 %></p>
   </div>
 </div>
-
 <script>
   $(function() {
   	setTimeout(function(){

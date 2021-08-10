@@ -120,14 +120,6 @@
     outline: none; /* クリックしたときに表示される枠線を消す */
   }
 
- .date {/*投稿日時の日付を強調、右側に枠線*/
-   border-right: 1px solid #000;
-   > span {
-     display:block;
-     font-size: 150%;
-    }
-  }
-
 
   h3, h4 {/*セクションのタイトルで使用。文字列より少し短い下線*/
     color:#a62901;
@@ -161,6 +153,7 @@
 
  .side-bar {/*サイドバー背景色*/
     background-color: #f1e9d5;
+    height: 85vh;
   }
 
  .fas {/*アイコン少し強調*/
@@ -190,12 +183,12 @@
     font-size: .9rem;
   }
 
-  #slider, .article--no-img{
+  #slider, .article-noImg{
     height: 500px;
     width: 400px;
   }
 
-  .slide-item img,  .article--no-img > img {
+  .slide-item img,  .article-noImg > img {
     border-radius: 10%;
     height: 100%;
     object-fit: contain; /*縦横比を保持し、ボックスに収まるようにリサイズ*/
@@ -283,18 +276,9 @@
     width: 80%;
   }
 
-  .article_comments { /* 投稿記事のコメント欄サイズ調整、文字と星評価画像を小さく */
-    font-size: 12px;
-    .rate_average img {
-      height: 10%;
-      width: 8%;
-    }
-  }
-
   .btn-danger, .btn-secondary {
     box-shadow: 7px 3px 3px #5F2428;
   }
-
 
   input[type=radio], .pagination { /*デフォルトのラジオボタン, ページネーションの操作キーを非表示*/
     display: none;
@@ -380,20 +364,25 @@
     width: 110px;
   }
 
-  #slider, .article--no-img {
+  #slider, .article-img, .article-noImg {
     height: 400px;
     margin: 0 auto;
     width: 300px;
   }
 
-  .article_content, .side-bar {
+  .side-bar {
+    height: 100%;
     text-align: center;
     margin: 0 auto;
   }
-  
+
   .profile-image-circle {
     height: 150px;
     width: 150px;
+  }
+  
+  #article_comment_body  {
+    width: 80%;
   }
 
 }
@@ -415,13 +404,9 @@
     width: 200px;
   }
 
-  #slider,  .article--no-img {
+  #slider, .article-img, .article-noImg {
     height: 250px;
     width: 200px;
-  }
-
-  .article-content {
-    max-width: 280px;
   }
 
   #article_comment_body, .image-form, #article_comment_image {
@@ -431,5 +416,9 @@
 
   #contact_name, #contact_message {
     width: 90%;
+  }
+  
+  .side-bar {
+    margin: 0 10vw auto;
   }
 }

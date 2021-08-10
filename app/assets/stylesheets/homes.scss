@@ -206,7 +206,7 @@
       }
 
       &__goastFlare {
-        top: -20vh;
+        top: -17vh;
       }
 
       &__txtCircle--txt {
@@ -234,8 +234,16 @@
       }
       
       &__news {
+        margin: 0 20vh;
         &--ttl {
-          font-size: 10vw;
+          font-size: 8vw;
+        }
+        
+        &--img {
+          border-radius: 3em;
+          height: 200px;
+          margin: 10px;
+          width: 200px;
         }
       }
     }
