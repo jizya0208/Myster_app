@@ -61,7 +61,7 @@ class AccountHistoriesController < ApplicationController
         when "0" then amount = 100
         when "1" then amount = 500
         when "2" then amount = 1000
-        when "3" then amount = params[:amount].to_i
+        when "3" then amount = params[:amount].to_i # シンボルから数値型へ変更
       end
       # 取引番号
       transaction_number = TransactionNumber.new
