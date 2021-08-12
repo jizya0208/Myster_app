@@ -1,28 +1,27 @@
-<div class="top-visual-content">
-    <div class="daylight">
-    <div class="thin"></div>
+<div class="p-top">
+  <div class="p-top__daylight">
+    <div class="p-top__daylight--thin"></div>
   </div>
-  <section class="p-top_images d-flex">
-    <div class="p-top_mainImage"></div>
-    <div class="p-top_subImage"></div>
-    <div class="p-top_circle">
-      <h2 class="p-top_txt">Fashion Cordinate Ideas</h2>
+  <section class="p-top__img-list d-flex">
+    <div class="p-top__img-list--mainImage"></div>
+    <div class="p-top__img-list--subImage"></div>
+    <div class="p-top__txtCircle">
+      <h2 class="p-top__txtCircle--txt">Fashion Cordinate Ideas</h2>
     </div>
   </section>
 
-  <div class="daylight">
-    <div class="thick"></div>
+  <div class="p-top__daylight">
+    <div class="p-top__daylight--thick"></div>
   </div>
 
-
-  <section class="p-top_title">
-    <h2 class="p-top_heading">welcome to<h2>
-    <div class="p-top_logo mx-auto"></div>
-    <div class="goastFlare"></div>
+  <section class="p-top__ttl">
+    <h2 class="p-top__ttl--heading">welcome to</h2>
+    <div class="p-top__ttl--logo mx-auto"></div>
+    <div class="p-top__goastFlare"></div>
   </section>
 
-  <section class="p-top_about py-1">
-    <h2 class="p-top_aboutTtl">
+  <section class="py-1 p-top__about">
+    <h2 class="p-top__about--ttl">
       <span>A</span>
       <span>B</span>
       <span>O</span>
@@ -30,7 +29,7 @@
       <span>T</span>
     </h2>
 
-    <p class="p-top_aboutBody mt-2">
+    <p class="p-top__about--body mt-2">
        &nbsp マイスタは、ファッションコーディネート画像の投稿を目的としたSNSサイトです！<br>
       旬なファッション情報を収集することはもちろん、コーディネートに関する相談も可能です。<br>
       「持っている洋服が活用できない」「体型に合う服装が分からない」「特別な場所へ行く予定<br>
@@ -39,24 +38,21 @@
     </p>
   </section>
 
-  <section class="p-top_news pt-5 my-3">
-    <h2 class="p-top_newsTtl pb-2">
+  <section class="p-top__news container">
+    <h2 class="p-top__news--ttl">
       <span>N</span>
       <span>E</span>
       <span>W</span>
       <span>S</span>
     </h2>
-
-    <div class="container my-5 py-5">
-      <div class="row">
-        <div class="col-md-12 col-lg-8 d-flex flex-wrap pt-4">
-          <% @articles.each do |article| %>
-            <%= link_to article_path(article), data: {"turbolinks" => false} do %>
-              <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
-              <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "news_img") %>
-            <% end %>
+    <div class="row  my-5 py-5">
+      <div class="col-md-12 col-lg-8 d-flex flex-wrap pt-4">
+        <% @articles.each do |article| %>
+          <%= link_to article_path(article), data: {"turbolinks" => false} do %>
+            <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
+            <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "p-top__news--img") %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
 
@@ -67,18 +63,17 @@
     </div>
   </section>
 
-
-<div class="start">
-  <p><%= image_tag "img/p-top_logo.png", alt:"Myster", width: 280 %></p>
+  <div class="p-top__start">
+    <p><%= image_tag "img/p-top_logo.png", alt:"Myster", width: 280 %></p>
+  </div>
 </div>
-
 <script>
   $(function() {
   	setTimeout(function(){
-  		$('.start p').fadeIn(1600);
+  		$('.p-top__start p').fadeIn(1600);
   	},400); //0.4秒後にロゴをフェードイン!
   	setTimeout(function(){
-  		$('.start').fadeOut(500);
+  		$('.p-top__start').fadeOut(500);
   	},2400); //2.4秒後にロゴ含め真っ白背景をフェードアウト！
   });
 </script>

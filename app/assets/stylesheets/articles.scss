@@ -2,19 +2,53 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.article-content {
+	padding-bottom: 10px;
+	&__date {/*投稿日時の日付を強調、右側に枠線*/
+		& p {
+	    border-right: 1px solid #000;
+	    padding-right: 20px;
+	    text-align: right;
+	    & span {
+	      display:block;
+	      font-size: 150%;
+	    }
+	  }
+	}
+	
+	&__info {
+		text-align: right;
+		& li {
+		  display: inline-block;
+      padding: 3px;
+		}
+	}
+	
+	&__commentTable { /* 投稿記事のコメント欄サイズ調整、文字と星評価画像を小さく */
+    font-size: 12px;
+    .rate_average img {
+      height: 10%;
+      width: 8%;
+    }
+  }
+}
+
+.tag-box {
+	text-align: center;
+}
+
 .label {
   background-color: #fff;
+  border-radius: .25em;
   font-weight: 500;
   display: inline;
-  padding: .2em .6em .3em;
   font-family: 'Kaushan Script';
   font-size: 75%;
   font-weight: bold;
   line-height: 1;
-  text-align: center;
+  padding: .2em .6em .3em;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .25em;
 }
 
 .loadmore-btn {
@@ -45,4 +79,30 @@
   &:hover:before {
 		left:0;
   }
+}
+
+@media screen and (max-width: 768px) {
+	.article-content {	
+		&__mainTxt  {
+			margin-top: 16vh;
+			text-align: center;
+		}
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.article-content {
+		max-width: 280px;
+		&__mainTxt  {
+			margin-top: 18vh;
+		}
+		&__date {/*投稿日時の日付を強調、右側に枠線*/
+			& p {
+				padding-right: 40px;
+				& span {
+					font-size: 190%;
+				}
+			}
+		}
+	}
 }

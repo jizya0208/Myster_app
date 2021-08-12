@@ -123,7 +123,6 @@ document.addEventListener("turbolinks:load", function(){
      }
   });
 
-
   // 無限スクロールの処理 => 切替タブを含む会員showページ用
   $(window).on('scroll', function() { //スクロールで発火
     var scrollHeight = $(document).height();                         // 画面全体の高さ
@@ -147,39 +146,6 @@ document.addEventListener("turbolinks:load", function(){
     button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
     status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
   });
-
-
-
-  // const inputForm = $('#searching-form');
-  // const url = location.href;
-  // const searchResult = $('.result ul');
-
-  // function builtHTML(data){
-  //   let html = `
-  //   <li>${data.name}</li>
-  //   `
-  //   searchResult.append(html);
-  // }
-
-  // function NoResult(message){
-  //   let html = `
-  //   <li>${message}</li>
-  //   `
-  //   searchResult.append(html);
-  // }
-
-  // var search_list = $(".contents.row");
-
-  // function appendArticle(article) {
-  //   var html = `<div class="content_post">
-  //                 <p>${article.title}</p><br>
-  //               </div>`
-  //   search_list.append(html);
-  // }
-  // function appendErrMsgToHTML(msg) {
-  //     var html = `<div class='name'>${ msg }</div>`
-  //     search_list.append(html);
-  //   }
 });
 
 
