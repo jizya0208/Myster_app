@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_124838) do
+ActiveRecord::Schema.define(version: 2021_08_12_103317) do
 
   create_table "account_histories", force: :cascade do |t|
     t.integer "transaction_number_id"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 2021_07_19_124838) do
     t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "parent_id"
+    t.index ["parent_id"], name: "index_article_comments_on_parent_id"
   end
 
   create_table "article_images", force: :cascade do |t|
