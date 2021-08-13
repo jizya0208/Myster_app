@@ -14,4 +14,6 @@ class ArticleComment < ApplicationRecord
   def rated_by?(member)
     ratings.where(member_id: member.id).exists?
   end
+  
+  scope :original, -> { where(parent_id: nil) }
 end
