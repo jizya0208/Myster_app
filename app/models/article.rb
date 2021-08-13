@@ -50,7 +50,7 @@ class Article < ApplicationRecord
   end
 
   # コメントに対する通知を生成するメソッド。期待する挙動：同じ投稿にコメントしているユーザーに通知を送る。
-  def create_notification_comment!(current_member, article_comment_id)
+  def create_notification_comment!(current_member, article_comment_id) # !を付けているのはメソッド内でデータ登録をおこなうので呼び出し時に注意喚起をするため
     temp_ids = ArticleComment.select(:member_id).where(article_id: id).where.not(member_id: current_member.id).distinct # 投稿にコメントしている自分以外のユーザーを重複なし(=>distinct)でリスト化。
     temp_ids.each do |temp_id| # 取得したユーザー達へ通知を作成。（member_idのみ繰り返し取得）
       save_notification_comment!(current_member, article_comment_id, temp_id['member_id'])
