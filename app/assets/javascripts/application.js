@@ -26,6 +26,15 @@
 
 /*global $*/
 document.addEventListener("turbolinks:load", function(){
+  
+  $(function(){
+    $('.js-accordion-title').on('click', function () { /*クリックでコンテンツを開閉*/
+      $(this).next().slideToggle(200);
+      /*矢印の向きを変更*/
+      $(this).toggleClass('open', 200);
+    });
+  });
+  
   var slider = "#slider"; // スライダー
   var thumbnailItem = "#thumbnail-list .thumbnail-item"; // サムネイル画像アイテム
 

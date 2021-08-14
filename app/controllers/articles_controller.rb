@@ -44,6 +44,16 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @article_comment = ArticleComment.new
+    
+    
+    
+    @parent_comments = ArticleComment.where(article_id: params[:id], parent_id: nil)
+    @article_comment_reply = @article.article_comments.new
+    @rating = Rating.new
+    
+    
+    
+    
     #-------------------グラフ表示用の変数 (世代・男女別) --------------------------
     favorite_member_attributes = Member.where(id: @article.favorites.map(&:member_id)) # 投稿に紐づくお気に入りから、その会員情報を取得する
     array = favorite_member_attributes.map(&:classify)                                 # 世代･男女別(30代前半女性etc..)に変換した上で、新たな配列を生成
