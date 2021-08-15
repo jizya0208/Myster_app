@@ -20,6 +20,7 @@
  @import "slick-theme";
  @import "slick";
 
+
  * {/*リセットCSS*/
    box-sizing: border-box;
    font-family: Courier, Chalkduster, 'Segoe Print', 'Hannari', 'Sawarabi Mincho', 'Hannotate SC', sans-serif; /*フォントを変更*/
@@ -348,6 +349,22 @@
     color: green;
   }
 
+.item_image_btn{
+    display: none;
+}
+
+#img_field {
+  font-size: 25px;
+  font-style: inherit;
+  margin: 0 auto;
+  color: white;
+  background-color: #5bc0de;
+  border-radius: 5px;
+  width: 300px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
 
 // ------------------------------タブレットサイズ----------------------------------
 @media screen and (max-width: 1024px) {
@@ -380,7 +397,7 @@
     height: 150px;
     width: 150px;
   }
-  
+
   #article_comment_body  {
     width: 80%;
   }
@@ -417,7 +434,7 @@
   #contact_name, #contact_message {
     width: 90%;
   }
-  
+
   .side-bar {
     margin: 0 10vw auto;
   }

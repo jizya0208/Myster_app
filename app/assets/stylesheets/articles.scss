@@ -15,7 +15,7 @@
 	    }
 	  }
 	}
-	
+
 	&__info {
 		text-align: right;
 		& li {
@@ -23,14 +23,58 @@
       padding: 3px;
 		}
 	}
-	
-	&__commentTable { /* 投稿記事のコメント欄サイズ調整、文字と星評価画像を小さく */
-    font-size: 12px;
-    .rate_average img {
-      height: 10%;
-      width: 8%;
-    }
-  }
+
+  &__commentCount {
+	  border-bottom: solid 3px #876654;
+	  border-left: solid 3px #876654;
+	  color: #876654;
+	  display: inline-block;
+	  font-size:  22px;
+	  font-weight: bold;
+	  padding: 0.25em 0.5em;
+	  position: relative;
+	  text-decoration: none;
+	  transition: .6s;
+		&:hover {
+			background-color: #876654;
+		  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
+		  cursor: pointer;
+		  color: white;
+		  transform: translateY(5px);
+		}
+	}
+}
+
+.accordion-title{
+  position: relative; // トグルの位置固定
+}
+
+.accordion-content {
+  display: none;       // デフォルトは隠す
+}
+
+.accordion-title:after {
+  content: '\f107'; //下向き矢印
+  color: #876654;
+  display: block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 22px;
+  height: 52px;
+  padding: 15px 15px;
+  position: absolute;
+  right: 20%;
+  top: 0px;
+}
+
+.accordion-title.open:after {
+  transform: rotate(180deg); 
+}
+
+
+.rate_average img { /*星評価画像を小さく */
+  height: 10%;
+  width: 8%;
 }
 
 .tag-box {
@@ -82,7 +126,7 @@
 }
 
 @media screen and (max-width: 768px) {
-	.article-content {	
+	.article-content {
 		&__mainTxt  {
 			margin-top: 16vh;
 			text-align: center;

@@ -9,6 +9,7 @@ class ArticleCommentsController < ApplicationController
 
     @parent_comments = ArticleComment.where(article_id: @article.id, parent_id: nil)
     @article_comment_reply = @article.article_comments.new
+    @parent_comment = ArticleComment.find_by(id: @article_comment.parent)
 
     if @article_comment.save
       @article.create_notification_comment!(current_member, @article_comment.id)

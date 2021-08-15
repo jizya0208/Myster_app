@@ -1,67 +1,125 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-sm-8">
-      <p><%= @article_comment.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></p>
-      <h4>コメント本文</h4>
-      <div class="my-4"><%= safe_join(@article_comment.body.split("\n"), tag(:br)) %></div> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
-      <p>by &nbsp <%= link_to @article_comment.member.name, member_path(@article_comment.member) %></p>
-      <% if other_member?(@article_comment.member) && !(@article.is_closed.nil?) %> <!--自分のコメントへの評価不可、相談ステータスのない投稿に紐づくコメントへの評価不可-->
-        <% if @article_comment.rated_by?(current_member) %>                        <!--評価済みか否かで条件分岐-->
-          <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :patch, local:true do |f| %>
-            <div class="star-form-group" id="update-rating">                          <!--空タグ。idで識別子を付与することがポイント。-->
-              <%= f.label :rate, "こちらのコメントは参考になりましたか？" %>
-              <%= f.hidden_field :rate, id: "rate" %>
-            </div>
-            <%= f.submit "評価する", class: 'btn btn-sm btn-danger' %>
+<!--accordion-containerの中にtitleとontentを配置-->
+<div class="accordion-container">
+  <div class="accordion-title js-accordion-title">
+    <span class="article-content__commentCount"><%= @article.article_comments.count %></span> Comments</h4>
+  </div>
+  <div class="container accordion-content">
+    <div class="row">
+      <div class="col-md-8 offset-md-1">
+        <div class="row d-flex align-items-center py-3"> <!--要素の高さ中央揃え-->
+          <div class="col font-weight-bold">
+            <%= link_to member_path(@article_comment.member) do %>
+              <%= attachment_image_tag(@article_comment.member, :image, :fill, 40, 40, format: 'png', fallback: "no-image-icon.png", size: '40x40') %>
+              <%= @article_comment.member.name %>さん
+            <% end %>
+          </div>
+          <div class="col align-items-center text-right font-weight-bold">
+            <%= @article_comment.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+          </div>
+        </div>
+
+        <div class="card-body border border-secondary rounded-lg bg-white"><%= safe_join(@article_comment.body.split("\n"), tag(:br)) %></div> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
+        <% if other_member?(@article_comment.member) && !(@article.is_closed.nil?) %> <!--自分のコメントへの評価不可、相談ステータスのない投稿に紐づくコメントへの評価不可-->
+          <% if @article_comment.rated_by?(current_member) %>                         <!--評価済みか否かで条件分岐-->
+            <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :patch, local:true do |f| %>
+              <div class="text-right my-2">
+                <span class="instruction--sm-grey">こちらのコメントは参考になりましたか？</span>
+                <span class="star-form-group" id="update-rating">                     <!--空タグ。idで識別子を付与することがポイント。-->
+                  <%= f.hidden_field :rate, id: "rate" %>
+                  <% @rated = Rating.find_by(member_id: current_member, article_comment_id: @article_comment) %>
+                </span>
+                <%= f.submit "上書き", class: 'btn btn-sm btn-danger' %>
+              </div>
+            <% end %>
+
+            <script>
+              $('.star-form-group').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+              $("#update-rating").raty({
+                size: 28,                                      //星のサイズ
+                starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+                score: <%= @rated.rate %>,                     //scoreオプションで前回の評価内容を取得
+                scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに上書き保存(再評価)
+              });
+            </script>
+
+          <!--評価をまだ付けていない場合↓  -->
+          <% elsif @article_comment.member != current_member %>
+            <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :post, local:true do |f| %>
+              <span class="instruction--sm-grey">こちらのコメントは参考になりましたか？</span>
+              <span class="star-form-group" id="before-rating">   <!--空タグ。idで識別子を付与することがポイント。-->
+                <%= f.hidden_field :rate, id: "rate" %>
+              </span>
+                <%= f.submit "保存", class: 'btn btn-sm btn-danger' %>
+            <% end %>
+            <script>
+              $('.star-form-group').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+              $("#before-rating").raty({
+                size: 28,                                      //星のサイズ
+                starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+                scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
+              });
+            </script>
           <% end %>
-          <% @rated = Rating.find_by(member_id: current_member, article_comment_id: @article_comment) %>
-  
-          <script>
-            $('#star-rate-<%= @article_comment.id %>').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
-            $("#update-rating").raty({
-              size: 28,                                      //星のサイズ
-              starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
-              starOn : '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
-              score: <%= @rated.rate %>,                     ///scoreオプションで前回の評価内容を取得
-              scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
-            });
-          </script>
-  
-        <!--評価をまだ付けていない場合↓  -->
-        <% elsif @article_comment.member != current_member %>
-          <%= form_with model: @rating, url: article_article_comment_ratings_path(@article_comment.article_id, @article_comment.id), method: :post, local:true do |f| %>
-            <div class="star-form-group" id="before-rating">   <!--空タグ。idで識別子を付与することがポイント。-->
-              <%= f.label :rate, "こちらのコメントは参考になりましたか？" %>
-              <%= f.hidden_field :rate, id: "rate" %>
-            </div>
-            <%= f.submit "評価する", class: 'btn btn-sm btn-danger' %>
-          <% end %>
-          <script>
-            $("#before-rating").raty({
-              size: 28,                                      //星のサイズ
-              starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
-              starOn : '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
-              scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
-            });
-          </script>
         <% end %>
-      <% end %>
-      <div class="my-2">
-        <%= link_to "戻る", article_path(params[:article_id]), class: "btn btn-sm btn-secondary", id: "btn_back" %>
+
+        <% if @article_comment.replies.exists? %>
+          <% @article_comment.replies.each do |reply| %>
+            <% reply_member = reply.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
+            <div class="row d-flex align-items-center p-3"> <!--要素の高さ中央揃え-->
+              <div class="col font-weight-bold">
+                <%= link_to member_path(reply.member) do %>
+                  <%= attachment_image_tag(reply.member, :image, :fill, 40, 40, format: 'png', fallback: "no-image-icon.png", size: '40x40') %>
+                  <%= reply.member.name %>さん
+                <% end %>
+              </div>
+              <div class="col align-items-center text-right font-weight-bold">
+                <%= reply.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+              </div>
+            </div>
+            <div class="card-body border border-secondary rounded-lg bg-white mx-3"><%= safe_join(reply.body.split("\n"), tag(:br)) %></div> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
+          <% end %>
+        <% end %>
+        <!--コメントへの返信フォーム-->
+        <%= form_with model:[@article, @article_comment_reply] do |f| %>
+          <div class="row d-flex form-group border-top border-secondary mx-3">
+            <%= f.label :body, 'コメントに返信する' %>
+            <%= f.text_area :body, class: "col card-body border-dark rounded-lg", autofocus: true, placeholder: "コメントに返信してみましょう" %>
+            <%= f.attachment_field :image %>
+            <%= f.hidden_field :parent_id, value: @article_comment.id %>
+          </div>
+          <div class="text-center actions">
+            <%= f.submit '返信する', class: "btn bnt-sm btn-danger" %>
+          </div>
+        <% end %>
+
+
+        <!--コメントへの返信フォーム-->
+        <%= form_with model:[@article, @article_comment_reply] do |f| %>
+          <div class="row d-flex form-group border-top border-secondary p-3 my-2">
+            <%= f.label :body, 'コメントに返信する' %>
+            <%= f.text_area :body, class: "col card-body border-dark rounded-lg", autofocus: true, placeholder: "コメントに返信してみましょう" %>
+            <%= f.attachment_field :image %>
+          </div>
+          <div class="text-center actions">
+            <%= f.submit '返信する', class: "btn bnt-sm btn-danger" %>
+          </div>
+        <% end %>
+
+
+        <div class="my-2">
+          <%= link_to "戻る", article_path(params[:article_id]), class: "btn btn-sm btn-secondary", id: "btn_back" %>
+        </div>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-8">
-      <% if @article_comment.image %>
-        <p>添付画像</p>
-        <%= attachment_image_tag(@article_comment, :image, :fill, 300, 360, format: 'png') %>
-      <% end %>
-    </div>
-    <div class="col-md-2 side-bar">
-      <%= render 'members/info', member: current_member %>
+        <% if @article_comment.image %>
+          <p>添付画像</p>
+          <%= attachment_image_tag(@article_comment, :image, :fill, 300, 360, format: 'png') %>
+        <% end %>
     </div>
   </div>
 </div>
@@ -69,3 +127,109 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="row">
+        <!--accordion-containerの中にtitleとontentを配置-->
+        <div class="col accordion-container">
+          <div class="accordion-title js-accordion-title text-center">
+            <span class="article-content__commentCount"><%= @article.article_comments.count %></span> Comments</h4>
+          </div>
+          <div class="container accordion-content"> 
+            <% @parent_comments.each do |parent_comment| %>
+              <div class="row d-flex align-items-center py-3"> <!--要素の高さ中央揃え-->
+                <div class="col font-weight-bold">
+                  <%= link_to member_path(parent_comment.member) do %>
+                    <%= attachment_image_tag(parent_comment.member, :image, :fill, 40, 40, format: 'png', fallback: "no-image-icon.png", size: '40x40') %>
+                    <%= parent_comment.member.name %>さん
+                  <% end %>
+                </div>
+                <div class="col align-items-center text-right font-weight-bold">
+                  <%= parent_comment.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+                </div>
+              </div>
+              <div class="card-body border border-secondary rounded-lg bg-white"><%= safe_join(parent_comment.body.split("\n"), tag(:br)) %></div> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
+                <% if other_member?(parent_comment.member) && !(@article.is_closed.nil?) %> <!--自分のコメントへの評価不可、相談ステータスのない投稿に紐づくコメントへの評価不可-->
+                  <% if parent_comment.rated_by?(current_member) %>                         <!--評価済みか否かで条件分岐-->
+                    <%= form_with model: @rating, url: article_article_comment_ratings_path(@article.id, parent_comment.id), method: :patch, local:true do |f| %>
+                      <div class="text-right my-2">
+                        <span class="instruction--sm-grey">こちらのコメントは参考になりましたか？</span>
+                        <span class="star-form-group" id="update-rating">                     <!--空タグ。idで識別子を付与することがポイント。-->
+                          <%= f.hidden_field :rate, id: "rate" %>
+                          <% @rated = Rating.find_by(member_id: current_member, article_comment_id: parent_comment.id) %>
+                        </span>
+                        <%= f.submit "上書き", class: 'btn btn-sm btn-danger' %>
+                      </div>
+                    <% end %>
+          
+                    <script>
+                      $('.star-form-group').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+                      $("#update-rating").raty({
+                        size: 28,                                      //星のサイズ
+                        starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+                        starOn : '<%= asset_path('star-on.png') %>',
+                        starHalf: '<%= asset_path('star-half.png') %>',
+                        half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+                        score: <%= @rated.rate %>,                     //scoreオプションで前回の評価内容を取得
+                        scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに上書き保存(再評価)
+                      });
+                    </script>
+          
+                  <!--評価をまだ付けていない場合↓  -->
+                  <% elsif parent_comment.member != current_member %>
+                    <%= form_with model: @rating, url: article_article_comment_ratings_path(@article.id, parent_comment.id), method: :post, local:true do |f| %>
+                      <span class="instruction--sm-grey">こちらのコメントは参考になりましたか？</span>
+                      <span class="star-form-group" id="before-rating">   <!--空タグ。idで識別子を付与することがポイント。-->
+                        <%= f.hidden_field :rate, id: "rate" %>
+                      </span>
+                        <%= f.submit "保存", class: 'btn btn-sm btn-danger' %>
+                    <% end %>
+                    <script>
+                      $('.star-form-group').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+                      $("#before-rating").raty({
+                        size: 28,                                      //星のサイズ
+                        starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+                        starOn : '<%= asset_path('star-on.png') %>',
+                        starHalf: '<%= asset_path('star-half.png') %>',
+                        half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+                        scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
+                      });
+                    </script>
+                  <% end %>
+                <% end %>
+                
+                <% if parent_comment.replies.exists? %>
+                  <% parent_comment.replies.each do |reply| %>
+                    <% reply_member = reply.member %>  <!--繰返し毎、コメントに紐づく投稿者データを取得し変数へ代入-->
+                    <div class="row d-flex align-items-center p-3"> <!--要素の高さ中央揃え-->
+                      <div class="col font-weight-bold">
+                        <%= link_to member_path(reply.member) do %>
+                          <%= attachment_image_tag(reply.member, :image, :fill, 40, 40, format: 'png', fallback: "no-image-icon.png", size: '40x40') %>
+                          <%= reply.member.name %>さん
+                        <% end %>
+                      </div>
+                      <div class="col align-items-center text-right font-weight-bold">
+                        <%= reply.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+                      </div>
+                    </div>
+                    <div class="card-body border border-secondary rounded-lg bg-white mx-3"><%= safe_join(reply.body.split("\n"), tag(:br)) %></div> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
+                  <% end %>
+                <% end %>
+            <% end %>
+              </div>
+          </div>
+        </div>
+    </div>
