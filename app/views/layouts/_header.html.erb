@@ -16,7 +16,7 @@
             <li class="d-flex align-items-center search-form">
               <%= form_with url: search_articles_path, local: true, method: :get do |f| %>
                 <%= f.text_field :keyword, :value => @keyword, placeholder: "キーワードを入力", id:'search-form' %>
-                <%= button_tag "", class:"clear-decoration fas fa-search clear-decoration" %>
+                <%= button_tag "", class:"clear-decoration fas fa-search" %>
                 <div class="result"><ul></ul></div>
               <% end%>
             </li>
@@ -25,7 +25,7 @@
             <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">タイムライン</span></li> <% end %>
           　<%= link_to notifications_path, class: 'nav-link header-icon' do %>
               <% if unchecked_notifications.any? %> <!--未確認の通知があれば、アイコンを金色で表示する-->
-                <li class="fa fa-bell" style="color: gold;"><span class="mask">通知</span></li>
+                <li class="fas fa-bell" style="color: gold;"><span class="mask">通知</span></li>
               <% else %>
                 <li class="fas fa-bell"><span class="mask">通知</span></li>
               <% end %>

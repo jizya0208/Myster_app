@@ -60,9 +60,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col accordion-container">  <!--accordion-containerの中にtitleとontentを配置-->
-          <div class="accordion-title js-accordion-title text-center">
-            <span class="article-content__commentCount"><%= @article.article_comments.count %></span> Comments</h4>
+        <div class="col accordion-container">  <!--accordion-containerの中にtitleとcontentを配置-->
+          <div class="accordion-title js-accordion-title text-center my-4">
+            <span class="article-content__commentCount"><%= @article.article_comments.count %> Comments</span> 
           </div>
           <div class="container accordion-content">
             <%= form_with model:[@article, @article_comment] do |f| %>
@@ -71,7 +71,7 @@
                 <%= f.text_area :body, class: "col card-body border-dark rounded-lg", autofocus: true, placeholder: "コメントを入力する" %>
                 <div class="text-right py-2">
                   <%= f.attachment_field :image %>
-                  <%= f.submit '返信する', class: "btn btn-sm btn-danger" %>
+                  <%= f.submit 'コメントする', class: "btn btn-sm btn-danger" %>
                 </div>
               </div>
             <% end %>
