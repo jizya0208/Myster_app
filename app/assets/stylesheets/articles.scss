@@ -16,6 +16,31 @@
 	  }
 	}
 
+	&__btn li { /*要素横並び*/
+    display: inline-block;
+    padding: 5px;
+  }
+
+	&__status {
+	  background: #876654;
+	  border-radius: .25em;
+	  color: white;
+	  font-size: 1.2em;
+	  position: relative;
+	  top: -13px;
+	  padding: 0.4em;
+		transition: .6s;
+		& .fas {
+			color: white;
+			text-decoration: none;
+			transition: .6s;
+			&:hover {
+				-webkit-transform: rotateY(360deg);
+	  		transform: rotateY(360deg);
+			}
+		}
+	}
+
 	&__info {
 		text-align: right;
 		& li {
@@ -45,6 +70,23 @@
 	}
 }
 
+.favorite-btn, .delete-btn {
+	color: #876654;
+	background: white;
+  border-radius: 50%;
+  height: 38px;
+  line-height: 38px;
+  overflow: hidden;
+  text-align: center;
+  width: 38px;
+  transition: .6s;
+  &:hover {
+    text-decoration: none;
+		-webkit-transform: rotateY(280deg);
+		transform: rotateY(360deg);
+	}
+}
+
 .accordion-title{
   position: relative; // トグルの位置固定
 }
@@ -68,7 +110,7 @@
 }
 
 .accordion-title.open:after {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
 
 
@@ -135,6 +177,9 @@
 }
 
 @media screen and (max-width: 425px) {
+	.article-content__btn {
+		margin-top: 80px;
+	}
 	.article-content {
 		max-width: 280px;
 		&__mainTxt  {

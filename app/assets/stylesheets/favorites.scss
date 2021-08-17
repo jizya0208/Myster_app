@@ -3,7 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /*赤いハート*/
-#thumbs_red{color:#e54747;}
+#thumbs_red{
+  color: #e54747;
+}
 
 /*薄い茶色ハート*/
-#thumbs_brown{color:#e29191;}
+#thumbs_brown{
+  color:#e29191;
+  &:hover {
+    color: #e54747;;
+  }
+}
+
