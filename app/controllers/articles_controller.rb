@@ -45,13 +45,9 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article_comment = ArticleComment.new
     
-    
-    
     @parent_comments = ArticleComment.where(article_id: params[:id], parent_id: nil)
     @article_comment_reply = @article.article_comments.new
     @rating = Rating.new
-    
-    
     
     
     #-------------------グラフ表示用の変数 (世代・男女別) --------------------------

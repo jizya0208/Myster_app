@@ -11,7 +11,7 @@ class Article < ApplicationRecord
   accepts_attachments_for :article_images, attachment: :image
 
   validates :title, presence: true
-  validates :body, presence: true, length: { maximum: 200 }
+  validates :body, presence: true, length: { maximum: 400 }
 
   after_create do                                                 # ActiveRecordのコールバック。DBへのコミット直前に実施する。
     article = Article.find_by(id: id) # /は正規表現のデリミタとして慣習的に用いられる。 角括弧は、指定した複数の文字からいずれか一文字にマッチさせる役割  [#＃] => ハッシュ記号を取得
