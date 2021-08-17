@@ -29,4 +29,27 @@ module ArticlesHelper
                     end
     highlight(truncate_line, keyword, highlighter: '<strong>\1</strong>')
   end
+  
+   # 投稿者とログインユーザが同一であれば、削除ボタンを表示する
+  def delete_button(article)
+    if current_member_has?(article)
+      link_to '', article_path(article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK'}, title: '投稿削除', class: "destroy_article_#{article.id} fas fa-trash-alt delete-btn"
+    end
+  end
+  
+  # 投稿者とログインユーザが同一 且つ 相談ステータスが相談中であれば、ステータス更新ボタンを表示
+  def resolve_button(article)
+    if Article.find_by(id: article.id, member_id: current_member, is_closed: false)
+      link_to '', article_path(article), method: :patch, data: { confirm: 'ステータス解決済みにすると回答募集ページへの掲示を終了します。本当によろしいですか？', cancel: 'キャンセル',commit: 'OK' }, title: '相談ステータス更新', class: "fas fa-check-circle"
+    end
+  end
+  
+  # 投稿記事を引数に渡し、ステータスに応じて文字列を返す
+  def article_status(article)
+    case article.is_closed
+      when true then '解決済み' 
+      when false then '相談中' 
+      when nil then 'シェア'    
+    end 
+  end
 end

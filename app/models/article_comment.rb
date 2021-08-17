@@ -8,7 +8,7 @@ class ArticleComment < ApplicationRecord
 
   attachment :image
 
-  validates :body, presence: true, length: { maximum: 200 }
+  validates :body, presence: true, length: { maximum: 300 }
 
   # 既に評価済みか真偽値で返すメソッド
   def rated_by?(member)
