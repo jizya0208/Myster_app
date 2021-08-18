@@ -1,0 +1,13 @@
+  <!--星5つ中の平均値を表示する　articles showで使用-->
+  <script>
+    $('#star-rate-<%= parent_comment.id %>').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+    $('#star-rate-<%= parent_comment.id %>').raty({
+      size: 28,                                      //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      half: true,
+      readOnly: true,                                //読込のみ、編集不可
+      score: '<%= parent_comment.ratings.average(:rate).to_f.round(1) %>', //averageメソッドで平均点を算出し、round関数で少数第一に切り上げ
+    });
+  </script>

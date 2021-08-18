@@ -11,7 +11,7 @@ class Article < ApplicationRecord
   accepts_attachments_for :article_images, attachment: :image
 
   validates :title, presence: true
-  validates :body, presence: true, length: { maximum: 200 }
+  validates :body, presence: true, length: { maximum: 400 }
 
   after_create do                                                 # ActiveRecordのコールバック。DBへのコミット直前に実施する。
     article = Article.find_by(id: id) # /は正規表現のデリミタとして慣習的に用いられる。 角括弧は、指定した複数の文字からいずれか一文字にマッチさせる役割  [#＃] => ハッシュ記号を取得
@@ -50,7 +50,7 @@ class Article < ApplicationRecord
   end
 
   # コメントに対する通知を生成するメソッド。期待する挙動：同じ投稿にコメントしているユーザーに通知を送る。
-  def create_notification_comment!(current_member, article_comment_id)
+  def create_notification_comment!(current_member, article_comment_id) # !を付けているのはメソッド内でデータ登録をおこなうので呼び出し時に注意喚起をするため
     temp_ids = ArticleComment.select(:member_id).where(article_id: id).where.not(member_id: current_member.id).distinct # 投稿にコメントしている自分以外のユーザーを重複なし(=>distinct)でリスト化。
     temp_ids.each do |temp_id| # 取得したユーザー達へ通知を作成。（member_idのみ繰り返し取得）
       save_notification_comment!(current_member, article_comment_id, temp_id['member_id'])

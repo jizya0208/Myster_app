@@ -80,7 +80,7 @@
       &--logo {
         background-image: image-url("img/p-top_logo.png");
         background-position: center; /* 背景画像を中央に配置 */
-        background-size: contain; /*値の指定は縦横比は保持しつつ、背景領域に収まるように画像を拡大・縮小させる*/
+        background-size: contain;    /* 値の指定は縦横比は保持しつつ、背景領域に収まるように画像を拡大・縮小させる*/
         background-repeat: no-repeat; /* 念の為、画像の繰り返し表示を防ぐ */
         height: 200px;
         max-width: 40%;

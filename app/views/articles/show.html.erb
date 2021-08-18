@@ -1,32 +1,25 @@
 <div class="container article-content">
   <div class="row">
-    <div class="col-lg-10">
-      <div class="row">
-        <div class="col-2 article-content__date text-right"><p><%= @article.created_at.strftime('%Y') %><span><%= @article.created_at.strftime('%m/%d') %></span></p></div>
-        <div class="col-lg-10  text-center", id="article_<%= @article.id %>">
-          <h3>Title: <%= @article.title %></h3>
-          <ul class="article-content__info">
-            <li>category: <%= @article.category.name %></li>
-            <li class="favorite-btn"><%= render 'favorites/favorite-btn', article: @article %></li> <!--お気に入りパーシャル呼び出し-->
-            <% if current_member_has?(@article) %>      <!--「ログインユーザと投稿者が同一か」で条件分岐(application_helperで定義)-->
-              <li><%= link_to '', article_path(@article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK'}, title: '投稿削除', class: "destroy_article_#{@article.id} fas fa-trash-alt" %></li>
-              <% if @article.is_closed == false %>      <!--上記且つ、相談ステータスが相談中の場合、更新ボタンを表示-->
-                <li><%= link_to '', article_path(@article), method: :patch, data: { confirm: 'ステータス解決済みにすると回答募集ページへの掲示を終了します。本当によろしいですか？', cancel: 'キャンセル',commit: 'OK' }, title: '相談ステータス更新', class: "update_article_#{@article.id} fas fa-check-circle"%></li>
-              <% end %>
-            <% end %>
-            <li>by <%= link_to @article.member.name, member_path(@article.member) %></li>
-          </ul>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 article-img">
-            <% if @article.article_images.present? %>
+    <div class="col-lg-10">   <!-- ページの過半メインコンテンツ、右側にサイドバーを表示-->
+      <div class="row">       <!-- 記事の投稿日時、タイトルを大きく表示-->
+        <div class="col-lg-2 article-content__date text-right"><p><%= @article.created_at.strftime('%Y') %><span><%= @article.created_at.strftime('%m/%d') %></span></p></div>
+        <div class="col-lg-10 text-center"><h3>Title: <%= @article.title %></h3></div>
+      </div>
+      <div class="row">       <!-- 記事のメインコンテンツ。左側に画像、右側にテキスト-->
+        <div class="col-lg-6 img-wrap">
+          <% if @article.article_images.present? %>
+            <!---------------- 画像スライダー--------------->
+            <div class="article-img">
               <ul id="slider">
                 <% @article.article_images.each do |article_image| %>
                   <li class="slide-item">
-                    <%= attachment_image_tag article_image, :image, :fill, 300, 400, format: 'png' %>
+                    <%= attachment_image_tag article_image, :image, format: 'png' %>
                   </li>
                 <% end %>
               </ul>
+            </div>
+            <!---------------- サムネイル-------------------->
+            <div class="thumbnail-img">
               <ul id="thumbnail-list">
                 <% @article.article_images.each do |article_image| %>
                   <li class="thumbnail-item my-3">
@@ -34,48 +27,74 @@
                   </li>
                 <% end %>
               </ul>
-            <% else %>
-              <div class="article-noImg">
-                <%= image_tag 'no-image.png' %>
-              </div>
-            <% end %>
-            <div class="tag-box">
-              <% @article.tags.each do |tag| %>
+            </div>
+          <% else %>
+            <div class="article-noImg">
+              <%= image_tag 'no-image.png' %>
+            </div>
+          <% end %>
+          <!------------- 画像に紐づくタグの表示------------>
+          <div class="tag-box my-2">
+            <% @article.tags.each do |tag| %>
                 <span class="label"><%= link_to tag.name, "/article/tag/#{tag.name}" %></span>
-              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-lg-6 txt-wrap mt-2">
+          <ul class="article-content__btn text-right", id="article_<%= @article.id %>">
+            <li class="favorite-btn mr-3"><%= render 'favorites/favorite-btn', article: @article %></li> <!--お気に入りパーシャル呼び出し-->
+            <li class="mr-3"><%= delete_button(@article) %></li>        <!--削除ボタン(article_helperに定義)-->
+            <li class="article-content__status">
+              <%= resolve_button(@article) %>                           <!--相談ステータス更新ボタン(article_helperに定義)-->
+              <%= article_status(@article) %>                           <!--相談ステータスを表示(article_helperに定義)-->
+            </li>
+          </ul>
+
+          <div class="my-3 article-content__mainTxt">
+            <% article_body = safe_join(@article.body.split("\n"), tag(:br)) %>  <!--改行には<br>を付与し、段落を反映して変数に代入。-->
+            <%= render_with_tags(article_body) %>                                <!--上記を評価し、ハッシュタグにリンクを付与-->
+            <div class="mt-3 text-right">
+              <label class="label">カテゴリ: <%= @article.category.name %></label>
+              <span>by <%= link_to @article.member.name, member_path(@article.member) %></span>
             </div>
           </div>
-          <div class="col-lg-6 article-content__mainTxt">
-            <h4>Text</h4>
-            <% article_body = safe_join(@article.body.split("\n"), tag(:br)) %>　<!--改行には<br>を付与し、段落を反映して変数に代入。-->
-            <div class="my-3"><%= render_with_tags(article_body) %></div>        <!--上記を評価し、ハッシュタグにリンクを付与-->
 
-            <h4 class="my-3"><span class="article-content__commentCount"><%= @article.article_comments.count %></span> Comments</h4>
-            <table class="article-content__commentTable table table-md">
-              <%= render partial: 'article_comments/index', locals: { :article => @article, :article_comment => @article_comment } %>
-            </table>
-            <p class="mt-3">コメントフォーム</p>
-            <%= form_with model:[@article,@article_comment] do |f| %>  <!--新規コメントフォーム。インスタンス変数を2つ渡すことで、どの投稿に結びつくコメントかよしなに見つけてくれる-->
-              <%= f.text_area :body, size: "40x5" %>
-              <%= f.label :image, class: "fas fa-image image-form" do %>
-                画像をアップロード
-                <%= f.attachment_field :image %>
-              <% end %>
-              <div class="text-center">
-                <%= f.submit '送信', class: "btn bnt-sm btn-danger" %>
+          <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、円グラフを表示-->
+            <p class="mt-4 instruction--sm-grey text-center">お気に入り登録したユーザ層(こちらは投稿者本人のみ閲覧できます)</p>
+            <div class="col-8 offset-2 pie my-1">
+              <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-------------------------------------コメント表示領域---------------------------------------->
+      <div class="row">
+        <div class="col accordion-container">  <!--accordion-containerの中にtitleとcontentを配置-->
+          <div class="accordion-title js-accordion-title text-center my-4">
+            <span class="article-content__commentCount"><%= @article.article_comments.count %> Comment</span>
+          </div>
+          <div class="accordion-content">
+            <%= form_with model:[@article, @article_comment] do |f| %>
+              <div class="comment-form my-3">
+                <%= f.label :body, 'コメントする', class: "instruction--sm-grey" %>
+                <%= f.text_area :body, class: "col card-body border-dark rounded-lg", autofocus: true, placeholder: "コメントを入力する" %>
+                <div class="text-right mb-4">
+                  <%= f.attachment_field :image %>
+                  <%= f.submit 'コメントする', class: "btn btn-sm btn-danger" %>
+                </div>
               </div>
             <% end %>
-
-            <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、円グラフを表示-->
-              <p class="mt-3">お気に入り登録したユーザ層(こちらは投稿者本人のみ閲覧できます)</p>
-              <div class="col-8 offset-2 pie my-1">
-                <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
-              </div>
-            <% end %>
+            <div class="article-content__comment">
+              <%= render partial: 'article_comments/index', locals: {article: @article, parent_comments: @parent_comments, article_comment_reply: @article_comment_reply } %>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!--サイドバー-->
     <div class="col-lg-2 col-sm-4 side-bar">
       <%= render 'members/info', member: current_member %>
     </div>

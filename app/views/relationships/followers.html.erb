@@ -15,7 +15,7 @@
           <tbody>
             <% @members.each do |member| %>
               <tr>
-                <td><%= attachment_image_tag(member, :image, :fill, 50, 50, fallback: "no-image-icon.png", size: "50x50") %></td>
+                <td class="profile-img--sm"><%= attachment_image_tag(member, :image, fallback: "no-image-icon.png") %></td>
                 <td><%= link_to member.name,  member_path(member)  %></td>
                 <td><%= member.followings.count %></td>
                 <td><%= member.followers.count %></td>
