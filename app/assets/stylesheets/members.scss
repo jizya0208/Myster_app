@@ -10,6 +10,12 @@
   width: 80%;
 }
 
+.profile-img--sm > img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
 @media screen and (max-width: 1024px) {
   .member__img > img {
     height: 200px;
