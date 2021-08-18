@@ -1,5 +1,6 @@
-$(".article-content__commentCount").html("<%= @article.article_comments.count %> Comments");
+$(".article-content__commentCount").html("<%= @article.article_comments.count %> Comment");
+
 <!--コメント入力フォームを空にする-->
 $("#article_comment_body").val("");
-<!--j()でエスケープ処理-->
-$(".article-content__comment").html("<%= j(render 'article_comments/index', {article: @article, parent_comments: @parent_comments, article_comment_reply: @article_comment_reply}) %>");
+<!--j() は escape_javascriptのエイリアスメソッド  JSファイル内にHTMLを挿入するときに実行結果をエスケープさせるために必要-->
+$(".article-content__comment").html("<%= j(render partial: 'article_comments/index', locals: {article: @article, parent_comments: @parent_comments, article_comment_reply: @article_comment_reply}) %>");

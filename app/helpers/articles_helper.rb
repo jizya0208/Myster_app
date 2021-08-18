@@ -33,7 +33,7 @@ module ArticlesHelper
    # 投稿者とログインユーザが同一であれば、削除ボタンを表示する
   def delete_button(article)
     if current_member_has?(article)
-      link_to '', article_path(article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK'}, title: '投稿削除', class: "destroy_article_#{article.id} fas fa-trash-alt delete-btn"
+      link_to '', article_path(article), method: :delete, data: { confirm: 'この投稿を削除しますか？', cancel: 'キャンセル',commit: 'OK'}, title: '投稿削除', class: "destroy_article_#{article.id} fas fa-trash-alt", id: "delete-btn"
     end
   end
   

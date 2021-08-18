@@ -5,13 +5,17 @@
 /*赤いハート*/
 #thumbs_red{
   color: #e54747;
+    &:hover {
+    text-decoration: none;
+  }
 }
 
 /*薄い茶色ハート*/
 #thumbs_brown{
   color:#e29191;
   &:hover {
-    color: #e54747;;
+    color: #e54747;
+    text-decoration: none;
   }
 }
 

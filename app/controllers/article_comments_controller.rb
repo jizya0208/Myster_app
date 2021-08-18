@@ -3,7 +3,7 @@ class ArticleCommentsController < ApplicationController
   before_action :set_article
 
   def create
-    #投稿に紐づいたコメントの作成
+    #投稿に紐づくコメントの作成
     @article_comment = @article.article_comments.new(article_comment_params)
     @article_comment.member_id = current_member.id
 
@@ -27,10 +27,13 @@ class ArticleCommentsController < ApplicationController
     respond_to :js
   end
 
-  def show
-    @article_comment = ArticleComment.find(params[:id])
-    @article_comment_reply = @article.article_comments.new
-    @rating = Rating.new
+  def show # 写真クリックでshowアクションが実行され、js.erbファイルが呼び出されるようにする。
+    @article_comment = ArticleComment.find_by(id: params[:id], article_id: @article)
+    respond_to do |format| #
+      format.html
+      # link_toメソッドをremote: trueに設定したのでリクエストはjs形式で行われる
+      format.js
+    end
   end
 
   private

@@ -18,7 +18,7 @@
 
 	&__btn li { /*要素横並び*/
     display: inline-block;
-    padding: 5px;
+    padding: 3px;
   }
 
 	&__status {
@@ -70,10 +70,11 @@
 	}
 }
 
-.favorite-btn, .delete-btn {
+.favorite-btn, #delete-btn {
 	color: #876654;
 	background: white;
   border-radius: 50%;
+  display: inline-block;
   height: 38px;
   line-height: 38px;
   overflow: hidden;
@@ -87,16 +88,20 @@
 	}
 }
 
+.comment-form {
+	border-bottom: 1px solid #876654;;	
+}
+
 .accordion-title{
-  position: relative; // トグルの位置固定
+  position: relative; /* トグルの位置固定 */
 }
 
 .accordion-content {
-  display: none;       // デフォルトは隠す
+  display: none;      /* デフォルトは隠す */
 }
 
 .accordion-title:after {
-  content: '\f107'; //下向き矢印
+  content: '\f107'; /* 下向き矢印 */
   color: #876654;
   display: block;
   font-family: "Font Awesome 5 Free";
@@ -110,9 +115,8 @@
 }
 
 .accordion-title.open:after {
-  transform: rotate(180deg);
+  transform: rotate(180deg); /* アイコン回転させて上向きに */
 }
-
 
 .rate_average img { /*星評価画像を小さく */
   height: 10%;
