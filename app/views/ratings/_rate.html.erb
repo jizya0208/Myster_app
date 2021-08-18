@@ -1,0 +1,22 @@
+  <!--星評価 新規作成　articles showで使用 -->
+  <%= form_with model: @rating, url: article_article_comment_ratings_path(@article.id, parent_comment.id), method: :post, local:true do |f| %>
+    <div class="text-right my-2">
+      <span class="instruction--sm-grey">こちらのコメントは参考になりましたか？</span>
+      <span class="star-form-group" id="before-rating-<%= parent_comment.id %>">   <!--空タグ。idで識別子を付与することがポイント。-->
+        <%= f.hidden_field :rate, id: "rate" %>
+      </span>
+      <%= f.submit "保存", class: 'btn btn-sm btn-danger' %>
+    </div>
+  <% end %>
+
+  <script>
+    $("#before-rating-<%= parent_comment.id %>").empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
+    $("#before-rating-<%= parent_comment.id %>").raty({
+      size: 28,                                      //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>', //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      half: true,                                    //星半分を許可する。DBには0.5単位の数値が保存される
+      scoreName: 'rating[rate]',                     //ratingモデルのrateカラムに保存
+    });
+  </script>
