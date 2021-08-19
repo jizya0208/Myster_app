@@ -1,97 +1,97 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10">
-      <% unless @member == current_member %>
-      <div class="text-center m-3">
-        <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
-       		<%= f.label :amount, "ポイント:" %>
-  				<%= f.text_field :amount  %>
-      		<%= f.button type: "submit", class: "btn btn-sm btn-danger", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK' }, title: '確認画面' do %>
-      		  チップを送る<i class="fas fa-hand-holding-heart"></i>
-          <% end %>
-        <% end %>
-      </div>
-  	  <% end %>
-
-      <ul class="nav nav-tabs justify-content-center scroll-list jscroll">
-        <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li>
-        <li><a class="nav-link" href="#tab-b" data-toggle="tab">投稿一覧</a></li>
-        <li><a class="nav-link" href="#tab-c" data-toggle="tab">お気に入り一覧</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div class="tab-pane in active" id="tab-a">
-          <!--———————-—会員情報を表示-————————————-->
-          <div class="row my-3">
-            <div class="col-md-6 text-center">
-              <h4>Image</h4>
-              <div class="member__img">
-                <%= attachment_image_tag(@member, :image, :fill, 380, 380, format: 'png', fallback: "no-image-icon.png", size: '380x380') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <% unless @member == current_member %> <!--自分以外のユーザに対して チップ送金を表示する-->
+          <div class="text-center m-3">
+            <%= form_with model: @account_histroy, url: account_account_histories_path(@account.id), local: true do |f| %>
+           		<%= f.label :amount, "ポイント:" %>
+      				<%= f.text_field :amount  %>
+          		<%= f.button type: "submit", class: "btn btn-sm btn-danger", data: { confirm: "#{@member.name}さんにチップを送りますか?", cancel: 'キャンセル', commit: 'OK' }, title: '確認画面' do %>
+          		  チップを送る<i class="fas fa-hand-holding-heart"></i>
+              <% end %>
+            <% end %>
+          </div>
+    	  <% end %>
+  
+        <ul class="nav nav-tabs justify-content-center scroll-list jscroll">
+          <li><a class="active nav-link" href="#tab-a" data-toggle="tab">プロフィール</a></li>
+          <li><a class="nav-link" href="#tab-b" data-toggle="tab">投稿一覧</a></li>
+          <li><a class="nav-link" href="#tab-c" data-toggle="tab">お気に入り一覧</a></li>
+        </ul>
+  
+        <div class="tab-content">
+          <div class="tab-pane in active" id="tab-a">
+            <!--———————-—会員情報を表示-————————————-->
+            <div class="row my-3">
+              <div class="col-md-6 text-center">
+                <h4>Image</h4>
+                <div class="profile-img--lg">
+                  <%= attachment_image_tag(@member, :image, format: 'png', fallback: "no-image-icon.png" ) %>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <h4>About me</h4>
-              <table class='table table-hover table-inverse mt-5'>
-                <tr>
-                  <th>Name</th>
-              	  <td><%= @member.name %></td>
-              	</tr>
-              	<tr>
-              	  <th>Profile</th>
-              	  <td><%= @member.introduction %></td>
-              	</tr>
-              	<tr>
-              	  <th>Gender</th>
-              	  <td><%= @member.gender %></td>
-              	</tr>
-              	<tr>
-              	  <th>Age</th>
-              	  <td><%= @member.age %></td>
-              	</tr>
-                <tr>
-                  <th>follows</th>
-                  <td><%= link_to @member.followings.count, member_followings_path(@member) %></td>
-                </tr>
-                <tr>
-                  <th>followers</th>
-                  <td><%= link_to @member.followers.count, member_followers_path(@member) %></td>
-                </tr>
-              </table>
-
-              <!--———————-—フォローボタンを表示-————————————-->
-              <div class="mb-5">
-                <div class="follow text-center">
-                  <% unless current_member == @member %>
-                    <% if current_member.following?(@member) %>
-                      <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-secondary", id: "follow" %>
-                    <% else %>
-                      <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-danger", id: "unfollow" %>
+              <div class="col-md-6 text-center">
+                <h4>About me</h4>
+                <table class='table table-hover table-inverse mt-5'>
+                  <tr>
+                    <th>Name</th>
+                	  <td><%= @member.name %></td>
+                	</tr>
+                	<tr>
+                	  <th>Profile</th>
+                	  <td><%= @member.introduction %></td>
+                	</tr>
+                	<tr>
+                	  <th>Gender</th>
+                	  <td><%= @member.gender %></td>
+                	</tr>
+                	<tr>
+                	  <th>Age</th>
+                	  <td><%= @member.age %></td>
+                	</tr>
+                  <tr>
+                    <th>follows</th>
+                    <td><%= link_to @member.followings.count, member_followings_path(@member) %></td>
+                  </tr>
+                  <tr>
+                    <th>followers</th>
+                    <td><%= link_to @member.followers.count, member_followers_path(@member) %></td>
+                  </tr>
+                </table>
+  
+                <!--———————-—フォローボタンを表示-————————————-->
+                <div class="mb-5">
+                  <div class="follow text-center">
+                    <% unless current_member == @member %>
+                      <% if current_member.following?(@member) %>
+                        <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-secondary", id: "follow" %>
+                      <% else %>
+                        <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-danger", id: "unfollow" %>
+                      <% end %>
                     <% end %>
-                  <% end %>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane fade" id="tab-b">
-          <div class="scroll-list jscroll articles-tab" tab=".articles-tab">
-            <%= render 'articles/index', articles: @articles %>          <!--会員に紐づく投稿一覧-->
-            <%= paginate @articles, param_name: "articles_page" %>
+          <div class="tab-pane fade" id="tab-b">
+            <div class="scroll-list jscroll articles-tab" tab=".articles-tab">
+              <%= render 'articles/index', articles: @articles %>          <!--会員に紐づく投稿一覧-->
+              <%= paginate @articles, param_name: "articles_page" %>
+            </div>
           </div>
-        </div>
-        <div class="tab-pane fade" id="tab-c">
-          <div class="scroll-list jscroll favorites-tab" tab=".favorites-tab">
-            <%= render 'articles/index', articles: @favorite_articles %>  <!--会員に紐づくお気に入り投稿一覧-->
-            <%= paginate @favorite_articles, param_name: "favorites_page" %>
+          <div class="tab-pane fade" id="tab-c">
+            <div class="scroll-list jscroll favorites-tab" tab=".favorites-tab">
+              <%= render 'articles/index', articles: @favorite_articles %>  <!--会員に紐づくお気に入り投稿一覧-->
+              <%= paginate @favorite_articles, param_name: "favorites_page" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-2  col-sm-4 side-bar">
-      <%= render 'members/info', member: current_member %>
+      <div class="col-lg-2  col-sm-4 side-bar">
+        <%= render 'members/info', member: current_member %>
+      </div>
     </div>
   </div>
-</div>
 
 
 

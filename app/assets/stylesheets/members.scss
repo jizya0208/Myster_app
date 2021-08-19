@@ -2,24 +2,39 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.member__img > img {
-  border-color: white;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 3px;
-  width: 80%;
+.profile-img--lg, .profile-img--md, .profile-img--sm {
+  & img {
+    border-color: white;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    object-fit: cover;
+  }
 }
 
-.profile-img--sm > img {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
+.profile-img {
+  &--lg img {
+    height: 380px;
+    width: 380px;
+  }
+
+  &--md img {
+    border-width: 2px;
+    height: 150px;
+    width: 150px;
+  }
+
+  &--sm img {
+    border-width: 1px;
+    height: 40px;
+    width: 40px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
-  .member__img > img {
-    height: 200px;
-    width: 200px;
+  .profile-img--lg > img {
+    height: 220px;
+    width: 220px;
   }
 }
 
