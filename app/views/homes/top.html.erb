@@ -50,7 +50,9 @@
         <% @articles.each do |article| %>
           <%= link_to article_path(article), data: {"turbolinks" => false} do %>
             <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
-            <%= attachment_image_tag(article.article_images.first, :image, :fill, 280, 280, format: 'png', fallback: "no-image.png", size:'280x280', class: "p-top__news--img") %>
+            <div class="p-top__news--img">
+              <%= attachment_image_tag(article.article_images.first, :image, format: 'png', fallback: "no-image.png") %>
+            </div>
           <% end %>
         <% end %>
       </div>

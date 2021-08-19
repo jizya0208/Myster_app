@@ -36,7 +36,6 @@
     list-style: none;
   }
 
-
   a {/*リンクされた文字「a:link」→「a:visited」→「a:hover」→「a:active」の順で記述*/
     color:#333333;
     font-style:normal;
@@ -114,7 +113,6 @@
     }
   }
 
-  
   .clear-decoration {
     background: transparent; /* 背景の灰色を消す */
     border: none;  /* 枠線を消す */
@@ -149,11 +147,11 @@
   }
 
   .more {
-    vertical-align:text-bottom;
+    vertical-align: text-bottom;
   }
 
   .side-bar {/*サイドバー背景色*/
-    background-color: #f1e9d5;
+    background-color: #f1e8d5;
     height: 85vh;
   }
 
@@ -218,7 +216,7 @@
       height: 100%;
       left: 0;
       opacity: 1;
-      position:absolute;
+      position: absolute;
       transition: .3s opacity linear;
       top: 0;
       width: 100%;
@@ -238,6 +236,7 @@
   　position: relative;
   　width: 250px;
   }
+  
   figcaption.hover-mask {
   　align-items: center;
   　background: rgba(0,0,0,0.5);
@@ -264,18 +263,6 @@
 
   .search-form {
     margin-right: 1em;
-  }
-
-  .profile-image { /* 会員のアイコン中央揃え */
-    text-align: center;
-  }
-
-  .profile-image-circle { /* アイコン丸く */
-    border-radius: 50%;
-    border-width: 5px;
-    border-style: solid;
-    border-color: white;
-    width: 80%;
   }
 
   .btn-danger, .btn-secondary {
@@ -367,6 +354,13 @@
     line-height: 40px;
   }
   
+  
+  .instruction--sm-grey {
+    font-size: 11px;
+    color: grey;
+  }
+
+  
   // ------------------------------タブレットサイズ----------------------------------
   @media screen and (max-width: 1024px) {
   
@@ -414,12 +408,6 @@
   
     p {
       font-size: 7px;
-    }
-  
-    .news_img {
-      height: 200px;
-      margin: 0 0 20px 20px;
-      width: 200px;
     }
   
     #slider, .article-img, .slide-item img, .article-noImg {

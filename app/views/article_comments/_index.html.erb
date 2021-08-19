@@ -24,10 +24,8 @@
         <% end %>
       </div>
       
-      <% unless article.is_closed.nil? %>                 <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
-        <div class="instruction--sm-grey text-right">星5つ中の平均値(<%= parent_comment.ratings.count %>件)</div>
-        <div class="rate--average text-right" id="star-rate-<%= parent_comment.id %>"></div>
-        <%= render 'articles/average_star', parent_comment: parent_comment %>
+      <% unless article.is_closed.nil? %>             <!--相談ステータスが空でない限り、回答に紐づく評価を表示-->
+        <%= render 'ratings/average_star', parent_comment: parent_comment %>
       <% end %>
     </div>
 
@@ -96,7 +94,6 @@
       });
     </script>
   <% end %>
-
 
   <div id="mask" class="hidden"></div>　<!--モーダルの周囲を薄暗くするマスク-->
   <div id="modal" class="hidden">       <!-- 空のモーダル JSでイベント発生時に中身を書き換える -->

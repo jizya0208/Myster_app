@@ -147,10 +147,13 @@
         right: 10%;
         z-index: 0;
       }
-      &--img {
+      &--img img {
         border-radius: 3em;
+        height: 280px;
         margin: 40px 20px;
+        object-fit: cover;
         transition:transform 0.3s;
+        width: 280px;
         &:hover {
           transform:scale(1.05);
         }
@@ -239,7 +242,7 @@
           font-size: 8vw;
         }
         
-        &--img {
+        &--img img {
           border-radius: 3em;
           height: 200px;
           margin: 10px;
