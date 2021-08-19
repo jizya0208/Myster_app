@@ -23,7 +23,7 @@
             <%= link_to new_article_path, class: 'nav-link header-icon' do %> <li class="fas fa-plus-circle"><span class="mask">新規投稿</span></li> <% end %>
             <%= link_to questions_path, class: 'nav-link header-icon' do %> <li class="fas fa-question-circle"><span class="mask">回答募集中</span></li> <% end %>
             <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">タイムライン</span></li> <% end %>
-          　<%= link_to notifications_path, class: 'nav-link header-icon' do %>
+            <%= link_to notifications_path, class: 'nav-link header-icon' do %>
               <% if unchecked_notifications.any? %> <!--未確認の通知があれば、アイコンを金色で表示する-->
                 <li class="fas fa-bell" style="color: gold;"><span class="mask">通知</span></li>
               <% else %>
@@ -31,7 +31,7 @@
               <% end %>
             <% end %>
             <%= link_to contacts_path, class: 'nav-link header-icon' do %> <li class="fas fa-envelope"><span class="mask">問合せ</span></li> <% end %>
-          　<%= link_to destroy_member_session_path, method: :delete, class: 'nav-link header-icon' do %> <li class="fas fa-sign-out-alt"><span class="mask">ログアウト</span></li> <% end %>
+            <%= link_to destroy_member_session_path, method: :delete, class: 'nav-link header-icon' do %> <li class="fas fa-sign-out-alt"><span class="mask">ログアウト</span></li> <% end %>
           <% else %>
             <%= link_to 'ゲストユーザに簡単ログイン', members_guest_sign_in_path, method: :post, class: "btn btn-sm btn-light mr-3 pt-3" %>
             <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">投稿一覧</span></li> <% end %>
