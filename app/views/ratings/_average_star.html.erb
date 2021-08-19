@@ -1,4 +1,7 @@
-  <!--星5つ中の平均値を表示する　articles showで使用-->
+  <!--星5つ中の平均値を表示する　article_comments indexで使用-->
+  <div class="instruction--sm-grey text-right">星5つ中の平均値(<%= parent_comment.ratings.count %>件)</div>
+  <div class="rate--average text-right" id="star-rate-<%= parent_comment.id %>"></div>
+        
   <script>
     $('#star-rate-<%= parent_comment.id %>').empty(); //星評価用の画像をリセットする。こうすることでブラウザバック時の画像を二重読み込みを防げる。
     $('#star-rate-<%= parent_comment.id %>').raty({
