@@ -1,34 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-10">
-      <h5>フォロワー一覧</h5>
-      <% if @members.exists? %>
-        <table class="table mt-2">
-          <thead>
-            <tr>
-              <th>プロフィール画像</th>
-              <th>ユーザ名</th>
-              <th>フォロー数</th>
-              <th>フォロワー数</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @members.each do |member| %>
-              <tr>
-                <td class="profile-img--sm"><%= attachment_image_tag(member, :image, fallback: "no-image-icon.png") %></td>
-                <td><%= link_to member.name,  member_path(member)  %></td>
-                <td><%= member.followings.count %></td>
-                <td><%= member.followers.count %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p>ユーザーはいません</p>
-      <% end %>
-    </div>    
-    <div class="col-lg-2 side-bar">
+    <div class="col-md-8 offset-md-1">
+      <h4>フォロワー 一覧</h4>
+      <p class="m-2"><%= @member.name%> さん</p>
+      <%= render 'index', members: @members %>
+    </div>
+    <div class="col-md-2 offset-md-1 side-bar">
       <%= render 'members/info', member: current_member %>
-    </div>    
+    </div>
   </div>
 </div>
