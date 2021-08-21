@@ -2,14 +2,14 @@
   <div class="row">
   　<!--Bootstrapでのタブ切替ための記述➡ul要素の「nav」「nav-tabs」で切替タブを指定。「active」により初期選択を指定。-->
     <ul class="nav nav-tabs d-flex" role="tablist">
-      <li role="presentation" class="w-50 question">
+      <li role="presentation" class="w-50 question"> <!--装飾目的(タブ切替)のリスト-->
         <!--表示内容の識別子を指定。data-taggle="tab"により切替タブのJavaScriptを指定-->
         <a aria-controls="tab_question" data-toggle="tab" href="#tab_question" role="tab" class="btn btn-lg btn-outline-danger active" id="question" >相談する</a>
-        <p>「相談する」では、他のユーザからのアドバイスを募集することが出来ます。相談ステータスを「解決済」に更新することで、回答募集ページへの掲示を終了します。</p>
+        <p class="">「相談する」では、他のユーザからのアドバイスを募集することが出来ます。相談ステータスを「解決済」に更新することで、回答募集ページへの掲示を終了します。</p>
       </li>
   	  <li role="presentation" class="active w-50 share">
   	    <a aria-controls="tab_share" data-toggle="tab" href="#tab_share" role="tab" class="btn btn-lg btn-outline-danger" id="share">シェアする</a>
-  	    <p>「シェアする」では、新着コーデに投稿されます。あなたの一押しアイテムやコーディネートを皆んなとシェアしましょう！</p>
+  	    <p>「シェアする」はタイムラインに投稿されます。あなたの一押しアイテムやコーディネートを皆んなとシェアしましょう！</p>
   	  </li>
   	</ul>
   </div>
@@ -62,7 +62,8 @@
   				<%= f.text_field :title, class:"form-control col-8" %>
   		  </div>
   			<div class="form-group">
-  				<%= f.label :body, "キャプション  #(ハッシュマーク)をつけて投稿することでタグ付き投稿が可能です" %>
+  				<%= f.label :body, "キャプション" %>
+  				<span class="instruction--sm-grey">#(ハッシュマーク)をつけて投稿することでタグ投稿が出来ます。</span>
   				<%= f.text_area :body, rows: 7, class:"form-control col-8" %>
   			</div>
   			<%= f.label :category_id, "生活シーン" %>
@@ -74,7 +75,7 @@
                 <%= f.attachment_field :article_images_images, multiple: true, class:"share_article_image_field" %>
               <% end %>
               <div>
-        				<p>選択するとプレビューが表示されます。(最大4枚まで)</p>
+        				<p class="instruction--sm-grey">選択するとプレビューが表示されます。(最大4枚まで)</p>
                 <img id="prev_img_4" style="width:25%;">
                 <img id="prev_img_5" style="width:25%;">
                 <img id="prev_img_6" style="width:25%;">
