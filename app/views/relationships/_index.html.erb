@@ -1,0 +1,31 @@
+
+
+<% if members.exists? %>
+  <table class="table mt-2 text-center">
+    <thead>
+      <tr>
+        <th>ユーザ名</th>
+        <th>フォロー数</th>
+        <th>フォロワー数</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% members.each do |member| %>
+        <tr>
+          <td class="profile-img--sm">
+            <%= link_to member_path(member) do %>
+              <%= attachment_image_tag(member, :image, fallback: "no-image-icon.png") %>
+              <%= member.name %>
+            <% end %>
+          </td>
+          <td><%= link_to member.followings.count, member_followings_path(member) %></td>
+          <td><%= link_to member.followers.count, member_followers_path(member) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    
+  </table>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

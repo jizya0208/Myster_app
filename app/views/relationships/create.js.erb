@@ -1,0 +1,3 @@
+$("#followers-count").html("<%= j(link_to @member.followers.count, member_followers_path(@member)) %>");
+$("#followings-count").html("<%= j(link_to current_member.followings.count, member_followings_path(current_member)) %>");
+$(".follow-btn").html("<%= j(render 'relationships/follow-btn', member: @member) %>");

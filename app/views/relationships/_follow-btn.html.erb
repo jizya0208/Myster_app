@@ -1,0 +1,12 @@
+  <!--———————-—フォローボタンを表示-————————————-->
+  <div class="mb-5">
+    <div class="follow text-center">
+      <% unless current_member == member %>
+        <% if current_member.following?(member) %>
+          <%= link_to 'フォロー解除', member_relationships_path(member), method: :delete, remote: true, class: "btn btn-secondary", id: "follow" %>
+        <% else %>
+          <%= link_to 'フォローする', member_relationships_path(member), method: :post, remote: true, class: "btn btn-danger", id: "unfollow" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
