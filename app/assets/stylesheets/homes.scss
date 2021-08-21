@@ -192,7 +192,6 @@
     }
   }
   
-  
   /* スクロールに応じた文字のフェードイン*/ 
   .fadeInDown { 
     -webkit-animation-fill-mode:both;  /* animation-fill-mode: アニメーション再生後は、最後のキーフレーム（100%）のスタイルが適用される。 */
