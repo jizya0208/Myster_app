@@ -8,11 +8,11 @@ class AccountHistoriesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       # ポイント取引に関連する変数の宣言
-      active_member = current_member
-      active_account = Account.find_by(member_id: active_member)
-      passive_account = Account.find(params[:account_id])
-      passive_member = Member.find(passive_account.member_id)
-      amount = params[:account_history][:amount].to_i
+      active_member = current_member                             # 送金側ユーザ
+      active_account = Account.find_by(member_id: active_member) # 送金側ユーザの口座
+      passive_account = Account.find(params[:account_id])        # 受取側ユーザの口座
+      passive_member = Member.find(passive_account.member_id)    # 受取側ユーザ
+      amount = params[:account_history][:amount].to_i            # 取引ポイント
 
       # 取引番号
       transaction_number = TransactionNumber.new

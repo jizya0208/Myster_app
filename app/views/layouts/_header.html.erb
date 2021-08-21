@@ -34,7 +34,6 @@
             <%= link_to destroy_member_session_path, method: :delete, class: 'nav-link header-icon' do %> <li class="fas fa-sign-out-alt"><span class="mask">ログアウト</span></li> <% end %>
           <% else %>
             <%= link_to 'ゲストユーザに簡単ログイン', members_guest_sign_in_path, method: :post, class: "btn btn-sm btn-light mr-3 pt-3" %>
-            <%= link_to articles_path, class: 'nav-link header-icon' do %> <li class="fas fa-tshirt"><span class="mask">投稿一覧</span></li> <% end %>
             <%= link_to new_member_registration_path, class: 'nav-link header-icon' do %> <li class="fas fa-user-plus"><span class="mask">新規登録</span></li> <% end %>
             <%= link_to new_member_session_path, class: 'nav-link header-icon' do %> <li class="fas fa-sign-in-alt"><span class="mask">ログイン</span></li> <% end %>
           <% end %>

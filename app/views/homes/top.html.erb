@@ -15,12 +15,12 @@
   </div>
 
   <section class="p-top__ttl">
-    <h2 class="p-top__ttl--heading">welcome to</h2>
-    <div class="p-top__ttl--logo mx-auto"></div>
+    <h2 class="p-top__ttl--heading animation">welcome to</h2>
+    <div class="p-top__ttl--logo mx-auto animation"></div>
     <div class="p-top__goastFlare"></div>
   </section>
 
-  <section class="py-1 p-top__about">
+  <section class="p-top__about py-1 mx-2">
     <h2 class="p-top__about--ttl">
       <span>A</span>
       <span>B</span>
@@ -29,12 +29,45 @@
       <span>T</span>
     </h2>
 
-    <p class="p-top__about--body mt-2">
+    <p class="p-top__about--body mt-2 animation">
        &nbsp マイスタは、ファッションコーディネート画像の投稿を目的としたSNSサイトです！<br>
       旬なファッション情報を収集することはもちろん、コーディネートに関する相談も可能です。<br>
       「持っている洋服が活用できない」「体型に合う服装が分からない」「特別な場所へ行く予定<br>
       があり、相応しいスタイルを提案して欲しい」など、一人ひとりの悩みに応じたアドバイスを<br>
       手軽に得ることが出来、スタイリストがもっと身近な存在になります。
+    </p>
+  </section>
+  
+  
+  <section class="p-top__how-to-use my-5 mx-2 py-4">
+    <h2 class="p-top__how-to-use--ttl mb-5">
+      <span>H</span>
+      <span>o</span>
+      <span>w</span><br>
+      <span>&nbsp&nbspT</span>
+      <span>o</span><br>
+      <span>U</span>
+      <span>s</span>
+      <span>e</span>
+    </h2>
+
+    <p class="p-top__how-to-use--body mx-2 animation">
+      ~見つける~<br>
+      投稿を見るだけのご利用も大歓迎です!<br>
+      カテゴリー絞込や検索窓、タグから投稿を絞り込むことが出来ます。<br>
+      投稿をお気に入りに追加することで、あとから見直すことも可能です。<br>
+      <br>
+      ~投稿する~<br>
+      新規投稿では目的に応じて 「相談」と「シェア」を選択いただけます。<br>
+      相談投稿は、ステータスを解決済に更新するまでの間、回答募集中ページに掲載されます。<br>
+      シェア投稿はタイムラインに掲載されます。一押しアイテムやコーデを皆とシェアしましょう!<br>
+      <br>
+      ~交流する~<br>
+      ユーザ間でのフォローやコメント欄でのメッセージのやりとりが可能です。<br>
+      皆さんが気持ちよくご利用いただくために、相手への敬意を心がけましょう!<br>
+      各ユーザの専用ページにはチップ送金フォームがあります。<br>
+      参考になる投稿やアドバイスをくれたユーザへ感謝の気持ちを伝えるためにご利用ください。<br>
+      <span id="alert">*お礼チップの強要は禁止です!</span>
     </p>
   </section>
 
@@ -46,11 +79,11 @@
       <span>S</span>
     </h2>
     <div class="row  my-5 py-5">
-      <div class="col-md-12 col-lg-8 d-flex flex-wrap pt-4">
+      <div class="col-md-12 col-lg-9 d-flex flex-wrap pt-4">
         <% @articles.each do |article| %>
           <%= link_to article_path(article), data: {"turbolinks" => false} do %>
             <p class="text-center my-3"><i class="fas fa-flag"></i> &nbsp <%= cut_off(article.title, 10) %></p>
-            <div class="p-top__news--img">
+            <div class="p-top__news--img animation">
               <%= attachment_image_tag(article.article_images.first, :image, format: 'png', fallback: "no-image.png") %>
             </div>
           <% end %>

@@ -1,10 +1,7 @@
 <% notifications.each do |notification| %>
-  <div class="notification-view">
+  <div class="notification-view my-3">
+    <!--アクションに応じ通知メッセージを返すヘルパーメソッド-->
     <%= notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)}前)" %></span>
-    <br>
-    <% unless @article_comment == nil %>
-      <p class="notification-comment">:<%= @article_comment %></p>
-    <% end %>
   </div>
 <% end %>
 

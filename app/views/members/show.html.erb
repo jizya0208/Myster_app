@@ -54,21 +54,13 @@
                   </tr>
                   <tr>
                     <th>followers</th>
-                    <td><%= link_to @member.followers.count, member_followers_path(@member) %></td>
+                    <td id="followers-count"><%= link_to @member.followers.count, member_followers_path(@member) %></td>
                   </tr>
                 </table>
   
                 <!--———————-—フォローボタンを表示-————————————-->
-                <div class="mb-5">
-                  <div class="follow text-center">
-                    <% unless current_member == @member %>
-                      <% if current_member.following?(@member) %>
-                        <%= link_to 'フォロー解除', member_relationships_path(@member), method: :delete, class: "btn btn-secondary", id: "follow" %>
-                      <% else %>
-                        <%= link_to 'フォローする', member_relationships_path(@member), method: :post, class: "btn btn-danger", id: "unfollow" %>
-                      <% end %>
-                    <% end %>
-                  </div>
+                <div class="follow-btn">
+                  <%= render 'relationships/follow-btn', member: @member %>
                 </div>
               </div>
             </div>
@@ -81,7 +73,7 @@
           </div>
           <div class="tab-pane fade" id="tab-c">
             <div class="scroll-list jscroll favorites-tab" tab=".favorites-tab">
-              <%= render 'articles/index', articles: @favorite_articles %>  <!--会員に紐づくお気に入り投稿一覧-->
+              <%= render 'articles/index', articles: @favorite_articles %> <!--会員に紐づくお気に入り投稿一覧-->
               <%= paginate @favorite_articles, param_name: "favorites_page" %>
             </div>
           </div>

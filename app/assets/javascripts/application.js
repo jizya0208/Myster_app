@@ -132,15 +132,27 @@ document.addEventListener("turbolinks:load", function(){
   $(window).on('scroll', function() { //スクロールで発火
     var scrollHeight = $(document).height();                         // 画面全体の高さ
     var scrollPosition = $(window).height() + $(window).scrollTop(); // スクロールした位置
+    
     if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {   // スクロールの位置が画面下部5%の範囲に該当するか
       $('.show > .jscroll').jscroll({                                // 選択されたtab-paneは."active show"クラスが付与されるので、これを利用し読み込んだ要素を追加する場所を特定する
         contentSelector: $('.show > .scroll-list').attr('tab'),      //  読み込む範囲を指定しつつ、 .show > .scroll-listにtabを追加(tabの中身はclass名）
         nextSelector: 'span.next:last a',                            // 次のページのリンクの場所
-        loadingHtml: '読み込み中'
+        loadingHtml: '<i class="fas fa-spinner fa-spin"></i>'
       });
     }
+    
+    // ページトップにて スクロールに合わせて文字が浮かび上がる表現
+    $('.animation').css('visibility','hidden'); // 当初は文字を隠す。JSが動かない環境を考慮し、念のためCSSではなくこちらで設定する。
+    $('.animation').each(function(){
+      var targetPosition = $(this).offset().top;      // document(ブラウザ上での表示)を基準として、マッチしている要素集合の1つ目の要素の現在の座標を取得し、targetに代入
+      if( scrollPosition > targetPosition - 30) {    
+        $(this).addClass('fadeInDown')
+      } 
+    })
   });
 
+
+  // 無限スクロールの処理 => 投稿一覧ページ用
   $('#scroll-list_articles').infiniteScroll({
     path: "nav.pagination  a[rel=next]",    // 次に読み込むページのURLの指定  kaminariのnext >のセレクタを指定
     append: ".infiniteScroll",              // 読み込んだ次ページの内容のうち、追加する要素の指定。
@@ -152,13 +164,6 @@ document.addEventListener("turbolinks:load", function(){
     status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
   });
 
-
-  // $(document).ajaxStop(function() {
-  //   $('.js-accordion-title').on('click', function () { /*クリックでコンテンツを開閉*/
-  //     $(this).next().slideToggle(200);
-  //     $(this).toggleClass('open', 200); /*トグルに開いている際に限り、クラス名を追加*/
-  //   });
-  // });
 });
 
 
