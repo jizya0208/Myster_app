@@ -52,18 +52,18 @@ class Member < ApplicationRecord
   # 年齢を世代ごとに区分し、性別と合わせて変換するメソッド。modelで定義する際は、selfや引数のカラムは省略可能。
   def classify
     case age
-    when age = 10..14 then "10代前半#{gender}"
-    when age = 15..19 then "10代後半#{gender}"
-    when age = 20..24 then "20代前半#{gender}"
-    when age = 25..29 then "20代後半#{gender}"
-    when age = 30..34 then "30代前半#{gender}"
-    when age = 35..39 then "30代後半#{gender}"
-    when age = 40..44 then "40代前半#{gender}"
-    when age = 45..49 then "40代後半#{gender}"
-    when age = 50..54 then "50代前半#{gender}"
-    when age = 55..59 then "50代後半#{gender}"
-    when age = 60..100 then "60歳以上#{gender}"
-    else "年齢非公開#{gender}"
+      when age = 10..14 then "10代前半#{gender}"
+      when age = 15..19 then "10代後半#{gender}"
+      when age = 20..24 then "20代前半#{gender}"
+      when age = 25..29 then "20代後半#{gender}"
+      when age = 30..34 then "30代前半#{gender}"
+      when age = 35..39 then "30代後半#{gender}"
+      when age = 40..44 then "40代前半#{gender}"
+      when age = 45..49 then "40代後半#{gender}"
+      when age = 50..54 then "50代前半#{gender}"
+      when age = 55..59 then "50代後半#{gender}"
+      when age = 60..100 then "60歳以上#{gender}"
+      else "年齢非公開#{gender}"
     end
   end
 

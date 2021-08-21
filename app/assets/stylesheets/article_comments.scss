@@ -50,32 +50,56 @@
   }
 
 
-	.article-content__replyCount { /* リプライのアコーディオン開閉ボタン*/
-	  color: #876654;
-    cursor: pointer;
-    font-size: 20px;
-    height: 30px;
-    margin: 0 auto;
-    width: 100%;
-    &:before { /* リプライのアコーディオン閉じている時*/
-      content: '\f086'; //リプライマーク
-      color: #876654;
-      font-family: "Font Awesome 5 Free";
-      font-weight: 1000;
-      margin-right: 10px;
+  .article-content {
+    &__commentCount {
+  	  border-bottom: solid 3px #876654;
+  	  border-left: solid 3px #876654;
+  	  color: #876654;
+  	  display: inline-block;
+  	  font-size:  22px;
+  	  font-weight: bold;
+  	  padding: 0.25em 0.5em;
+  	  position: relative;
+  	  text-decoration: none;
+  	  transition: .6s;
+  		&:hover {
+  			background-color: #876654;
+  		  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
+  		  cursor: pointer;
+  		  color: white;
+  		  transform: translateY(5px);
+  		}
     }
-    &:hover {
-      background-color: #876654;
-      color: white;
-      &:before {
-        content: '\f055'; //プラスマーク
-        color: white;
+
+  	&__replyCount { /* リプライのアコーディオン開閉ボタン*/
+    	border-bottom: solid 1px #876654;
+  	  border-left: solid 1px #876654;
+  	  color: #876654;
+      cursor: pointer;
+      font-size: 20px;
+      height: 30px;
+      margin: 0 auto;
+      width: 100%;
+      &:before { /* リプライのアコーディオン閉じている時*/
+        content: '\f086'; //リプライマーク
+        color: #876654;
         font-family: "Font Awesome 5 Free";
         font-weight: 1000;
         margin-right: 10px;
       }
+      &:hover {
+        background-color: #876654;
+        color: white;
+        &:before {
+          content: '\f055'; //プラスマーク
+          color: white;
+          font-family: "Font Awesome 5 Free";
+          font-weight: 1000;
+          margin-right: 10px;
+        }
+      }
     }
-	}
+  }
 
   .open .article-content__replyCount {  /* リプライのアコーディオンが開いている時*/
     background-color: #876654;

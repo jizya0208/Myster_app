@@ -30,6 +30,7 @@
 
   main {
     background: linear-gradient(320deg, #f1e9d5 70%, #fff); /*斜め右下から左上へグラデーション(0degだと下から上)。0〜70%まで薄いベージュ、残り白*/
+    min-height: 85vh;
   }
 
   ul {/*・マークを消す*/
@@ -333,7 +334,7 @@
     color: red;
   }
 
-   #notice {
+  #notice {
     color: green;
   }
 
@@ -353,7 +354,6 @@
     text-align: center;
     line-height: 40px;
   }
-  
   
   .instruction--sm-grey {
     font-size: 11px;
@@ -388,21 +388,12 @@
       margin: 0 auto;
     }
   
-    .profile-image-circle {
-      height: 150px;
-      width: 150px;
-    }
-  
-    #article_comment_body  {
-      width: 80%;
-    }
-  
   }
   
   // ------------------------------スマートフォンサイズ----------------------------------
   @media screen and (max-width: 425px) {
   
-    img, #article_comment_body  {
+    img {
       max-width: 425px;
     }
   
@@ -418,11 +409,6 @@
     .article-noImg img {
       width: 94%;
       height: 100%;
-    }
-  
-    #article_comment_body, .image-form, #article_comment_image {
-      font-size: 7px;
-      width: 80%;
     }
   
     #contact_name, #contact_message {

@@ -45,9 +45,9 @@
         color: #876654; /* 茶色 */
         font-size: 1.6rem;
         font-weight: bold;
-        left: 2vw;
         letter-spacing: .4rem;
         position: relative;
+        text-align: center;
         top: 20vw;
       }
     }
@@ -64,8 +64,8 @@
       }
       &--thick {
         background: linear-gradient(to right, rgba(246, 255, 245, .2) 60%, rgba(255, 255, 255, 0));
-        height: 6vw;
         box-shadow: 0 0 6vh rgba(250, 255, 245, .6) inset;
+        height: 6vw;
       }
     }
 
@@ -109,13 +109,25 @@
     }
 
     &__about {
-      display: flex;
+      justify-content: flex-start;
+      &--ttl {
+        right: 5%; 
+      }
+    }
+    
+    &__how-to-use {
       justify-content: flex-end;
+      &--ttl {
+        left: 8%; 
+      }
+    }
+    
+    &__about, &__how-to-use {
+       display: flex;
       position: relative;
       &--ttl {
         color: rgba(255,255,255,.7);
         font-size: 8em;
-        left: 5%;
         line-height: 1;
         letter-spacing: .03em;
         position: absolute;
@@ -128,7 +140,7 @@
         font-weight: bold;
         letter-spacing: .4rem;
         line-height: 2em;
-        padding: 5% 5% 0 0;
+        padding: 5%;
         position: relative;
         z-index: 1;
       }
@@ -179,18 +191,50 @@
       }
     }
   }
+  
+  
+  /* スクロールに応じた文字のフェードイン*/ 
+  .fadeInDown { 
+    -webkit-animation-fill-mode:both;  /* animation-fill-mode: アニメーション再生後は、最後のキーフレーム（100%）のスタイルが適用される。 */
+    -ms-animation-fill-mode:both;      /* ベンダープレフィックス(各ブラウザベンダー) -webkit- => Chrome, Safari      -ms-  => IE(Microsoft)  */
+    animation-fill-mode:both;
+    -webkit-animation-duration: 1.8s; /* duration: 1回のアニメーションにかかる時間（1s＝1秒）*/
+    -ms-animation-duration: 1.8s;
+    animation-duration: 1.8s;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    visibility: visible !important;
+  }
+
+  @-webkit-keyframes fadeInDown { /*animation-name(今回だとfadeInDown)についての詳細。アニメーション開始から終了するまでどのようなアニメーションをするのか指定する*/
+    0% { opacity: 0; -webkit-transform: translateY(-100px); }  /*アニメーション開始時は不透明度0%  位置はy軸にマイナス*/
+    100% { opacity: 1; -webkit-transform: translateY(0); }    /*アニメーション終了時は不透明度100% 位置を戻す*/
+  }
+  @keyframes fadeInDown {
+    0% { opacity: 0; -webkit-transform: translateY(-100px); -ms-transform: translateY(-100px); transform: translateY(-100px); }
+    100% { opacity: 1; -webkit-transform: translateY(0); -ms-transform: translateY(0); transform: translateY(0); }
+  }
 
   @media screen and (max-width: 1024px) {
 
-    .p-top__goastFlare {
-      height: 15vw;
-      top: -32vw;
-      width: 15vw;
-      &::before {
-        height: 13vw;
-        top: -5vw;
-        left: -5vw;
-        width: 13vw;
+    .p-top {
+      &__goastFlare {
+        height: 15vw;
+        top: -32vw;
+        width: 15vw;
+        &::before {
+          height: 13vw;
+          top: -5vw;
+          left: -5vw;
+          width: 13vw;
+        }
+      }
+      
+      &__about, &__how-to-use {
+        &--body {
+          letter-spacing: .1rem;
+          padding: 8% 0;
+        }
       }
     }
   }
@@ -200,11 +244,13 @@
     .p-top {
       &__daylight {
         &--thin {
+          box-shadow: 0 0 4px rgba(254, 255, 255, .3) inset;
           top: 16vw;
-          height: 3vw;
+          height: 16px;
         }
         &--thick {
-          height: 5vw;
+          box-shadow: 0 0 7px rgba(250, 255, 245, .3) inset;
+          height: 24px;
         }
       }
 
@@ -213,7 +259,7 @@
       }
 
       &__txtCircle--txt {
-        font-size: 1.1rem;
+        font-size: .9rem;
         letter-spacing: .2rem;
       }
 
@@ -226,14 +272,19 @@
         }
       }
       
-      &__about {
+      
+      &__about, &__how-to-use {
         &--ttl {
           font-size: 8vw;
         }
         &--body {
+          margin-top: 10px;
           font-size: 10px;
-          letter-spacing: .3rem;
         }
+      }
+      
+      &__how-to-use--ttl {
+        top: -10px;
       }
       
       &__news {
