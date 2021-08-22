@@ -13,7 +13,7 @@
     <tbody>
       <% members.each do |member| %>
         <tr>
-          <td class="profile-img--sm">
+          <td class="profile-img--sm text-left">
             <%= link_to member_path(member) do %>
               <%= attachment_image_tag(member, :image, fallback: "no-image-icon.png") %>
               <%= member.name %>

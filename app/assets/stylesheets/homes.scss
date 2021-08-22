@@ -128,7 +128,7 @@
       &--ttl {
         color: rgba(255,255,255,.7);
         font-size: 8em;
-        line-height: 1;
+        line-height: 1.4;
         letter-spacing: .03em;
         position: absolute;
         z-index: 0;
@@ -243,11 +243,13 @@
     .p-top {
       &__daylight {
         &--thin {
+          background: linear-gradient(to right, rgba(248, 255, 248, 0.6) 60%, rgba(255, 255, 255, 0.2));
           box-shadow: 0 0 4px rgba(254, 255, 255, .3) inset;
           top: 16vw;
           height: 16px;
         }
         &--thick {
+          background: linear-gradient(to right, rgba(246, 255, 245, 0.5) 60%, rgba(255, 255, 255, 0.1));
           box-shadow: 0 0 7px rgba(250, 255, 245, .3) inset;
           height: 24px;
         }
