@@ -30,7 +30,7 @@
     </div>
 
     <!-------------------------------------------------コメントへの星評価---------------------------------------------------------- ------>
-    <% if other_member?(parent_comment.member) && !(article.is_closed.nil?) %> <!--自分のコメントへの評価不可、相談ステータスのない投稿に紐づくコメントへの評価不可-->
+    <% if answer_from_other_member(article, parent_comment) %> <!--冗長化を防ぐため article_comment helperに記述。自分のコメントや相談目的でない投稿へのコメントに対しては 評価不可とする-->
       <% if parent_comment.rated_by?(current_member) %>                         <!--評価済みか否かで条件分岐-->
         <% @rated = Rating.find_by(member_id: current_member, article_comment_id: parent_comment.id) %>
         <%= render 'ratings/rerate', parent_comment: parent_comment %>
