@@ -71,4 +71,28 @@ Rails.application.configure do
     authentication:       'plain',                  # 認証方法
     enable_starttls_auto: true                      # メールの送信にTLS認証を使用するか
    }
+   
+  config.after_initialize do
+    Bullet.enable = true        # gemの利用宣言
+    Bullet.sentry = true
+    Bullet.alert = true         # ブラウザにアラート表示
+    Bullet.bullet_logger = true # ログファイル表示
+    Bullet.console = true       # consoleに警告表示
+    Bullet.growl = true
+    Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+                    :password => 'bullets_password_for_jabber',
+                    :receiver => 'your_account@jabber.org',
+                    :show_online_status => true }
+    Bullet.rails_logger = true  # railsのログに警告表示
+    Bullet.honeybadger = true
+    Bullet.bugsnag = true
+    Bullet.appsignal = true
+    Bullet.airbrake = true
+    Bullet.rollbar = true
+    Bullet.add_footer = true    # 画面左下にメッセージ表示
+    Bullet.skip_html_injection = false
+    Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware', ['my_file.rb', 'my_method'], ['my_file.rb', 16..20] ]
+    Bullet.slack = { webhook_url: 'http://some.slack.url', channel: '#default', username: 'notifier' }
+  end
 end
