@@ -78,6 +78,6 @@ class Article < ApplicationRecord
     where('title LIKE :q ', q: "%#{keyword}%") if keyword.present?
   }
   scope :recent, -> (count) { where(is_closed: nil).order(created_at: 'DESC').limit(count) }
-  scope :shares, -> { where(is_closed: nil).order(created_at: 'DESC') }
-  scope :questions, -> { where(is_closed: false).order(created_at: 'DESC') }
+  scope :shares, -> { preload([:member, :article_images]).where(is_closed: nil).order(created_at: 'DESC') }
+  scope :questions, -> { preload([:member, :article_images]).where(is_closed: false).order(created_at: 'DESC') }
 end

@@ -45,7 +45,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article_comment = ArticleComment.new
 
-    @parent_comments = ArticleComment.where(article_id: params[:id], parent_id: nil) # 投稿に結びつく親コメント(コメントへの返信除く)
+    @parent_comments = ArticleComment.preload([:member, :replies]).where(article_id: params[:id], parent_id: nil) # 投稿に結びつく親コメント(コメントへの返信除く)
     @article_comment_reply = @article.article_comments.new
     @rating = Rating.new
 
