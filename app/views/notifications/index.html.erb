@@ -8,9 +8,9 @@
           <span style="color: black;">全削除</span>
         <% end %>
       </div>
-      <!--該当するDBがなければfalseを返すので、変数への代入をそのまま条件式として利用する-->
-      <% if notifications = @notifications.where.not(visitor_id: current_member.id) %>
-        <%= render 'notifications', notifications: notifications %>
+      <!--該当するDBがなければインスタンス変数はfalseを返すので、条件式として利用する-->
+      <% if @notifications %>
+        <%= render 'notifications', notifications: @notifications %>
       <% else %>
         <p>通知はありません</p>
       <% end %>

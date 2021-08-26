@@ -41,6 +41,12 @@
 		}
 	}
 
+	&__card-img {
+		height: 180px;
+		object-fit: cover; /*縦横比を維持しつつ、コンテナーからはみ出さないようにぴったりフィット*/
+    width: 270px;
+	}
+		
 	&__info {
 		text-align: right;
 		& li {
@@ -69,7 +75,7 @@
 }
 
 .comment-form {
-	border-bottom: 1px solid #876654;;	
+	border-bottom: 1px solid #876654;;
 }
 
 .accordion-title {

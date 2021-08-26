@@ -4,7 +4,7 @@
     <% articles.each do |article| %>
       <div class="card shadow-lg mt-4 mx-3" style="width: 17rem">
         <%= link_to article_path(article), data: {"turbolinks" => false} do %>
-          <%= attachment_image_tag(article.article_images.first, :image, :fill, 200, 200, format: 'png', fallback: "no-image.png", size:'200x200', class:"card-img-top") %>
+          <%= attachment_image_tag(article.article_images.first, :image, format: 'png', fallback: "no-image.png", class:"article-content__card-img") %>
         <% end %>
         <div class="card-body">
           <div class="row">
