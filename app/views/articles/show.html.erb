@@ -62,7 +62,7 @@
 
           <% if current_member_has?(@article) %>    <!--ログインユーザと投稿者が同一の場合、円グラフを表示-->
             <p class="mt-4 instruction--sm-grey text-center">お気に入り登録したユーザ層(こちらは投稿者本人のみ閲覧できます)</p>
-            <div class="col-8 offset-2 pie my-1">
+            <div class="col-10 offset-1 pie py-3 my-1">
               <%= pie_chart @attribute_ratio, donut: true, suffix: "%" %>
             </div>
           <% end %>
@@ -73,7 +73,7 @@
       <div class="row">
         <div class="col accordion-container">  <!--accordion-containerの中にtitleとcontentを配置-->
           <div class="accordion-title js-accordion-title text-center my-4">
-            <span class="article-content__commentCount"><%= @article.article_comments.count %> Comment</span>
+            <span class="article-content__commentCount"><%= @article.article_comments_count %> Comment</span>
           </div>
           <div class="accordion-content">
             <%= form_with model:[@article, @article_comment] do |f| %>

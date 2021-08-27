@@ -76,12 +76,14 @@
   	  border-left: solid 1px #876654;
   	  color: #876654;
       cursor: pointer;
+      display: inline-block;
       font-size: 20px;
       height: 30px;
       margin: 0 auto;
+      text-align: center;
       width: 100%;
       &:before { /* リプライのアコーディオン閉じている時*/
-        content: '\f086'; //リプライマーク
+        content: '\f086'; /* リプライマーク */
         color: #876654;
         font-family: "Font Awesome 5 Free";
         font-weight: 1000;
@@ -90,29 +92,28 @@
       &:hover {
         background-color: #876654;
         color: white;
+        text-decoration: none;
         &:before {
-          content: '\f055'; //プラスマーク
+          content: '\f055'; /* プラスマーク */
           color: white;
           font-family: "Font Awesome 5 Free";
           font-weight: 1000;
           margin-right: 10px;
         }
       }
-    }
-  }
-
-  .open .article-content__replyCount {  /* リプライのアコーディオンが開いている時*/
-    background-color: #876654;
-    color: white;
-    &:before {
-      content: '\f056'; //マイナスマーク
-      color: white;
-      font-family: "Font Awesome 5 Free";
-      font-weight: 1000;
-      margin-right: 10px;
-      &:hover {
-        content: '\f056'; //マイナスマーク 81行目の設定(ホバー時にプラスアイコンを表示)を部分的に上書き
+      &.open { /* リプライのアコーディオン開いている時*/
+        background-color: #876654;
+        color: white;
+        &:before {
+          color: white;
+        }
+        &:hover:before {
+          content: '\f056'; /* マイナスマーク */
+        }
       }
     }
   }
-  
+
+  .reply-form {
+    border-bottom: 1px dashed #876654;
+  }

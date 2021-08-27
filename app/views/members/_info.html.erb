@@ -5,11 +5,11 @@
 <table class='table'>
   <tr>
     <th>follows</th>
-    <td id="followings-count"><%= link_to member.followings.count, member_followings_path(member) %></td>
+    <td id="followings-count"><%= link_to member.followings.size, member_followings_path(member) %></td>
   </tr>
   <tr>
     <th>followers</th>
-    <td><%= link_to member.followers.count, member_followers_path(member) %></td>
+    <td><%= link_to member.followers.size, member_followers_path(member) %></td>
   </tr>
 </table>
 

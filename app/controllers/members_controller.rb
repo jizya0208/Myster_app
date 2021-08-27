@@ -10,10 +10,10 @@ class MembersController < ApplicationController
     @account = Account.find_by(member_id: @member.id)
 
     # ページネーションで複数のparams[:page]があると、お気に入り一覧か投稿一覧か判別できないのでキー名を分ける
-    @articles = @member.articles.order('created_at desc')
+    @articles = @member.articles.preload([:article_images]).order('created_at desc')
     @articles = Kaminari.paginate_array(@articles).page(params[:articles_page]).per(6)
 
-    @favorite_articles = @member.favorite_articles.order('created_at desc')
+    @favorite_articles = @member.favorite_articles.preload([:member, :article_images]).order('created_at desc')
     @favorite_articles = Kaminari.paginate_array(@favorite_articles).page(params[:favorites_page]).per(6)
   end
 

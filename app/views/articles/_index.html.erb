@@ -16,7 +16,7 @@
                 <% end %>
               </p>
               <p><i class="fas fa-user"></i> &nbsp <%= link_to article.member.name, member_path(article.member), class:"text-dark" %></p>
-              <p><i class="fas fa-comment"></i> &nbsp <%= link_to " #{article.article_comments.count} comments", article_path(article.id), data: {"turbolinks" => false}, class:"text-dark" %></p>
+              <p><i class="fas fa-comment"></i> &nbsp <%= link_to " #{article.article_comments_count} comments", article_path(article.id), data: {"turbolinks" => false}, class:"text-dark" %></p>
             </div>
           </div>
         </div>
