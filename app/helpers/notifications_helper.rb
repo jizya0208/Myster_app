@@ -12,7 +12,6 @@ module NotificationsHelper
             href: member_path(@visitor)) + 'さんが' + tag.a('あなたの投稿',
                                                             href: article_path(notification.article_id)) + 'をお気に入りしました'
     when 'comment'
-      @article_comment = ArticleComment.find_by(id: @visitor_comment)&.body # 投稿に対するコメントとその内容を取得
       tag.a(@visitor.name, href: member_path(@visitor)) + 'さんが' + tag.a('あなたの投稿', href: article_path(notification.article_id)) + 'にコメントしました' # aタグで通知を作成したユーザーと、コメントを受けた投稿詳細へのリンクを作成
     end
   end

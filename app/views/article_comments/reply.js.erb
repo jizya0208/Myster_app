@@ -1,0 +1,1 @@
+$("#reply-<%= @parent_comment.id %>").html("<%= j(render 'article_comments/replies', replies: @replies, article_comment_reply: @article_comment_reply, article: @article, parent_comment: @parent_comment) %>");

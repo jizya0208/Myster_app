@@ -68,6 +68,7 @@ end
 gem 'bootstrap', '~> 4.5'
 gem 'chartable'
 gem 'chartkick'
+gem 'counter_culture'
 gem 'data-confirm-modal'
 gem 'devise'
 gem 'devise-i18n'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_103317) do
+ActiveRecord::Schema.define(version: 2021_08_26_050540) do
 
   create_table "account_histories", force: :cascade do |t|
     t.integer "transaction_number_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2021_08_12_103317) do
     t.boolean "is_closed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "article_comments_count", default: 0, null: false
   end
 
   create_table "categories", force: :cascade do |t|

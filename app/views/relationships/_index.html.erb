@@ -19,8 +19,8 @@
               <%= member.name %>
             <% end %>
           </td>
-          <td><%= link_to member.followings.count, member_followings_path(member) %></td>
-          <td><%= link_to member.followers.count, member_followers_path(member) %></td>
+          <td><%= link_to member.followings.size, member_followings_path(member) %></td>
+          <td><%= link_to member.followers.size, member_followers_path(member) %></td>
         </tr>
       <% end %>
     </tbody>

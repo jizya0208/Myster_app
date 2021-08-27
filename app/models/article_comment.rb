@@ -1,6 +1,7 @@
 class ArticleComment < ApplicationRecord
   belongs_to :member
   belongs_to :article
+  counter_culture :article
   belongs_to :parent, class_name: "ArticleComment", optional: true # 自己の親コメントをparentと名付け、class_nameでコメントテーブル参照を指定。返信コメントでない通常コメントも保存したいので optional: true とし、nilを許容。(Rails5ではデフォルト required: trueとなっている)
   has_many :ratings
   has_many :notifications, dependent: :destroy

@@ -1,0 +1,46 @@
+  <div class="reply-content">
+    <!--コメントのリプライ欄を閉じる(close)という意味でcloseアクションと命名。ajax処理のリンクボタンを設置する-->
+    <%= link_to "#{parent_comment.replies.size} Reply", close_article_article_comment_path(article, parent_comment), remote: true, class: "article-content__replyCount open" %>
+    <% if replies.exists? %>
+      <% replies.each do |reply| %>
+        <div class="row d-flex align-items-center ml-4"> <!--要素の高さ中央揃え-->
+          <div class="col font-weight-bold py-1">
+            <%= link_to member_path(reply.member) do %>
+              <span class= "profile-img--sm"><%= attachment_image_tag(reply.member, :image, format: 'png', fallback: "no-image-icon.png") %></span>
+              <span><%= reply.member.name %>さん</span>
+            <% end %>
+          </div>
+          <div class="col align-items-center text-right font-weight-bold">
+            <%= reply.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+          </div>
+        </div>
+        <div class="card-body border border-secondary rounded-lg bg-white ml-4">
+          <%= safe_join(reply.body.split("\n"), tag(:br)) %> <!--改行(\n)にはhtmlタグ<br>を付与し、段落を反映して表示する。-->
+          <div class="text-right">
+            <% if reply.image %>　                   <!--リプライに画像が添付されていればモーダルへのリンクを表示させる-->
+              <%= link_to '画像', article_article_comment_path(article, reply), remote: true, class: "fas fa-image btn btn-sm btn-outline-secondary" %>
+            <% end %>
+  
+            <% if current_member_has?(reply) %>　    <!--ログインユーザとリプライ投稿者が同一であれば 削除ボタンを表示させる-->
+              <%= link_to ' 削除', article_article_comment_path(article.id, reply.id), class: 'fas fa-trash-alt btn btn-sm btn-outline-secondary', method: :delete, remote: true %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <!--各コメントへの返信フォーム-->
+    <%= form_with model:[article, article_comment_reply] do |f| %>
+      <div class="reply-form mt-4 ml-4 pb-2">
+        <%= f.label :body, 'コメントに返信する', class: "instruction--sm-grey" %>
+        <%= f.text_area :body, class: "col card-body border-dark rounded-lg", autofocus: true, placeholder: "コメントに返信してみましょう" %>
+        <div class="text-right py-2">
+          <%= f.attachment_field :image %>
+          <%= f.hidden_field :parent_id, value: parent_comment.id %>
+          <%= f.submit '返信する', class: "btn btn-sm btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+

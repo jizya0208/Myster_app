@@ -37,7 +37,12 @@ Rails.application.routes.draw do
     end
     resources :article_images
     resource  :favorites, only: %i[create destroy]
+    
     resources :article_comments, only: %i[create destroy show] do
+      member do
+        get 'reply'
+        get 'close'
+      end
       resource :ratings, only: %i[create update]
     end
   end

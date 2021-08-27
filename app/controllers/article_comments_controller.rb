@@ -1,6 +1,15 @@
 class ArticleCommentsController < ApplicationController
   before_action :authenticate_member!
   before_action :set_article
+  before_action :set_parent_comment, only: %i[reply close]
+
+  def reply
+    @replies = ArticleComment.eager_load(:member, :replies).where(parent_id: params[:id]) # 投稿に結びつく親コメント(コメントへの返信除く)
+    @article_comment_reply = @article.article_comments.new
+    @parent_comment =  ArticleComment.find_by(id: params[:id], article_id: @article)
+  end
+
+  def close;end
 
   def create
     #投稿に紐づくコメントの作成
@@ -36,6 +45,7 @@ class ArticleCommentsController < ApplicationController
     end
   end
 
+
   private
 
   def article_comment_params
@@ -44,5 +54,9 @@ class ArticleCommentsController < ApplicationController
 
   def set_article
     @article = Article.find(params[:article_id])
+  end
+
+  def set_parent_comment
+    @parent_comment =  ArticleComment.find_by(id: params[:id], article_id: @article)
   end
 end

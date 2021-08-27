@@ -1,0 +1,2 @@
+$("#reply-<%= @parent_comment.id %> .reply-content").remove();
+$("#reply-<%= @parent_comment.id %>").prepend("<%= j(link_to "#{@parent_comment.replies.size} Reply",  reply_article_article_comment_path(@article, @parent_comment), remote: true, class: "article-content__replyCount") %>");
