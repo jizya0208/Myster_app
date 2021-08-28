@@ -1,4 +1,6 @@
 class ContactController < ApplicationController
+  before_action :authenticate_member!
+  
   def index # 入力画面を表示
     @contact = Contact.new
   end

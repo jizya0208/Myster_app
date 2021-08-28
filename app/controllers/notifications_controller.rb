@@ -1,9 +1,9 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_member!
   def index
-    @notifications = current_member.passive_notifications.includes([:visitor]).where.not(visitor_id: current_member.id)
-    @notifications.where(is_checked: false).each do |notification| # 通知画面を開くとcheckedをtrueにして通知確認済にする
-      notification.update_attributes(is_checked: true)
-    end
+    @notifications = current_member.passive_notifications.preload([:visitor]).where.not(visitor_id: current_member.id)
+    # 通知画面を開くとcheckedをtrueにして通知確認済にする
+    @notifications.where(is_checked: false).update_all(is_checked: true)
   end
 
   # 通知を全削除
