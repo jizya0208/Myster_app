@@ -7,7 +7,7 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
     @relationship = current_member.relationships.new   # フォロー関係を新規に生成するため
     @account_histroy = AccountHistory.new # ポイント送金履歴を新規に生成するため
-    @account = Account.find_by(member_id: @member.id)
+    @account = @member.account
 
     # ページネーションで複数のparams[:page]があると、お気に入り一覧か投稿一覧か判別できないのでキー名を分ける
     @articles = @member.articles.preload([:article_images]).order('created_at desc')
