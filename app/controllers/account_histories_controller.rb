@@ -6,17 +6,18 @@ class AccountHistoriesController < ApplicationController
   end
 
   def create
+    # 複数のモデルを一度に更新する処理をおこなうため、原子性を担保するためにトランザクションを使用
     ActiveRecord::Base.transaction do
       # ポイント取引に関連する変数の宣言
       active_member = current_member                             # 送金側ユーザ
-      active_account = Account.find_by(member_id: active_member) # 送金側ユーザの口座
+      active_account = active_member.account                     # 送金側ユーザの口座
       passive_account = Account.find(params[:account_id])        # 受取側ユーザの口座
       passive_member = Member.find(passive_account.member_id)    # 受取側ユーザ
       amount = params[:account_history][:amount].to_i            # 取引ポイント
 
       # 取引番号
       transaction_number = TransactionNumber.new
-      transaction_number.save!
+      transaction_number.save!                                   # saveでは、保存に失敗した時にfalseを返す(=例外を発生させない)ので、save!メソッドを使用
 
       # ポイント送金側の履歴
       active_account_history = transaction_number.account_histories.build(
@@ -42,11 +43,13 @@ class AccountHistoriesController < ApplicationController
       active_account.update!(balance:  active_account_history.balance)
       passive_account.update!(balance: passive_account_history.balance)
     end
-    redirect_to root_path, notice: '正常にチップ送金が終了しました' # 上記完全成功なら、root_path(ホーム画面へ)
+      redirect_to root_path, notice: '正常にチップ送金が終了しました' # 上記完全成功なら、root_path(ホーム画面へ)
   rescue ActiveRecord::RecordInvalid => e # 以下は例外が発生（プロセスの内どこかが失敗）したときに行う
-    render 'root_path', plain: e.message
+    flash.now[:alert] = e.message
+    render :errors
   rescue ActiveRecord::RecordNotSaved => e
-    render 'root_path', plain: e.message
+    flash.now[:alert] = e.message
+    render :errors
   end
 
   def index

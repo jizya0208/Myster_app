@@ -15,7 +15,7 @@ ja:
     attributes:
       account:
         balance:	現在ポイント残高
-      account_histories:
+      account_history:
         amount:	取引ポイント
         balance:	取引後ポイント残高
         remark:	備考
