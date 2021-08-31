@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
   before_action :ensure_correct_member, only: %i[update destroy]
 
   def index
+    @sort_options = [{id: 1, name: "comment_asc"}, {id: 2, name: "favorite_desc"}, {id: 3, name: "created_at_asc"}, {id: 4, name: "created_at_desc"}]
     if params[:category_id].blank? # カテゴリIDがblankやnilの場合すべての投稿を表示
       @articles = Article.shares.page(params[:page])
     else # カテゴリ絞り込み
