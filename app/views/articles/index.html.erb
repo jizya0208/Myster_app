@@ -9,8 +9,16 @@
           <%= f.submit '検索', class: 'btn btn-sm btn-danger' %>
         <% end %>
       </div>
+      
+      <div>
+        <%= form_with url: sort_articles_path, method: :get do |f| %>
+          <%= f.select :sort, options_for_select(@sort_options.map{|c|[c[:name], c[:id]]}), class: 'sort_order'%>
+          <%= f.submit '検索' %>
+        <% end %>
+      </div>
+      
       <div class="scroll-list jscroll", id="scroll-list_articles">
-        <%= render 'index', articles: @articles, sort_options: @sort_options %>
+        <%= render 'index', articles: @articles %>
         <%= paginate @articles %>
       </div>
       <div class="scroll-menu text-center">

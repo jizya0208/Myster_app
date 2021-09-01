@@ -1,8 +1,3 @@
-<%= form_with url: sort_articles_path, method: :get do |f| %>
-  <%= f.select :sort_order, options_for_select(@sort_options.map{|c|[c[:name], c[:id]]}), class: 'sort_order'%>
-<% end %>
-
-
 <!--Bootstrapの「card」コンポーネントを使用-->
 <div class="containar py-5 infiniteScroll">
   <div class="row"> <!--囲った範囲をスクロールした際に表示-->
