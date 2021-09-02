@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
 
   def index
     @sort_options = [{id: "created_at_DESC", name: "投稿が新しい順" }, {id: "created_at_ASC", name: "投稿が古い順"}, {id: "article_comments_ASC", name: "コメントが少ない順"}, {id: "favorites_DESC", name: "お気に入りが多い順"}]
+    
     if params[:category_id].blank? # カテゴリIDがblankやnilの場合すべての投稿を表示
       @articles = Article.shares.page(params[:page])
     else # カテゴリ絞り込み
@@ -83,18 +84,16 @@ class ArticlesController < ApplicationController
       format.json # jsonで送られた時はその情報はjbuilderへと流れるjbuilderの役割としては、html形式だった情報をjsonに変換して、非同期でhtml上で表示をさせることができる形に変換させること)
     end
   end
-  
+
   def sort
-    # ソートオプションが未選択(= nil)ならデフォルトで新着順
-    case sort  = params[:sort] || "created_at DESC"
-    when "article_comments_ASC"
-      @articles = Article.preload(:member, :article_comments).page(params[:page]).sort {|a,b| a.article_comments_count <=> b.article_comments_count}
-    when "favorites_DESC"
-      @articles = Article.preload(:member, :favorites).page(params[:page]).sort {|a,b| b.favorites.size <=> a.favorites.size}
-    when "created_at_ASC"
-      @articles = Article.preload(:member).page(params[:page]).order(sort)
-    else
-      @articles = Article.preload(:member).page(params[:page]).order(sort)  
+    @sort_options = [{id: "created_at_DESC", name: "投稿が新しい順" }, {id: "created_at_ASC", name: "投稿が古い順"}, {id: "article_comments_ASC", name: "コメントが少ない順"}, {id: "favorites_DESC", name: "お気に入りが多い順"}]
+    @category = params[:category_id]
+		@sort_method = params[:sort_method]
+		@article_status = params[:article_status]
+		if @article_status == "question"
+			@articles = Article.questions.search_for(@category, @sort_method)
+		else
+			@articles = Article.shares.search_for(@category, @sort_method)
     end
   end
 
