@@ -4,7 +4,6 @@ class ArticlesController < ApplicationController
 
   def index
     @sort_options = [{id: "created_at_DESC", name: "投稿が新しい順" }, {id: "created_at_ASC", name: "投稿が古い順"}, {id: "article_comments_ASC", name: "コメントが少ない順"}, {id: "favorites_DESC", name: "お気に入りが多い順"}]
-    
     if params[:category_id].blank? # カテゴリIDがblankやnilの場合すべての投稿を表示
       @articles = Article.shares.page(params[:page])
     else # カテゴリ絞り込み
@@ -87,14 +86,14 @@ class ArticlesController < ApplicationController
 
   def sort
     @sort_options = [{id: "created_at_DESC", name: "投稿が新しい順" }, {id: "created_at_ASC", name: "投稿が古い順"}, {id: "article_comments_ASC", name: "コメントが少ない順"}, {id: "favorites_DESC", name: "お気に入りが多い順"}]
-    @category = params[:category_id]
-		@sort_method = params[:sort_method]
-		@article_status = params[:article_status]
-		if @article_status == "question"
-			@articles = Article.questions.search_for(@category, @sort_method)
-		else
-			@articles = Article.shares.search_for(@category, @sort_method)
-    end
+    category = params[:category_id]
+		sort_method = params[:sort_method]
+		article_status = params[:article_status]
+  	if article_status == "question"
+  		@articles = Kaminari.paginate_array(Article.preload([:member, :article_images]).where(is_closed: false).search_for(category, sort_method)).page(params[:page])
+  	else
+  		@articles = Kaminari.paginate_array(Article.preload([:member, :article_images]).where(is_closed: nil).search_for(category, sort_method)).page(params[:page])
+  	end
   end
 
   private

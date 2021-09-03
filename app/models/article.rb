@@ -71,18 +71,29 @@ class Article < ApplicationRecord
     end
     notification.save if notification.valid?
   end
-  
-  def self.search_for(category_id, sort_method)
-    if category_id.nil?
-      case sort_method 
-        when "article_comments_ASC"
-          Article.where(category_id: category).sort {|a,b| a.article_comments_count <=> b.article_comments_count}
-        when "favorites_DESC"
-          Article.where(category_id: category).sort {|a,b| b.favorites.size <=> a.favorites.size}
+
+  def self.search_for(category, sort_method)
+    if category.blank?
+      case sort_method
         when "created_at_ASC"
-          Article.where(category_id: category).order(created_at: 'ASC')
+          self.order(created_at: 'ASC')
+        when "article_comments_ASC"
+          self.comment_asc
+        when "favorites_DESC"
+          self.favorite_desc
         else
-          Article.where(category_id: category)
+          self.all
+      end
+    else
+      case sort_method
+        when "created_at_ASC"
+          self.where(category_id: category).order(created_at: 'ASC')
+        when "article_comments_ASC"
+          self.where(category_id: category).comment_asc
+        when "favorites_DESC"
+          self.where(category_id: category).favorite_desc
+        else
+          self.where(category_id: category)
       end
     end
   end
@@ -94,6 +105,7 @@ class Article < ApplicationRecord
   scope :recent, -> (count) { where(is_closed: nil).order(created_at: 'DESC').limit(count) }
   scope :shares, -> { preload([:member, :article_images]).where(is_closed: nil).order(created_at: 'DESC') }
   scope :questions, -> { preload([:member, :article_images]).where(is_closed: false).order(created_at: 'DESC') }
-  scope :less_comment, -> { sort {|a,b| a.article_comments_count <=> b.article_comments_count} }
+  scope :comment_asc, -> { sort_by{|article| article.article_comments_count} }
+  scope :favorite_desc, -> { preload([:favorites]).sort_by{|article| article.favorites.size }.reverse }
 end
 
