@@ -34,7 +34,6 @@ Rails.application.routes.draw do
   resources :articles, except: [:edit] do
     collection do
       get 'search'
-      get 'sort'
     end
     resources :article_images
     resource  :favorites, only: %i[create destroy]
