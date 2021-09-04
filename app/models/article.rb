@@ -75,25 +75,25 @@ class Article < ApplicationRecord
   def self.search_for(category, sort_method)
     if category.blank?
       case sort_method
-        when "created_at_ASC"
-          self.order(created_at: 'ASC')
-        when "article_comments_ASC"
-          self.comment_asc
-        when "favorites_DESC"
-          self.favorite_desc
-        else
-          self.all
+      when "created_at_ASC"
+        self.order(created_at: 'ASC')
+      when "comment_ASC"
+        self.comment_asc
+      when "favorite_DESC"
+        self.favorite_desc
+      else
+        self.all
       end
     else
       case sort_method
-        when "created_at_ASC"
-          self.where(category_id: category).order(created_at: 'ASC')
-        when "article_comments_ASC"
-          self.where(category_id: category).comment_asc
-        when "favorites_DESC"
-          self.where(category_id: category).favorite_desc
-        else
-          self.where(category_id: category)
+      when "created_at_ASC"
+        self.where(category_id: category).order(created_at: 'ASC')
+      when "comment_ASC"
+        self.where(category_id: category).comment_asc
+      when "favorite_DESC"
+        self.where(category_id: category).favorite_desc
+      else
+        self.where(category_id: category)
       end
     end
   end
@@ -106,6 +106,6 @@ class Article < ApplicationRecord
   scope :shares, -> { preload([:member, :article_images]).where(is_closed: nil).order(created_at: 'DESC') }
   scope :questions, -> { preload([:member, :article_images]).where(is_closed: false).order(created_at: 'DESC') }
   scope :comment_asc, -> { sort_by{|article| article.article_comments_count} }
-  scope :favorite_desc, -> { preload([:favorites]).sort_by{|article| article.favorites.size }.reverse }
+  scope :favorite_desc, -> { preload([:favorites]).sort_by{|article| article.favorites.size}.reverse }
 end
 
