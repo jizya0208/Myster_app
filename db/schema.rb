@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_050540) do
+ActiveRecord::Schema.define(version: 2021_09_05_110935) do
 
   create_table "account_histories", force: :cascade do |t|
     t.integer "transaction_number_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_050540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "article_comments_count", default: 0, null: false
+    t.integer "favorites_count", default: 0, null: false
   end
 
   create_table "categories", force: :cascade do |t|

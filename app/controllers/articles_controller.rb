@@ -1,20 +1,21 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_member!
   before_action :ensure_correct_member, only: %i[update destroy]
+  before_action :set_sort_options, only: %i[index questions]
 
   def index
-    if params[:category_id].blank? # カテゴリIDがblankやnilの場合すべての投稿を表示
+    if @category || @sort_method
+      @articles = Kaminari.paginate_array(Article.preload([:member, :article_images]).where(is_closed: nil).search_for(@category, @sort_method)).page(params[:page])
+    else
       @articles = Article.shares.page(params[:page])
-    else # カテゴリ絞り込み
-      @articles = Article.shares.filter_by_category(params[:category_id]).page(params[:page])
     end
   end
 
   def questions
-    if params[:category_id].blank?
+    if @category || @sort_method
+      @question_articles = Kaminari.paginate_array(Article.preload([:member, :article_images]).where(is_closed: false).search_for(@category, @sort_method)).page(params[:page])
+    else
       @question_articles = Article.questions.page(params[:page])
-    else #カテゴリ絞り込み
-      @question_articles = Article.questions.filter_by_category(params[:category_id]).page(params[:page])
     end
   end
 
@@ -82,7 +83,7 @@ class ArticlesController < ApplicationController
       format.json # jsonで送られた時はその情報はjbuilderへと流れるjbuilderの役割としては、html形式だった情報をjsonに変換して、非同期でhtml上で表示をさせることができる形に変換させること)
     end
   end
-
+  
   private
 
   def article_params
@@ -92,5 +93,16 @@ class ArticlesController < ApplicationController
   def ensure_correct_member
     @article = Article.find(params[:id]) # 取得したデータ(@article)をbefore_actionでセットするからインスタンス変数にしている
     redirect_to articles_path unless @article.member == current_member
+  end
+  
+  def set_sort_options
+    @category = params[:category_id]
+		@sort_method = params[:sort_method]
+    @sort_options = [
+      {id: "created_at_DESC", name: "投稿が新しい順" },
+      {id: "created_at_ASC", name: "投稿が古い順"},
+      {id: "comment_ASC", name: "コメントが少ない順"},
+      {id: "favorite_DESC", name: "お気に入りが多い順"}
+    ]
   end
 end

@@ -163,7 +163,6 @@ document.addEventListener("turbolinks:load", function(){
     button: ".loadmore-btn",                // ページをロードするためのボタン要素の指定。
     status: ".page-load-status",            // 読み込み中や全部読み込んだ後に表示するもの指定。
   });
-
 });
 
 

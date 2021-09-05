@@ -72,6 +72,31 @@ class Article < ApplicationRecord
     notification.save if notification.valid?
   end
 
+  def self.search_for(category, sort_method)
+    if category.blank? 
+      case sort_method
+      when "created_at_ASC"
+        self.order(created_at: 'ASC')
+      when "comment_ASC"
+        self.comment_asc
+      when "favorite_DESC"
+        self.favorite_desc
+      else
+        self.all
+      end
+    else
+      case sort_method
+      when "created_at_ASC"
+        self.where(category_id: category).order(created_at: 'ASC')
+      when "comment_ASC"
+        self.where(category_id: category).comment_asc
+      when "favorite_DESC"
+        self.where(category_id: category).favorite_desc
+      else
+        self.where(category_id: category)
+      end
+    end
+  end
 
   # scope :スコープ名, -> (引数) { 条件式 }
   scope :search, lambda { |keyword|     # 検索機能用。クラスメソッドを使う際に可読性を保つために定義。
@@ -80,4 +105,7 @@ class Article < ApplicationRecord
   scope :recent, -> (count) { where(is_closed: nil).order(created_at: 'DESC').limit(count) }
   scope :shares, -> { preload([:member, :article_images]).where(is_closed: nil).order(created_at: 'DESC') }
   scope :questions, -> { preload([:member, :article_images]).where(is_closed: false).order(created_at: 'DESC') }
+  scope :comment_asc, -> { sort_by{|article| article.article_comments_count} }
+  scope :favorite_desc, -> { sort_by{|article| article.favorites_count}.reverse }
 end
+
