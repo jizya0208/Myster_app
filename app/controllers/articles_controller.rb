@@ -102,7 +102,7 @@ class ArticlesController < ApplicationController
       {id: "created_at_DESC", name: "投稿が新しい順" },
       {id: "created_at_ASC", name: "投稿が古い順"},
       {id: "comment_ASC", name: "コメントが少ない順"},
-      {id: "favorites_DESC", name: "お気に入りが多い順"}
+      {id: "favorite_DESC", name: "お気に入りが多い順"}
     ]
   end
 end

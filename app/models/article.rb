@@ -73,7 +73,7 @@ class Article < ApplicationRecord
   end
 
   def self.search_for(category, sort_method)
-    if category.blank?
+    if category.blank? 
       case sort_method
       when "created_at_ASC"
         self.order(created_at: 'ASC')
@@ -106,6 +106,6 @@ class Article < ApplicationRecord
   scope :shares, -> { preload([:member, :article_images]).where(is_closed: nil).order(created_at: 'DESC') }
   scope :questions, -> { preload([:member, :article_images]).where(is_closed: false).order(created_at: 'DESC') }
   scope :comment_asc, -> { sort_by{|article| article.article_comments_count} }
-  scope :favorite_desc, -> { preload([:favorites]).sort_by{|article| article.favorites.size}.reverse }
+  scope :favorite_desc, -> { sort_by{|article| article.favorites_count}.reverse }
 end
 
